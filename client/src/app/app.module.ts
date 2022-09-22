@@ -9,7 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
-import { HomepageComponent } from './homepage/homepage.component'; // <-- add this line
+import { HomepageComponent } from './homepage/homepage.component';
+import { MixerUnitComponentComponent } from './mixer-unit-component/mixer-unit-component.component';
+import { ProductivityComponentComponent } from './productivity-component/productivity-component.component';
+import { PowerUnitComponentComponent } from './power-unit-component/power-unit-component.component';
+import { IngredientsComponentComponent } from './ingredients-component/ingredients-component.component';
+import { AssistantsComponentComponent } from './assistants-component/assistants-component.component';
+import { StepsComponentComponent } from './steps-component/steps-component.component'; // <-- add this line
 
 @NgModule({
   declarations: [
@@ -18,7 +24,13 @@ import { HomepageComponent } from './homepage/homepage.component'; // <-- add th
     EmployeeFormComponent,
     AddEmployeeComponent,
     EditEmployeeComponent,
-    HomepageComponent
+    HomepageComponent,
+    MixerUnitComponentComponent,
+    ProductivityComponentComponent,
+    PowerUnitComponentComponent,
+    IngredientsComponentComponent,
+    AssistantsComponentComponent,
+    StepsComponentComponent
   ],
   imports: [
     BrowserModule,
