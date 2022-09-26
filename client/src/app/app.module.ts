@@ -15,7 +15,8 @@ import { ProductivityComponentComponent } from './productivity-component/product
 import { PowerUnitComponentComponent } from './power-unit-component/power-unit-component.component';
 import { IngredientsComponentComponent } from './ingredients-component/ingredients-component.component';
 import { AssistantsComponentComponent } from './assistants-component/assistants-component.component';
-import { StepsComponentComponent } from './steps-component/steps-component.component'; // <-- add this line
+import { StepsComponentComponent } from './steps-component/steps-component.component';
+import { EmployeeRenderedComponent } from './render/employee-rendered.component'; // <-- add this line
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { StepsComponentComponent } from './steps-component/steps-component.compo
     PowerUnitComponentComponent,
     IngredientsComponentComponent,
     AssistantsComponentComponent,
-    StepsComponentComponent
+    StepsComponentComponent,
+    EmployeeRenderedComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
+import { EmployeeRenderedComponent } from '../render/employee-rendered.component';
+
 @Component({
   selector: 'app-mixer-unit-component',
   template: `
@@ -30,9 +32,11 @@ export class MixerUnitComponentComponent implements OnInit {
   }
 
   animate(): void {
+    const employee = new EmployeeRenderedComponent(this.ctx!);
     this.ctx!.fillStyle = 'red';
   //const square = new Square(this.ctx);
-  this.ctx!.fillRect(5, 1, 20, 20);
+  //this.ctx!.fillRect(5, 1, 20, 20);
+  employee.draw(1, 1, 1);
   }
 
 }
