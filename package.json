@@ -33,5 +33,10 @@
   },
   "devDependencies": {
     "concurrently": "^7.1.0"
+  },
+  "dependencies": {
+    "@syncfusion/ej2-ng-charts": "^16.2.50",
+    "angular2-fusioncharts": "^1.0.3",
+    "chart.js": "^3.9.1"
   }
 }

@@ -9,7 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
-import { HomepageComponent } from './homepage/homepage.component'; // <-- add this line
+import { HomepageComponent } from './homepage/homepage.component';
+import { ChartsComponentComponent } from './charts-component/charts-component.component';
+
 
 @NgModule({
   declarations: [
@@ -18,13 +20,15 @@ import { HomepageComponent } from './homepage/homepage.component'; // <-- add th
     EmployeeFormComponent,
     AddEmployeeComponent,
     EditEmployeeComponent,
-    HomepageComponent
+    HomepageComponent,
+    ChartsComponentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule // <-- add this line
+    ReactiveFormsModule, // <-- add this line
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
