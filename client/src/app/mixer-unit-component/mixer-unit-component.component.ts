@@ -13,6 +13,7 @@ import { EmployeeRenderedComponent } from '../render/employee-rendered.component
       color:blue;
     }
     canvas {
+      background: url('https://www.rainews.it/cropgd/806x460/dl/img/2022/05/29/1653823199609_amajesticoilpaintingofaraccoonqueen.jpg');
       border-style: solid;
       width: 1000px;
       overflow: scroll;
@@ -32,15 +33,7 @@ export class MixerUnitComponentComponent implements OnInit {
   ngOnInit(): void {
     this.ctx = this.canvas.nativeElement.getContext('2d');
 
-    //Draw industry map
-    this.ctx!.fillStyle = 'black';
-
-    this.ctx!.strokeRect(20, 10, 60, 60);
-    this.ctx!.fillText("Macchina 1", 24, 40);
-    this.ctx!.strokeRect(120, 10, 60, 60);
-    this.ctx!.fillText("Macchina 2", 124, 40);
-    this.ctx!.strokeRect(220, 10, 60, 60);
-    this.ctx!.fillText("Macchina 3", 224, 40);
+    //Map is drawn from background image
 
     //TO-DO add listeners to machines
   }
