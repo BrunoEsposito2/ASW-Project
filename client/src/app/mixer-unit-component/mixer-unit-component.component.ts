@@ -13,7 +13,8 @@ import { EmployeeRenderedComponent } from '../render/employee-rendered.component
       color:blue;
     }
     canvas {
-      background: url('https://www.rainews.it/cropgd/806x460/dl/img/2022/05/29/1653823199609_amajesticoilpaintingofaraccoonqueen.jpg');
+      background: url('../../assets/canvasBG.png');
+      background-size: cover;
       border-style: solid;
       width: 1000px;
       overflow: scroll;
