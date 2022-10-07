@@ -5,7 +5,7 @@ import { EmployeeRenderedComponent } from '../render/employee-rendered.component
 @Component({
   selector: 'app-mixer-unit-component',
   template: `
-    <canvas class="" #canvas width=300 height=150></canvas>
+    <canvas class="" #canvas width=1000 height=500></canvas>
     <button (click)="animate()">Play</button>
   `,
   styles: [
@@ -24,7 +24,7 @@ import { EmployeeRenderedComponent } from '../render/employee-rendered.component
 })
 export class MixerUnitComponentComponent implements OnInit {
 
-  //Canvas is 300*150 (as coordinates)
+  //Canvas is 1000*500 (as coordinates)
   @ViewChild('canvas', { static: true })
   canvas!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D | null;
@@ -44,8 +44,8 @@ export class MixerUnitComponentComponent implements OnInit {
     const employee = new EmployeeRenderedComponent(this.ctx!);
     this.ctx!.fillStyle = 'red';
 
-    employee.draw(290, 140, 10);
-    employee.move(10, 10);
+    employee.draw(330, 140, 10);
+  //  employee.move(10, 10);
   }
 
 }
