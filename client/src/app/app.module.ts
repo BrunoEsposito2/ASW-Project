@@ -11,6 +11,7 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ChartsComponentComponent } from './charts-component/charts-component.component';
+import { PowerUnitChartsComponent } from './power-unit-charts/power-unit-charts.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ChartsComponentComponent } from './charts-component/charts-component.co
     AddEmployeeComponent,
     EditEmployeeComponent,
     HomepageComponent,
-    ChartsComponentComponent
+    ChartsComponentComponent,
+    PowerUnitChartsComponent
   ],
   imports: [
     BrowserModule,
