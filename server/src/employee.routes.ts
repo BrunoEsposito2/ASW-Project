@@ -84,3 +84,31 @@ employeeRouter.delete("/:id", async (req, res) => {
         res.status(400).send(error.message);
     }
 });
+
+employeeRouter.get("/position/:id", async (req, res) => {
+    try {
+        const id = req?.params?.id;
+        const query = { _id: new mongodb.ObjectId(id) };
+        const employee = await collections.employees.findOne(query);
+
+        if(employee.localization == null){
+          let position =
+            {
+              latitude: "100",
+              longitude: "100"
+            }
+          
+          employee.localization = position;
+            const result = await collections.employees.updateOne(query, { $set: employee.localization });
+        }
+
+        if (employee) {
+            res.status(200).send(employee.localization);
+        } else {
+            res.status(404).send(`Failed to find an employee: ID ${id}`);
+        }
+    } catch (error) {
+        res.status(404).send(`Failed to find an employee: ID ${req?.params?.id}`);
+    }
+
+});
