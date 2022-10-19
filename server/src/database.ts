@@ -1,8 +1,10 @@
 import * as mongodb from "mongodb";
 import { Employee } from "./employee";
+import { NewData } from "./newData";
 
 export const collections: {
     employees?: mongodb.Collection<Employee>;
+    newData?: mongodb.Collection<NewData>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
@@ -11,6 +13,9 @@ export async function connectToDatabase(uri: string) {
 
     const db = client.db("aswproject");
     await applySchemaValidation(db);
+
+    const newDataCollection = db.collection<NewData>("newData");
+    collections.newData = newDataCollection;
 
     const employeesCollection = db.collection<Employee>("employees");
     collections.employees = employeesCollection;
@@ -53,4 +58,13 @@ async function applySchemaValidation(db: mongodb.Db) {
             await db.createCollection("employees", {validator: jsonSchema});
         }
     });
+
+    await db.command({
+         collMod: "newData",
+         validator: jsonSchema
+     }).catch(async (error: mongodb.MongoServerError) => {
+         if (error.codeName === "NamespaceNotFound") {
+             await db.createCollection("newData", {validator: jsonSchema});
+         }
+     });
 }
