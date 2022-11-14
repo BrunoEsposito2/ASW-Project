@@ -54,7 +54,12 @@ export class MixerUnitComponentComponent implements OnInit {
     this.ctx!.fillStyle = 'red';
 
     this.employeesService.getEmployees().subscribe({
-      next: (employee: Employee[]) => console.log(employee),
+      next: (employee: Employee[]) => {
+        employee.forEach(e =>{
+          const eDrawn = new EmployeeRenderedComponent(this.ctx!);
+          eDrawn.draw(Number.parseInt(<string>e.latitude), Number.parseInt(<string>e.longitude))
+        })
+      },
       error: (err: Error) => console.log("Errore, forse causa internet"),
       complete: () => console.log("Tutti gli employees ricevuti")
 
