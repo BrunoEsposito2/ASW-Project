@@ -19,6 +19,13 @@ export class EmployeeService {
       });
   }
 
+  private getEmployeesPositions(){
+    this.httpClient.get<Employee[]>(`${this.url}/employees/position`)
+      .subscribe(employees => {
+        this.employees$.next(employees);
+      });
+  }
+
   getEmployees(): Subject<Employee[]> {
     this.refreshEmployees();
     return this.employees$;

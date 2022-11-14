@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class EmployeeRenderedComponent implements OnInit {
   constructor(private ctx: CanvasRenderingContext2D) {}
 
-   draw(x: number, y: number, z: number) {
+   draw(x: number, y: number) {
 
      this.ctx.lineWidth = 3;
 
@@ -61,7 +61,7 @@ export class EmployeeRenderedComponent implements OnInit {
     let x = 0;
     const i = setInterval(() => {
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-      this.draw(x, y, z);
+      this.draw(x, y);
       x++;
       if (x >= max) {
         clearInterval(i);

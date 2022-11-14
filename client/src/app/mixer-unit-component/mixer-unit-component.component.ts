@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { EmployeeRenderedComponent } from '../render/employee-rendered.component';
+import { EmployeeService } from '../employee.service';
+import { Employee } from '../employee';
 
 @Component({
   selector: 'app-mixer-unit-component',
@@ -24,12 +27,18 @@ import { EmployeeRenderedComponent } from '../render/employee-rendered.component
 })
 export class MixerUnitComponentComponent implements OnInit {
 
+  employees$: Observable<Employee[]> = new Observable();
+  employee!: Employee;
   //Canvas is 1000*500 (as coordinates)
   @ViewChild('canvas', { static: true })
   canvas!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D | null;
 
-  constructor() { }
+  constructor(private employeesService: EmployeeService) { }
+
+  private getEmployees(): void {
+    this.employees$ = this.employeesService.getEmployees();
+  }
 
   ngOnInit(): void {
     this.ctx = this.canvas.nativeElement.getContext('2d');
@@ -44,7 +53,13 @@ export class MixerUnitComponentComponent implements OnInit {
     const employee = new EmployeeRenderedComponent(this.ctx!);
     this.ctx!.fillStyle = 'red';
 
-    employee.draw(330, 140, 10);
+    this.employeesService.getEmployees().subscribe({
+      next: (employee: Employee[]) => console.log(employee),
+      error: (err: Error) => console.log("Errore, forse causa internet"),
+      complete: () => console.log("Tutti gli employees ricevuti")
+
+    });
+    employee.draw(330, 140);
   //  employee.move(10, 10);
   }
 
