@@ -27,8 +27,6 @@ import { Employee } from '../employee';
 })
 export class MixerUnitComponentComponent implements OnInit {
 
-  employees$: Observable<Employee[]> = new Observable();
-  employee!: Employee;
   //Canvas is 1000*500 (as coordinates)
   @ViewChild('canvas', { static: true })
   canvas!: ElementRef<HTMLCanvasElement>;
@@ -36,13 +34,8 @@ export class MixerUnitComponentComponent implements OnInit {
 
   constructor(private employeesService: EmployeeService) { }
 
-  private getEmployees(): void {
-    this.employees$ = this.employeesService.getEmployees();
-  }
-
   ngOnInit(): void {
     this.ctx = this.canvas.nativeElement.getContext('2d');
-
     //Map is drawn from background image
 
     //TO-DO add listeners to machines
@@ -62,10 +55,11 @@ export class MixerUnitComponentComponent implements OnInit {
       },
       error: (err: Error) => console.log("Errore, forse causa internet"),
       complete: () => console.log("Tutti gli employees ricevuti")
-
     });
     employee.draw(330, 140);
-  //  employee.move(10, 10);
+    this.ctx!.canvas.addEventListener('click', function(){
+      alert("prova")
+    });
   }
 
 }

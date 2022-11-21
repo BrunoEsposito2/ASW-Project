@@ -3,9 +3,6 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-employee-rendered',
   template: `
-    <p>
-      employee-rendered works!
-    </p>
   `,
   styles: [
   ]
