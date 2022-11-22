@@ -1,8 +1,7 @@
 import * as mongodb from "mongodb";
 
 export interface Productivity {
-    /*kg: integer;
-    time: datasets;*/
-    prova:string;
+    kg: Number;
+    time: Date;
     _id?: mongodb.ObjectId;
 }

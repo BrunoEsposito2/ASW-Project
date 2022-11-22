@@ -7,7 +7,8 @@ productivityRouter.use(express.json());
 
 productivityRouter.get("/", async (_req, res) => {
     const productivity = {
-      prova: "ciccia"
+      kg:250,
+      time:new Date(),
     }
     const result = await collections.productivity.insertOne(productivity);
     try {
