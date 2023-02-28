@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
         <div class="col-2">
           <h2> Productivity component </h2>
           <app-productivity-component></app-productivity-component>
+          <app-charts-component></app-charts-component>
         </div>
         <div class="col-8">
           <h2 class="text-center"> Mixer unit component </h2>
@@ -25,6 +26,7 @@ import { Component, OnInit } from '@angular/core';
         <div class="col-4">
           <h2> Power unit component </h2>
           <app-power-unit-component></app-power-unit-component>
+          <app-power-unit-charts-component></app-power-unit-charts-component>
         </div>
         <div class="col-4">
           <h2> Ingredients component </h2>

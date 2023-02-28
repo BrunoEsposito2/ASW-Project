@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { HomepageComponent } from './homepage/homepage.component';
+
 import { MixerUnitComponentComponent } from './mixer-unit-component/mixer-unit-component.component';
 import { ProductivityComponentComponent } from './productivity-component/productivity-component.component';
 import { PowerUnitComponentComponent } from './power-unit-component/power-unit-component.component';
@@ -17,6 +18,10 @@ import { IngredientsComponentComponent } from './ingredients-component/ingredien
 import { AssistantsComponentComponent } from './assistants-component/assistants-component.component';
 import { StepsComponentComponent } from './steps-component/steps-component.component';
 import { EmployeeRenderedComponent } from './render/employee-rendered.component'; // <-- add this line
+
+import { ChartsComponentComponent } from './charts-component/charts-component.component';
+import { PowerUnitChartsComponent } from './power-unit-charts/power-unit-charts.component';
+
 
 @NgModule({
   declarations: [
@@ -32,13 +37,16 @@ import { EmployeeRenderedComponent } from './render/employee-rendered.component'
     IngredientsComponentComponent,
     AssistantsComponentComponent,
     StepsComponentComponent,
-    EmployeeRenderedComponent
+    EmployeeRenderedComponent,
+    ChartsComponentComponent,
+    PowerUnitChartsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule // <-- add this line
+    ReactiveFormsModule, // <-- add this line
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
