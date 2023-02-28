@@ -45,7 +45,7 @@ export class PowerUnitChartsComponent implements OnInit {
           options: {
             aspectRatio:2,
             title: {
-              dispaly:true,
+              display:true,
               text: 'Weekly Productivity',
               fontSize: 20
             }
