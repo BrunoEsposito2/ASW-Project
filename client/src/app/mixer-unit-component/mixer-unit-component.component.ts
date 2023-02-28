@@ -37,29 +37,23 @@ export class MixerUnitComponentComponent implements OnInit {
   ngOnInit(): void {
     this.ctx = this.canvas.nativeElement.getContext('2d');
     //Map is drawn from background image
-
+    this.animate();
     //TO-DO add listeners to machines
   }
 
   animate(): void {
 
-    const employee = new EmployeeRenderedComponent(this.ctx!);
     this.ctx!.fillStyle = 'red';
 
     this.employeesService.getEmployees().subscribe({
       next: (employee: Employee[]) => {
         employee.forEach(e =>{
           const eDrawn = new EmployeeRenderedComponent(this.ctx!);
-          eDrawn.draw(Number.parseInt(<string>e.latitude), Number.parseInt(<string>e.longitude))
+          eDrawn.draw(Number.parseInt(<string>e.latitude), Number.parseInt(<string>e.longitude));
         })
       },
       error: (err: Error) => console.log("Errore, forse causa internet"),
       complete: () => console.log("Tutti gli employees ricevuti")
     });
-    employee.draw(330, 140);
-    this.ctx!.canvas.addEventListener('click', function(){
-      alert("prova")
-    });
   }
-
 }

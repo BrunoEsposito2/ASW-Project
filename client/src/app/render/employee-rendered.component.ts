@@ -7,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class EmployeeRenderedComponent implements OnInit {
-  constructor(private ctx: CanvasRenderingContext2D) {}
+export class EmployeeRenderedComponent extends Path2D implements OnInit {
+
+  private ctx
+  constructor(private context: CanvasRenderingContext2D) {
+    super();
+    this.ctx = context;
+  }
 
    draw(x: number, y: number) {
 
@@ -50,6 +55,7 @@ export class EmployeeRenderedComponent implements OnInit {
      //this.ctx.strokeStyle = '#003300';
 
      //this.ctx.fillRect(x, y, z, z);
+
    }
 
    move(y: number, z: number) {
