@@ -19,7 +19,7 @@ import { Employee } from '../employee';
       background: url('../../assets/canvasBG.png');
       background-size: cover;
       border-style: solid;
-      width: 1000px;
+      width: 400px;
       overflow: scroll;
     }
     `

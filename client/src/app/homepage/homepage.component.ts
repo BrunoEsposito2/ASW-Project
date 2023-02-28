@@ -8,16 +8,15 @@ import { Component, OnInit } from '@angular/core';
     </h1>
     <section id="main">
       <div class="row">
-        <div class="col-2">
+        <div class="col-4">
           <h2> Productivity component </h2>
-          <app-productivity-component></app-productivity-component>
           <app-charts-component></app-charts-component>
         </div>
-        <div class="col-8">
+        <div class="col-4">
           <h2 class="text-center"> Mixer unit component </h2>
           <app-mixer-unit-component class="d-flex justify-content-center"></app-mixer-unit-component>
         </div>
-        <div class="col-2">
+        <div class="col-4">
           <h2> Assistants component </h2>
           <app-assistants-component></app-assistants-component>
         </div>
