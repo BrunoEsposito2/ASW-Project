@@ -12,7 +12,6 @@ import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import { MixerUnitComponentComponent } from './mixer-unit-component/mixer-unit-component.component';
-import { ProductivityComponentComponent } from './productivity-component/productivity-component.component';
 import { PowerUnitComponentComponent } from './power-unit-component/power-unit-component.component';
 import { IngredientsComponentComponent } from './ingredients-component/ingredients-component.component';
 import { AssistantsComponentComponent } from './assistants-component/assistants-component.component';
@@ -32,7 +31,6 @@ import { PowerUnitChartsComponent } from './power-unit-charts/power-unit-charts.
     EditEmployeeComponent,
     HomepageComponent,
     MixerUnitComponentComponent,
-    ProductivityComponentComponent,
     PowerUnitComponentComponent,
     IngredientsComponentComponent,
     AssistantsComponentComponent,
