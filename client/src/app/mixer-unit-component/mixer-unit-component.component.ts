@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
-import { EmployeeRenderedComponent } from '../render/employee-rendered.component';
+import {EmployeeRenderedComponent} from '../render/employee-rendered.component';
 
 @Component({
   selector: 'app-mixer-unit-component',

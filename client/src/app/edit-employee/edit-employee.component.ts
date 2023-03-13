@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { Employee } from '../employee';
-import { EmployeeService } from '../employee.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BehaviorSubject} from 'rxjs';
+import {Employee} from '../employee';
+import {EmployeeService} from '../employee.service';
 
 @Component({
   selector: 'app-edit-employee.component.ts',
