@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { ProductivityService } from '../productivity.service';
+import { Productivity } from '../productivity';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-charts-component',
@@ -8,12 +11,26 @@ import Chart from 'chart.js/auto';
 })
 export class ChartsComponentComponent implements OnInit {
 
-  constructor() {}
+  productivitys: Observable<Productivity[]> = new Observable();
+  productivity!: Productivity;
+
+  constructor(private productivityService: ProductivityService) { }
+
+  private getProductivitys(): void {
+    this.productivitys = this.productivityService.getProductivity();
+  }
 
   public chart: any;
 
 
   ngOnInit(): void {
+
+    this.productivityService.getProductivity().subscribe({
+      next: (productivity: Productivity[]) => console.log(productivity),
+      error: (err: Error) => console.log("Errore, forse causa internet"),
+      complete: () => console.log("Tutti le productivity ricevute")
+
+    });
 
     this.chart = new Chart("MyChart", {
           type: 'bar', //this denotes tha type of chart
@@ -44,11 +61,11 @@ export class ChartsComponentComponent implements OnInit {
           },
           options: {
             aspectRatio:2,
-            title: {
+            /*title: {
               display:true,
               text: 'Weekly Productivity',
               fontSize: 20
-            }
+            }*/
           }
 
         });

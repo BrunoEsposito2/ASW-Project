@@ -32,11 +32,11 @@
     "url": "https://github.com/mongodb-developer/mean-stack-example.git"
   },
   "devDependencies": {
-    "concurrently": "^7.1.0"
+    "concurrently": "^7.6.0"
   },
   "dependencies": {
-    "@syncfusion/ej2-ng-charts": "^16.2.50",
+    "@syncfusion/ej2-ng-charts": "^16.3.17",
     "angular2-fusioncharts": "^1.0.3",
-    "chart.js": "^3.9.1"
+    "chart.js": "^4.2.1"
   }
 }
