@@ -1,14 +1,14 @@
 import {Component} from '@angular/core';
-import * as io from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 @Component({
   selector: 'app-chat',
   template: `
     <div class="container">
-      <h1>Competent programming - Chat App</h1>
+      <h1>Chat App</h1>
       <app-username (userNameEvent)="userNameUpdate($event)" *ngIf="!userName"></app-username>
       <div class="chatbox">
-        <div class="chatbot__user-list">
+        <div class="chatbox__user-list">
           <h2>User List</h2>
           <div class="chatbox__user--active" *ngFor="let user of userList">
             <p>{{user}}</p>
@@ -31,7 +31,7 @@ import * as io from 'socket.io-client';
         </div>
       </div>
       <div class="send-message">
-        <input type="text" [ngModel]="message">
+        <input type="text" [(ngModel)]="message">
         <button (click)="sendMessage()">Send</button>
       </div>
     </div>
@@ -40,7 +40,6 @@ import * as io from 'socket.io-client';
 })
 
 export class ChatComponent {
-
   userName = "";
   message = "";
   messageList: {message: string, userName: string, mine: boolean}[] = [];
@@ -50,7 +49,7 @@ export class ChatComponent {
   constructor() { }
 
   userNameUpdate(name: string): void {
-    this.socket = io.io(`http://localhost:4200?userName=${name}`);
+    this.socket = io(`http://localhost:3000?userName=${name}`);
     this.userName = name;
 
     this.socket.emit('set-user-name', name);

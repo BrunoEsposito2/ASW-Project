@@ -4,7 +4,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
   selector: 'app-username',
   template: `
     <div>
-      <input type="text" [(ngModel)]="userName" )]>
+      <input type="text" [(ngModel)]="userName">
       <button (click)="setUserName()">Set username</button>
     </div>
   `,
@@ -19,7 +19,7 @@ export class UsernameComponent {
   constructor() { }
 
   setUserName(): void {
-    this.userNameEvent.emit(this.userName);
+    this.userNameEvent.emit(this.userName)
   }
 
 }
