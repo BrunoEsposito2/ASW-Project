@@ -3,6 +3,8 @@ import Chart from 'chart.js/auto';
 import { ProductivityService } from '../productivity.service';
 import { Productivity } from '../productivity';
 import { Observable } from 'rxjs';
+import { toArray } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-charts-component',
@@ -25,12 +27,21 @@ export class ChartsComponentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.productivityService.getProductivity().subscribe({
+    /*productivityArray: Any[] = [];
+
+    this.productivityService.getProductivity().pipe(
+        toArray()
+    ).subscribe({
       next: (productivity: Productivity[]) => console.log(productivity),
       error: (err: Error) => console.log("Errore, forse causa internet"),
       complete: () => console.log("Tutti le productivity ricevute")
 
     });
+
+     */
+
+
+
 
     this.chart = new Chart("MyChart", {
           type: 'bar', //this denotes tha type of chart
@@ -40,9 +51,11 @@ export class ChartsComponentComponent implements OnInit {
     								 '12:00 - 15:00', '15:00 - 18:00', '18:00 - 21:00', '21:00 - 24:00'],
     	       datasets: [
               {
-                label: "Waste",
+                //label: "Waste",
+                label: this.productivityService.getProductivity(),
                 data: ['90','120', '212', '79', '92',
     								 '174', '75', '56'],
+                //data:this.productivityService.getProductivity(),
                 backgroundColor: 'blue',
                 borderWidth:1,
                 hoverBorderWidth:3,
