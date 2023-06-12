@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-homepage',
@@ -36,6 +36,9 @@ import { Component, OnInit } from '@angular/core';
           <app-steps-component></app-steps-component>
         </div>
       </div>
+    </section>
+    <section id="chat">
+      <app-chat></app-chat>
     </section>
   `,
   styles: [

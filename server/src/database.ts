@@ -1,12 +1,8 @@
 import * as mongodb from "mongodb";
-import { Employee } from "./employee";
-import { NewData } from "./newData";
-import { Productivity } from "./productivity"
+import {Employee} from "./employee";
 
 export const collections: {
     employees?: mongodb.Collection<Employee>;
-    newData?: mongodb.Collection<NewData>;
-    productivity?: mongodb.Collection<Productivity>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
@@ -16,14 +12,8 @@ export async function connectToDatabase(uri: string) {
     const db = client.db("aswproject");
     await applySchemaValidation(db);
 
-    const newDataCollection = db.collection<NewData>("newData");
-    collections.newData = newDataCollection;
-
     const employeesCollection = db.collection<Employee>("employees");
     collections.employees = employeesCollection;
-
-    const productivityCollection = db.collection<Productivity>("productivity");
-    collections.productivity = productivityCollection;
 }
 
 // Update our existing collection with JSON schema validation so we know our documents will always match the shape of our Employee model, even if added elsewhere.
@@ -63,22 +53,4 @@ async function applySchemaValidation(db: mongodb.Db) {
             await db.createCollection("employees", {validator: jsonSchema});
         }
     });
-
-    await db.command({
-         collMod: "newData",
-         validator: jsonSchema
-     }).catch(async (error: mongodb.MongoServerError) => {
-         if (error.codeName === "NamespaceNotFound") {
-             await db.createCollection("newData", {validator: jsonSchema});
-         }
-    });
-
-    await db.command({
-         collMod: "productivity",
-         validator: jsonSchema
-     }).catch(async (error: mongodb.MongoServerError) => {
-         if (error.codeName === "NamespaceNotFound") {
-             await db.createCollection("productivityRouter", {validator: jsonSchema});
-         }
-     });
 }

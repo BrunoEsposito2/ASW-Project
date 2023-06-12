@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { EmployeesListComponent } from './employees-list/employees-list.component';
-import { AddEmployeeComponent } from './add-employee/add-employee.component'; // <-- add this line
-import { EditEmployeeComponent } from './edit-employee/edit-employee.component'; // <-- add this line
-import { HomepageComponent } from './homepage/homepage.component'
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {EmployeesListComponent} from './employees-list/employees-list.component';
+import {AddEmployeeComponent} from './add-employee/add-employee.component'; // <-- add this line
+import {EditEmployeeComponent} from './edit-employee/edit-employee.component'; // <-- add this line
+import {HomepageComponent} from './homepage/homepage.component'
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
