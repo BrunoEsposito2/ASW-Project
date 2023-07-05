@@ -1,38 +1,157 @@
-app-chat * {
+/*
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background: #222; !* Aggiunto colore di sfondo *!
+}
+
+h1 {
+    margin: 0.5em auto;
+    color: #FFF;
+    text-align: center;
+}
+
+.chatbox {
+    background: rgba(255, 255, 255, 0.05);
+    width: 80%;
+    height: 75%;
+    border-radius: 0.2em;
+    position: relative;
+    box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-list {
+    background: rgba(255, 255, 255, 0.1);
+    width: 25%;
+    height: 100%;
+    border-top-right-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-list h2 {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9em;
+    padding: 1em;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+    text-align: center;
 }
-app-chat div, button {
-    background: linear-gradient(120deg, #848484, #6265c7);
-    overflow: hidden;
+
+.user {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 100%;
+    margin: 1em 0.7em;
 }
-app-chat div[class="send-message"]>input[type="text"] {
+
+.user.active {
+    background: rgba(23, 190, 187, 0.8);
+}
+
+.user p {
+    color: #FFF;
+    font-size: 0.7em;
+}
+
+.messages-list {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    margin: 2em 1em;
+}
+
+.message.mine .message-box {
+    margin-left: auto;
+}
+
+.message-box {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1em 0;
+    width: 55%;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.message-box p {
+    color: #FFF;
+    font-size: 1em;
+    margin: 0 2.8em;
+}
+
+.message-box .content {
+    font-size: 0.7em;
+}
+
+.send-message {
+    display: flex;
+    align-items: center;
+    margin-top: 1em;
+}
+
+mat-form-field {
+    margin-right: 1em;
+}
+
+input[type="text"] {
     width: 200px;
     height: 30px;
     outline: none;
-    border: 1px solid #8182c1;
+    border: 1px solid gray;
     padding: 5px;
     border-radius: 5px;
+    color: #FFF; !* Aggiunto colore del testo *!
+    background: rgba(255, 255, 255, 0.03); !* Aggiunto colore di sfondo *!
 }
-app-chat div[class="send-message"]>input[type="text"]>button {
-    width: 200px;
+
+button {
     height: 30px;
     outline: none;
-    border: 1px solid #8182c1;
+    border: 1px solid grey;
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
-    background: #4a4eab;
+    background: grey;
     color: #fff;
     text-transform: uppercase;
 }
-app-chat button:focus {
+
+button:focus {
     outline: none;
 }
-app-chat div>h2 {
+
+h2 {
     text-align: center;
     color: #fff;
     padding: 5px;
 }
+
+.user-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(23, 190, 187, 0.8);
+    margin-right: 8px;
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background: #222; !* Aggiunto colore di sfondo *!
+}
+*/
+
+

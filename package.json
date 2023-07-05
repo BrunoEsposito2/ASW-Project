@@ -33,9 +33,12 @@
   },
   "devDependencies": {
     "@types/events": "^3.0.0",
-    "concurrently": "^7.1.0"
+    "concurrently": "^7.6.0"
   },
   "dependencies": {
+    "@angular/cdk": "^16.1.0",
+    "@angular/material": "^16.1.0",
+    "chart.js": "^4.3.0",
     "core-js": "^3.23.3",
     "lru-cache": "^8.0.4",
     "socket.io-client": "^4.6.1",

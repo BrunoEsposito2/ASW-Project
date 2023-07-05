@@ -3,13 +3,14 @@ import {Component, EventEmitter, Output} from '@angular/core';
 @Component({
   selector: 'app-username',
   template: `
-    <div>
-      <input type="text" [(ngModel)]="userName">
-      <button (click)="setUserName()">Set username</button>
-    </div>
+    <mat-card>
+      <mat-card-content>
+        <input matInput type="text" [(ngModel)]="userName">
+        <button mat-raised-button color="primary" (click)="setUserName()">Set username</button>
+      </mat-card-content>
+    </mat-card>
   `,
-  styles: [
-  ]
+  styleUrls: ['../chat/chat.component.scss']
 })
 export class UsernameComponent {
   @Output() userNameEvent = new EventEmitter<string>();
