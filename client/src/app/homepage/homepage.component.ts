@@ -40,6 +40,9 @@ import {Component, OnInit} from '@angular/core';
     <section id="chat">
       <app-chat></app-chat>
     </section>
+    <!--<section id="login">
+      <app-login></app-login>
+    </section>-->
   `,
   styles: [
   ]

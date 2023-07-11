@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {EmployeesListComponent} from './employees-list/employees-list.component';
-import {EmployeeFormComponent} from './employee-form/employee-form.component';
+import {EmployeeFormComponent} from './authentication/employee-form/employee-form.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddEmployeeComponent} from './add-employee/add-employee.component';
@@ -19,31 +19,54 @@ import {StepsComponentComponent} from './steps-component/steps-component.compone
 import {EmployeeRenderedComponent} from './render/employee-rendered.component';
 import {ChatComponent} from './chat/chat.component';
 import {UsernameComponent} from './username/username.component';
+import {ChartsComponentComponent} from "./charts-component/charts-component.component";
+import {PowerUnitChartsComponent} from "./power-unit-charts/power-unit-charts.component";
+import {LoginComponent} from "./login/login.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AdminFormComponent} from "./authentication/admin-form/admin-form.component";
+import {AddAdminComponent} from "./add-admin/add-admin.component";
+import {EditAdminComponent} from "./edit-admin/edit-admin.component";
+import {MatFormFieldControl} from "@angular/material/form-field";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EmployeesListComponent,
-    EmployeeFormComponent,
-    AddEmployeeComponent,
-    EditEmployeeComponent,
-    HomepageComponent,
-    MixerUnitComponentComponent,
-    ProductivityComponentComponent,
-    PowerUnitComponentComponent,
-    IngredientsComponentComponent,
-    AssistantsComponentComponent,
-    StepsComponentComponent,
-    EmployeeRenderedComponent,
-    ChatComponent,
-    UsernameComponent
-  ],
+    declarations: [
+        AppComponent,
+        EmployeesListComponent,
+        EmployeeFormComponent,
+        AddEmployeeComponent,
+        EditEmployeeComponent,
+        HomepageComponent,
+        MixerUnitComponentComponent,
+        ProductivityComponentComponent,
+        PowerUnitComponentComponent,
+        IngredientsComponentComponent,
+        AssistantsComponentComponent,
+        StepsComponentComponent,
+        EmployeeRenderedComponent,
+        ChatComponent,
+        ChartsComponentComponent,
+        PowerUnitChartsComponent,
+        //LoginComponent,
+        UsernameComponent,
+        //AdminFormComponent,
+        //AddAdminComponent,
+        //EditAdminComponent,
+        //ChartsComponentComponent,
+        //PowerUnitChartsComponent
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
+        MatCardModule,
+        MatInputModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
         // <-- add this line
     ],
   providers: [],

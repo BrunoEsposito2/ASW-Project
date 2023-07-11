@@ -36,7 +36,7 @@ export class MixerUnitComponentComponent implements OnInit {
     this.ctx!.fillStyle = 'red';
   //const square = new Square(this.ctx);
   //this.ctx!.fillRect(5, 1, 20, 20);
-  employee.draw(1, 1, 1);
+  employee.draw(1, 1);
   }
 
 }
