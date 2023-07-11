@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as mongodb from "mongodb";
 import { collections } from "./database";
+import { faker } from '@faker-js/faker';
 
 export const employeeRouter = express.Router();
 employeeRouter.use(express.json());
@@ -91,16 +92,16 @@ employeeRouter.get("/position/:id", async (req, res) => {
         const query = { _id: new mongodb.ObjectId(id) };
         const employee = await collections.employees.findOne(query);
 
-        if(employee.localization == null){
-          let position =
-            {
-              latitude: "100",
-              longitude: "100"
-            }
-          
-          employee.localization = position;
-            const result = await collections.employees.updateOne(query, { $set: employee.localization });
+
+        let position =
+        {
+          latitude: String(faker.datatype.number({min: 0, max: 500})),
+          longitude: "100"
         }
+
+        employee.localization = position;
+        const result = await collections.employees.updateOne(query, { $set: employee.localization });
+
 
         if (employee) {
             res.status(200).send(employee.localization);
