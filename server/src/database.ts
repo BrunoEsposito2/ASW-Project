@@ -1,10 +1,10 @@
 import * as mongodb from "mongodb";
 import {Employee} from "./employee";
-//import {Admin} from "./admin";
+import {Admin} from "./admin";
 
 export const collections: {
     employees?: mongodb.Collection<Employee>;
-    //admins?: mongodb.Collection<Admin>;
+    admins?: mongodb.Collection<Admin>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
@@ -17,8 +17,8 @@ export async function connectToDatabase(uri: string) {
     const employeesCollection = db.collection<Employee>("employees");
     collections.employees = employeesCollection;
 
-    //const adminsCollection = db.collection<Admin>("admins");
-    //collections.admins = adminsCollection;
+    const adminsCollection = db.collection<Admin>("admins");
+    collections.admins = adminsCollection;
 }
 
 // Update our existing collection with JSON schema validation so we know our documents will always match the shape of our Employee model, even if added elsewhere.
@@ -79,12 +79,12 @@ async function applySchemaValidation(db: mongodb.Db) {
         }
     });
 
-   /*await db.command({
+   await db.command({
        collMod: "admins",
        validator: jsonAdminsSchema
    }).catch(async (error: mongodb.MongoServerError) => {
        if (error.codeName === "NamespaceNotFound") {
            await db.createCollection("admins", {validator: jsonAdminsSchema});
        }
-   })*/
+   })
 }

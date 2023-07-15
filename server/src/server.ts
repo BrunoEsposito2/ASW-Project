@@ -18,13 +18,13 @@ if (!ATLAS_URI) {
 connectToDatabase(ATLAS_URI)
     .then(() => {
         const app = express();
-        app.use(cors);
+        app.use(cors());
         app.use("/employees", employeeRouter);
-        //app.use("/admins", adminRouter);
+        app.use("/admins", adminRouter);
 
         // start the Express server
         app.listen(5200, () => {
-            console.log(`Server running at http://localhost:5200...`);
+            console.log(`Database server is running at http://localhost:5200...`);
         });
     })
     .catch(error => console.error(error));

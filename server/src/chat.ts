@@ -13,7 +13,7 @@ const io = require('socket.io')(http, {
 });
 
 app.get('/', (req, res) => {
-    res.send('Heello world');
+    res.send('Hello world');
 })
 
 let userList = new Map();
@@ -36,7 +36,7 @@ io.on('connection', (socket: Socket) => {
 });
 
 http.listen(process.env.PORT || PORT, () => {
-    console.log(`Server is running ${process.env.PORT || PORT}`);
+    console.log(`Chat server is running ${process.env.PORT || PORT}`);
 });
 
 function addUser(username: string | string[], id: String) {

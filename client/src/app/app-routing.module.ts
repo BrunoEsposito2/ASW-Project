@@ -4,12 +4,7 @@ import {EmployeesListComponent} from './employees-list/employees-list.component'
 import {AddEmployeeComponent} from './add-employee/add-employee.component'; // <-- add this line
 import {EditEmployeeComponent} from './edit-employee/edit-employee.component'; // <-- add this line
 import {HomepageComponent} from './homepage/homepage.component'
-/*import {LoginComponent} from "./login/login.component";
-import {AdminFormComponent} from "./authentication/admin-form/admin-form.component";
-import {MatInputModule} from "@angular/material/input";
-import {MatSelectModule} from "@angular/material/select";
-import {AddAdminComponent} from "./add-admin/add-admin.component";
-import {EditAdminComponent} from "./edit-admin/edit-admin.component";*/
+import {LoginAdminComponentComponent} from "./login-admin-component/login-admin-component.component";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -17,19 +12,13 @@ const routes: Routes = [
   { path: 'employees', component: EmployeesListComponent },
   { path: 'employees/new', component: AddEmployeeComponent }, // <-- add this line
   { path: 'employees/edit/:id', component: EditEmployeeComponent }, // <-- add this line
-  /*{ path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminFormComponent },
-    { path: 'admins', redirectTo: 'admins', pathMatch: 'full' },
-    { path: 'admins/new', component: AddAdminComponent },
-    { path: 'admins/edit/:id', component: EditAdminComponent }*/
 
+  { path: 'admins/password/:id', component: LoginAdminComponentComponent }
 ];
 
 @NgModule({
   imports: [
       RouterModule.forRoot(routes),
-      /*MatInputModule,
-      MatSelectModule*/
   ],
   exports: [
       RouterModule
