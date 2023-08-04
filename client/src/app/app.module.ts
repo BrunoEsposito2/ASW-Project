@@ -26,6 +26,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginAdminComponentComponent } from './login-admin-component/login-admin-component.component';
+import { LoginEmployeeComponentComponent } from './login-employee-component/login-employee-component.component';
+import { AuthAdminComponentComponent } from './auth-admin-component/auth-admin-component.component';
 
 @NgModule({
     declarations: [
@@ -47,6 +49,8 @@ import { LoginAdminComponentComponent } from './login-admin-component/login-admi
         PowerUnitChartsComponent,
         UsernameComponent,
         LoginAdminComponentComponent,
+        LoginEmployeeComponentComponent,
+        AuthAdminComponentComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],
