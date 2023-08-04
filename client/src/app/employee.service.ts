@@ -35,6 +35,10 @@ export class EmployeeService {
     return this.httpClient.get<Employee>(`${this.url}/employees/${id}`);
   }
 
+  getEmployeeByInfo(name: string, position: string, level: string): Observable<Employee> {
+    return this.httpClient.get<Employee>(`${this.url}/employees/${name}/${position}/${level}`);
+  }
+
   createEmployee(employee: Employee): Observable<string> {
     return this.httpClient.post(`${this.url}/employees`, employee, { responseType: 'text' });
   }

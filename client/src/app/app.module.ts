@@ -29,6 +29,7 @@ import { LoginAdminComponentComponent } from './login-admin-component/login-admi
 import { LoginEmployeeComponentComponent } from './login-employee-component/login-employee-component.component';
 import { AuthAdminComponentComponent } from './auth-admin-component/auth-admin-component.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AuthEmployeeComponent } from './auth-employee/auth-employee.component';
 
 @NgModule({
     declarations: [
@@ -53,6 +54,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
         LoginEmployeeComponentComponent,
         AuthAdminComponentComponent,
         AdminDashboardComponent,
+        AuthEmployeeComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],

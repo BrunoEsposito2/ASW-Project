@@ -7,6 +7,8 @@ import {HomepageComponent} from './homepage/homepage.component'
 import {LoginAdminComponentComponent} from "./login-admin-component/login-admin-component.component";
 import {AuthAdminComponentComponent} from "./auth-admin-component/auth-admin-component.component";
 import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
+import {LoginEmployeeComponentComponent} from "./login-employee-component/login-employee-component.component";
+import {AuthEmployeeComponent} from "./auth-employee/auth-employee.component";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -14,6 +16,7 @@ const routes: Routes = [
   { path: 'employees', component: EmployeesListComponent },
   { path: 'employees/new', component: AddEmployeeComponent }, // <-- add this line
   { path: 'employees/edit/:id', component: EditEmployeeComponent }, // <-- add this line
+  { path: 'employees/login', component: AuthEmployeeComponent },
 
   { path: 'admins/login', component: AuthAdminComponentComponent },
   { path: 'admins/dashboard', component: AdminDashboardComponent },

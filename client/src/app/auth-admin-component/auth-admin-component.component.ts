@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {Admin} from "../admin";
 import {AdminService} from "../admin.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
