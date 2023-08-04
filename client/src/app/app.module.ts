@@ -28,6 +28,7 @@ import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginAdminComponentComponent } from './login-admin-component/login-admin-component.component';
 import { LoginEmployeeComponentComponent } from './login-employee-component/login-employee-component.component';
 import { AuthAdminComponentComponent } from './auth-admin-component/auth-admin-component.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 @NgModule({
     declarations: [
@@ -51,6 +52,7 @@ import { AuthAdminComponentComponent } from './auth-admin-component/auth-admin-c
         LoginAdminComponentComponent,
         LoginEmployeeComponentComponent,
         AuthAdminComponentComponent,
+        AdminDashboardComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],

@@ -19,14 +19,13 @@ export class AuthAdminComponentComponent implements OnInit {
       private adminService: AdminService
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   adminAuth(admin: Admin) {
     this.adminService.getAdmin(admin.email !, admin.password !)
         .subscribe({
           next: () => {
-              // this.router.navigate(['/admins/login/']);
+              this.router.navigate(['/admins/dashboard']);
           },
           error: (error: HttpErrorResponse) => {
               if (error.error.match('email')) {

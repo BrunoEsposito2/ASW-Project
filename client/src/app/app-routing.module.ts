@@ -6,6 +6,7 @@ import {EditEmployeeComponent} from './edit-employee/edit-employee.component'; /
 import {HomepageComponent} from './homepage/homepage.component'
 import {LoginAdminComponentComponent} from "./login-admin-component/login-admin-component.component";
 import {AuthAdminComponentComponent} from "./auth-admin-component/auth-admin-component.component";
+import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'employees/edit/:id', component: EditEmployeeComponent }, // <-- add this line
 
   { path: 'admins/login', component: AuthAdminComponentComponent },
-  //{ path: 'admins/:id', component: LoginAdminComponentComponent }
+  { path: 'admins/dashboard', component: AdminDashboardComponent },
 ];
 
 @NgModule({
