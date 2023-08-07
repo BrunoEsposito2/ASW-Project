@@ -9,7 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddEmployeeComponent} from './add-employee/add-employee.component';
 import {EditEmployeeComponent} from './edit-employee/edit-employee.component';
-import {HomepageComponent} from './homepage/homepage.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 import {MixerUnitComponentComponent} from './mixer-unit-component/mixer-unit-component.component';
 import {ProductivityComponentComponent} from './productivity-component/productivity-component.component';
 import {PowerUnitComponentComponent} from './power-unit-component/power-unit-component.component';
@@ -30,6 +30,7 @@ import { LoginEmployeeComponentComponent } from './login-employee-component/logi
 import { AuthAdminComponentComponent } from './auth-admin-component/auth-admin-component.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AuthEmployeeComponent } from './auth-employee/auth-employee.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,7 @@ import { AuthEmployeeComponent } from './auth-employee/auth-employee.component';
         EmployeeFormComponent,
         AddEmployeeComponent,
         EditEmployeeComponent,
-        HomepageComponent,
+        DashboardComponent,
         MixerUnitComponentComponent,
         ProductivityComponentComponent,
         PowerUnitComponentComponent,
@@ -55,6 +56,7 @@ import { AuthEmployeeComponent } from './auth-employee/auth-employee.component';
         AuthAdminComponentComponent,
         AdminDashboardComponent,
         AuthEmployeeComponent,
+        HomepageComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],
