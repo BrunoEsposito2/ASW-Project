@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'app-admin',
   template: `
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -50,12 +50,12 @@ import {Router} from "@angular/router";
       <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
-    <app-homepage></app-homepage>
+    <app-dashboard></app-dashboard>
   `,
   styles: [
   ]
 })
-export class AdminDashboardComponent {
+export class AdminComponent {
 
   constructor (private router: Router) { }
 

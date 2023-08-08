@@ -4,12 +4,11 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {EmployeesListComponent} from './employees-list/employees-list.component';
-import {EmployeeFormComponent} from './registration/employee-form/employee-form.component';
+import {EmployeeFormComponent} from './employee-form/employee-form.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddEmployeeComponent} from './add-employee/add-employee.component';
 import {EditEmployeeComponent} from './edit-employee/edit-employee.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
 import {MixerUnitComponentComponent} from './mixer-unit-component/mixer-unit-component.component';
 import {ProductivityComponentComponent} from './productivity-component/productivity-component.component';
 import {PowerUnitComponentComponent} from './power-unit-component/power-unit-component.component';
@@ -28,9 +27,10 @@ import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginAdminComponentComponent } from './login-admin-component/login-admin-component.component';
 import { LoginEmployeeComponentComponent } from './login-employee-component/login-employee-component.component';
 import { AuthAdminComponentComponent } from './auth-admin-component/auth-admin-component.component';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminComponent } from './admin/admin.component';
 import { AuthEmployeeComponent } from './auth-employee/auth-employee.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +39,6 @@ import { HomepageComponent } from './homepage/homepage.component';
         EmployeeFormComponent,
         AddEmployeeComponent,
         EditEmployeeComponent,
-        DashboardComponent,
         MixerUnitComponentComponent,
         ProductivityComponentComponent,
         PowerUnitComponentComponent,
@@ -54,9 +53,10 @@ import { HomepageComponent } from './homepage/homepage.component';
         LoginAdminComponentComponent,
         LoginEmployeeComponentComponent,
         AuthAdminComponentComponent,
-        AdminDashboardComponent,
+        AdminComponent,
         AuthEmployeeComponent,
         HomepageComponent,
+        DashboardComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],

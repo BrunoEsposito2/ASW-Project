@@ -6,69 +6,68 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 @Component({
   selector: 'app-login-employee-component',
   template: `
-    <section class="vh-100 gradient-custom" xmlns="http://www.w3.org/1999/html">
-      <form class="admin-form" autocomplete="off" [formGroup]="employeeForm" (ngSubmit)="submitForm()">
-        <div class="container py-5 h-100">
+    <section class="vh-100 bg-image"
+             style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+      <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+              <div class="card" style="border-radius: 15px;">
+                <div class="card-body p-5">
+                  <h2 class="text-uppercase text-center mb-5">Employee Login</h2>
 
-                  <div class="mb-md-5 mt-md-4 pb-5">
+                  <form class="admin-form" autocomplete="off" [formGroup]="employeeForm" (ngSubmit)="submitForm()">
 
-                    <h2 class="fw-bold mb-2 text-uppercase">Login Employee</h2>
-                    <p class="text-white-50 mb-5">Please enter your credentials!</p>
-
-                    <div class="form-outline form-white mb-4">
-                      <input placeholder="Name" type="text" id="name" formControlName="name"
+                    <div class="form-outline mb-4">
+                      <input type="text" id="name" formControlName="name"
                              class="form-control form-control-lg" required/>
+                      <label class="form-label" for="name">Name</label>
                     </div>
 
-                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger" role="alert">
                       <div *ngIf="name.errors?.['required']">
                         Name is required.
                       </div>
                     </div>
 
-                    <div class="form-outline form-white mb-4">
-                      <input placeholder="Position" type="text" id="position" formControlName="position"
+                    <div class="form-outline mb-4">
+                      <input type="text" id="position" formControlName="position"
                              class="form-control form-control-lg" required/>
+                      <label class="form-label" for="position">Position</label>
                     </div>
 
-                    <div *ngIf="position.invalid && (position.dirty || position.touched)" class="alert alert-danger">
+                    <div *ngIf="position.invalid && (position.dirty || position.touched)" class="alert alert-danger" role="alert">
                       <div *ngIf="position.errors?.['required']">
                         Position is required.
                       </div>
                     </div>
 
-                    <div class="mb-3">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" formControlName="level" name="level" id="level-junior" value="junior" required>
-                        <label class="form-check-label" style="float: left;" for="level-junior">Junior</label>
+                    <div class="mb-4">
+                      <div class="form-check d-flex align-items-center mb-3">
+                        <input class="form-check-input me-2" type="radio" formControlName="level" name="level" id="level-junior" value="junior" required>
+                        <label class="form-check-label" for="level-junior">Junior</label>
                       </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" formControlName="level" name="level" id="level-mid" value="mid" required>
-                        <label class="form-check-label" style="float: left;" for="level-mid">Mid</label>
+                      <div class="form-check d-flex align-content-between mb-3">
+                        <input class="form-check-input me-2" type="radio" formControlName="level" name="level" id="level-mid" value="mid" required>
+                        <label class="form-check-label" for="level-mid">Mid</label>
                       </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" formControlName="level" name="level" id="level-senior"
-                               value="senior" required>
-                        <label class="form-check-label" style="float: left;" for="level-senior">Senior</label>
+                      <div class="form-check d-flex align-content-center mb-3">
+                        <input class="form-check-input me-2" type="radio" formControlName="level" name="level" id="level-senior" value="senior" required>
+                        <label class="form-check-label" for="level-senior">Senior</label>
                       </div>
                     </div>
-
-                    <button class="btn btn-outline-light btn-lg px-5" type="submit" [disabled]="employeeForm.invalid">
-                      Login
-                    </button>
-
-                  </div>
-
+                    
+                    <div class="d-flex justify-content-center">
+                      <button type="submit" [disabled]="employeeForm.invalid"
+                              class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Log in</button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </section>
   `,
   styleUrls: ['./login-employee-component.component.css']

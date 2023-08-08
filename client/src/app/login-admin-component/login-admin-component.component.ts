@@ -7,56 +7,58 @@ import {Admin} from "../admin"
 @Component({
   selector: 'app-login-admin-component',
   template: `
-    <section class="vh-100 gradient-custom" xmlns="http://www.w3.org/1999/html">
-      <form class="admin-form" autocomplete="off" [formGroup]="adminForm" (ngSubmit)="submitForm()">
-        <div class="container py-5 h-100">
+    <section class="vh-100 bg-image"
+             style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+      <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+              <div class="card" style="border-radius: 15px;">
+                <div class="card-body p-5">
+                  <h2 class="text-uppercase text-center mb-5">Admin Login</h2>
+                  
+                  <form class="admin-form" autocomplete="off" [formGroup]="adminForm" (ngSubmit)="submitForm()">
 
-                  <div class="mb-md-5 mt-md-4 pb-5">
-
-                    <h2 class="fw-bold mb-2 text-uppercase">Login Admin</h2>
-                    <p class="text-white-50 mb-5">Please enter your login and password!</p>
-
-                    <div class="form-outline form-white mb-4">
-                      <input placeholder="Email" type="text" id="email" formControlName="email"
+                    <div class="form-outline mb-4">
+                      <input type="email" id="email" formControlName="email"
                              class="form-control form-control-lg" required/>
+                      <label class="form-label" for="email">Email</label>
                     </div>
 
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger" role="alert">
                       <div *ngIf="email.errors?.['required']">
                         Email is required.
                       </div>
                     </div>
 
-                    <div class="form-outline form-white mb-4">
-                      <input placeholder="Password" type="text" id="password" formControlName="password"
+                    <div class="form-outline mb-4">
+                      <input type="password" id="password" formControlName="password" 
                              class="form-control form-control-lg" required/>
+                      <label class="form-label" for="password">Password</label>
                     </div>
 
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger" role="alert">
                       <div *ngIf="password.errors?.['required']">
                         Password is required.
                       </div>
                     </div>
 
-                    <button class="btn btn-outline-light btn-lg px-5" type="submit" [disabled]="adminForm.invalid">
-                      Login
-                    </button>
-
-                  </div>
-
+                    <div class="d-flex justify-content-center">
+                      <button type="submit" [disabled]="adminForm.invalid"
+                              class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Log in</button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </section>
   `,
-  styleUrls: ['./login-admin-component.component.css']
+  styleUrls: [
+
+  ]
 })
 export class LoginAdminComponentComponent implements OnInit {
   @Input()
