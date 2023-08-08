@@ -20,10 +20,10 @@ import {Admin} from "../admin"
                   
                   <form class="admin-form" autocomplete="off" [formGroup]="adminForm" (ngSubmit)="submitForm()">
 
-                    <div class="form-outline mb-4">
-                      <input type="email" id="email" formControlName="email"
+                    <div class="form-floating mb-4">
+                      <input type="email" id="email" formControlName="email"  placeholder="Email"
                              class="form-control form-control-lg" required/>
-                      <label class="form-label" for="email">Email</label>
+                      <label for="email">Email</label>
                     </div>
 
                     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger" role="alert">
@@ -32,10 +32,10 @@ import {Admin} from "../admin"
                       </div>
                     </div>
 
-                    <div class="form-outline mb-4">
-                      <input type="password" id="password" formControlName="password" 
+                    <div class="form-floating mb-4">
+                      <input type="password" id="password" formControlName="password" placeholder="Password"
                              class="form-control form-control-lg" required/>
-                      <label class="form-label" for="password">Password</label>
+                      <label for="password">Password</label>
                     </div>
 
                     <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger" role="alert">

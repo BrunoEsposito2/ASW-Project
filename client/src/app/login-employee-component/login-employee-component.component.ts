@@ -19,8 +19,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
                   <form class="admin-form" autocomplete="off" [formGroup]="employeeForm" (ngSubmit)="submitForm()">
 
-                    <div class="form-outline mb-4">
-                      <input type="text" id="name" formControlName="name"
+                    <div class="form-floating mb-4">
+                      <input type="text" id="name" formControlName="name" placeholder="Name"
                              class="form-control form-control-lg" required/>
                       <label class="form-label" for="name">Name</label>
                     </div>
@@ -31,8 +31,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
                       </div>
                     </div>
 
-                    <div class="form-outline mb-4">
-                      <input type="text" id="position" formControlName="position"
+                    <div class="form-floating mb-4">
+                      <input type="text" id="position" formControlName="position" placeholder="Position"
                              class="form-control form-control-lg" required/>
                       <label class="form-label" for="position">Position</label>
                     </div>
