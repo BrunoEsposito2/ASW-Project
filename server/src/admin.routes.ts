@@ -15,7 +15,7 @@ adminRouter.get('/:email/:password', async (req, res) => {
 
         if (admin) {
             bcrypt.compare(password, admin.password, (err, hashRes) => {
-                if (hashRes) {
+                if (hashRes && !err) {
                     res.status(200).send(hashRes);
                 } else {
                     res.status(404).send(`Failed to find the admin password: ${password}`);
