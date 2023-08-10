@@ -5,31 +5,34 @@ import { io } from 'socket.io-client';
   selector: 'app-chat',
   template: `
     <div class="container">
-      <h1>Chat App</h1>
-      <app-username (userNameEvent)="userNameUpdate($event)" *ngIf="!userName"></app-username>
-      <div class="chatbox">
-        <div class="user-list">
-          <h2>User List</h2>
-          <div class="user" *ngFor="let user of userList" [ngClass]="{'active': user === activeUser}">
-            <div class="user-indicator"></div>
-            <p>{{ user }}</p>
-          </div>
-        </div>
-        <div class="messages-list">
-          <div class="message" *ngFor="let msg of messageList" [ngClass]="{'mine': msg.mine}">
-            <div class="message-box">
-              <p class="name">{{ msg.userName }}</p>
-              <br />
-              <p class="content">{{ msg.message }}</p>
+      <app-chat-button (userNameEvent)="userNameUpdate($event)"></app-chat-button>
+      <div class="collapse" id="app-chat">
+        <div class="card card-body">
+          <div class="chatbox">
+            <div class="user-list">
+              <h2>User List</h2>
+              <div class="user" *ngFor="let user of userList" [ngClass]="{'active': user === activeUser}">
+                <div class="user-indicator"></div>
+                <p>{{ user }}</p>
+              </div>
+            </div>
+            <div class="messages-list">
+              <div class="message" *ngFor="let msg of messageList" [ngClass]="{'mine': msg.mine}">
+                <div class="message-box">
+                  <p class="name">{{ msg.userName }}</p>
+                  <br />
+                  <p class="content">{{ msg.message }}</p>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="send-message">
+            <mat-form-field>
+              <input matInput type="text" [(ngModel)]="message" placeholder="Type a message" />
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="sendMessage()">Send</button>
+          </div>
         </div>
-      </div>
-      <div class="send-message">
-        <mat-form-field>
-          <input matInput type="text" [(ngModel)]="message" placeholder="Type a message" />
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="sendMessage()">Send</button>
       </div>
     </div>
   `,

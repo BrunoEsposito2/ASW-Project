@@ -17,7 +17,7 @@ import {AssistantsComponentComponent} from './assistants-component/assistants-co
 import {StepsComponentComponent} from './steps-component/steps-component.component';
 import {EmployeeRenderedComponent} from './render/employee-rendered.component';
 import {ChatComponent} from './chat/chat.component';
-import {UsernameComponent} from './username/username.component';
+import {ChatButtonComponent} from './chat-button/chat-button.component';
 import {ChartsComponentComponent} from "./charts-component/charts-component.component";
 import {PowerUnitChartsComponent} from "./power-unit-charts/power-unit-charts.component";
 import {MatCardModule} from "@angular/material/card";
@@ -50,7 +50,7 @@ import { HomepageNavbarComponent } from './homepage-navbar/homepage-navbar.compo
         ChatComponent,
         ChartsComponentComponent,
         PowerUnitChartsComponent,
-        UsernameComponent,
+        ChatButtonComponent,
         LoginAdminComponentComponent,
         LoginEmployeeComponentComponent,
         AuthAdminComponentComponent,

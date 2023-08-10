@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'employees/login', component: AuthEmployeeComponent },
 
   { path: 'admins/login', component: AuthAdminComponentComponent },
-  { path: 'admins/dashboard', component: AdminComponent },
+  { path: 'admins/dashboard/:username', component: AdminComponent },
 ];
 
 @NgModule({
