@@ -37,9 +37,6 @@ import { Component } from '@angular/core';
         </div>
       </div>
     </section>
-    <section id="chat">
-      <app-chat></app-chat>
-    </section>
   `,
   styles: [
   ]

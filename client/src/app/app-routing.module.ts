@@ -7,6 +7,7 @@ import {AuthAdminComponentComponent} from "./auth-admin-component/auth-admin-com
 import {AdminComponent} from "./admin/admin.component";
 import {AuthEmployeeComponent} from "./auth-employee/auth-employee.component";
 import {HomepageComponent} from "./homepage/homepage.component";
+import {ChatComponent} from "./chat/chat.component";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
 
   { path: 'admins/login', component: AuthAdminComponentComponent },
   { path: 'admins/dashboard/:username', component: AdminComponent },
+  { path: 'admins/chat/:username', component: ChatComponent }
 ];
 
 @NgModule({
