@@ -21,10 +21,10 @@ import {ActivatedRoute, Router} from "@angular/router";
               <button class="nav-link" (click)="redirectToDashboard()">Dashboard</button>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="employees/">Employees</a>
+              <button class="nav-link" (click)="redirectToEmployees()">Employees</button>
             </li>
             <li class="nav-item">
-              <button class="nav-link" (click)="toChatPage()"> Chat </button>
+              <button class="nav-link" (click)="redirectToChat()"> Chat </button>
             </li>
           </ul>
           <!-- Left links -->
@@ -58,7 +58,11 @@ export class AdminNavbarComponent {
     this.router.navigate(['admins/dashboard/' + this.activatedRoute.snapshot.paramMap.get('username')]);
   }
 
-  toChatPage(): void {
+  redirectToChat(): void {
     this.router.navigate(["admins/chat/" + this.activatedRoute.snapshot.paramMap.get('username') !]);
+  }
+
+  redirectToEmployees(): void {
+    this.router.navigate(["admins/" + this.activatedRoute.snapshot.paramMap.get('username')! + "/employees"]);
   }
 }

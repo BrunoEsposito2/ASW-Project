@@ -25,7 +25,7 @@ export class AuthEmployeeComponent implements OnInit {
     this.employeeService.getEmployeeByInfo(employee.name !, employee.position !, employee.level !)
         .subscribe({
           next: () => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/employees/dashboard/' + employee.name]);
           },
           error: (error: HttpErrorResponse) => {
             alert('Employee could not be found. Please try again.');

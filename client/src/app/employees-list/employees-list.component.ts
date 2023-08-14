@@ -6,6 +6,7 @@ import {EmployeeService} from '../employee.service';
 @Component({
   selector: 'app-employees-list',
   template: `
+    <app-admin-navbar></app-admin-navbar>
     <h2 class="text-center m-5">Employees List</h2>
 
     <table class="table table-striped table-bordered">

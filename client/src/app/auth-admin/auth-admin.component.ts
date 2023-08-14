@@ -6,12 +6,12 @@ import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
-  selector: 'app-auth-admin-component',
+  selector: 'app-auth-admin',
   template: `
     <app-login-admin-component [initialState]="admin" (formSubmitted)="adminAuth($event)"></app-login-admin-component>
   `
 })
-export class AuthAdminComponentComponent implements OnInit {
+export class AuthAdminComponent implements OnInit {
   admin: BehaviorSubject<Admin> = new BehaviorSubject({});
 
   constructor(

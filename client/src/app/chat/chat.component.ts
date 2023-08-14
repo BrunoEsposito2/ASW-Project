@@ -5,7 +5,6 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-chat',
   template: `
-    <app-admin-navbar></app-admin-navbar>
     <section id="chat">
       <div class="container py-5">
         <div class="row">
@@ -16,7 +15,7 @@ import {ActivatedRoute} from "@angular/router";
                 <ul class="user-list mb-0">
                   <li class="user p-2 border-bottom" *ngFor="let user of userList" [ngClass]="{'active': user === activeUser}">
                     <div class="d-flex flex-row">
-                      <p class="user-indicator rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60"></p>
+                      <p class="user-indicator rounded-circle d-flex align-self-center me-3 shadow-1-strong"></p>
                       <div class="pt-1">
                         <p class="fw-bold mb-0">{{ user }}</p>
                       </div>
@@ -31,7 +30,7 @@ import {ActivatedRoute} from "@angular/router";
               <div class="card-body" style="position: relative; height: 600px; overflow-y: scroll;" #chatMessages>
                 <div class="message" *ngFor="let msg of messageList" [ngClass]="{'mine': msg.mine}">
                   <div class="message-box">
-                    <div class="card border border-dark mb-3" style="min-width: 200px; max-width: 700px; min-height: 100px; max-height: 400px;">
+                    <div class="card border border-dark mb-3" style="min-width: 200px; max-width: 550px; min-height: 100px; max-height: 400px;">
                       <div class="card-header d-flex justify-content-between p-3">
                         <p class="name fw-bold mb-0">{{ msg.userName }}</p>
                       </div>
@@ -44,7 +43,7 @@ import {ActivatedRoute} from "@angular/router";
               </div>
               <div class="card-footer border-black">
                 <div class="send-message text-muted d-flex justify-content-start align-items-center p-3">
-                  <textarea matInput type="text" class="form-control form-control-lg" style="resize: none;" [(ngModel)]="message" placeholder="Type a message"></textarea>
+                  <textarea matInput type="text" class="form-control form-control-lg" style="resize: none;" (keyup.enter)="sendMessage()" [(ngModel)]="message" placeholder="Type a message"></textarea>
                   <button class="btn btn-info btn-rounded float-end" type="button" (click)="sendMessage()">
                     <i class="fas fa-paper-plane"></i>
                   </button>
@@ -92,7 +91,8 @@ export class ChatComponent implements AfterViewChecked {
   }
 
   sendMessage(): void {
-    if (this.message !== "") {
+    const regex = /^(\n|''| .*)/;
+    if (!regex.test(this.message)) {
       this.socket.emit('message', this.message);
       this.messageList.push({message: this.message, userName: this.userName, mine: true});
       this.message = "";
