@@ -31,6 +31,7 @@ import { AuthEmployeeComponent } from './auth-employee/auth-employee.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageNavbarComponent } from './homepage-navbar/homepage-navbar.component';
+import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 
 @NgModule({
     declarations: [
@@ -57,6 +58,7 @@ import { HomepageNavbarComponent } from './homepage-navbar/homepage-navbar.compo
         HomepageComponent,
         DashboardComponent,
         HomepageNavbarComponent,
+        AdminNavbarComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],
