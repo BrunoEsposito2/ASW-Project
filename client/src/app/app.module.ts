@@ -12,7 +12,7 @@ import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ChartsComponentComponent } from './charts-component/charts-component.component';
 import { PowerUnitChartsComponent } from './power-unit-charts/power-unit-charts.component';
-
+import { NotifierModule} from "angular-notifier";
 
 @NgModule({
   declarations: [
@@ -30,7 +30,9 @@ import { PowerUnitChartsComponent } from './power-unit-charts/power-unit-charts.
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule, // <-- add this line
-    
+    NotifierModule.withConfig({
+
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

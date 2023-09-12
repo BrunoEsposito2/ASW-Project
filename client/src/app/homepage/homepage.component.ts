@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-homepage',
@@ -32,15 +33,28 @@ import { Component, OnInit } from '@angular/core';
         </div>
       </div>
     </section>
+    <button (click)="showNotification()">Show Notification</button>
+    <notifier-container>
+      
+    </notifier-container>
+    
   `,
   styles: [
   ]
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  private notifier: NotifierService;
 
-  ngOnInit(): void {
+  constructor(notifierService: NotifierService) {
+    this.notifier = notifierService;
   }
 
+  public showNotification(): void {
+    this.notifier.notify('success', 'This is a test notification!');
+  }
+  ngOnInit(): void {
+  }
 }
+
+

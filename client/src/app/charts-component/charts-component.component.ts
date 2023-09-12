@@ -51,8 +51,8 @@ export class ChartsComponentComponent implements OnInit {
     								 '12:00 - 15:00', '15:00 - 18:00', '18:00 - 21:00', '21:00 - 24:00'],
     	       datasets: [
               {
-                //label: "Waste",
-                label: this.productivityService.getProductivity(),
+                label: "Waste",
+                //label: this.productivityService.getProductivity(),
                 data: ['90','120', '212', '79', '92',
     								 '174', '75', '56'],
                 //data:this.productivityService.getProductivity(),
