@@ -19,6 +19,34 @@ export async function connectToDatabase(uri: string) {
 
     const adminsCollection = db.collection<Admin>("admins");
     collections.admins = adminsCollection;
+
+    const jsonProductionSchema = {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["kg_produced", "kg_waste", "timestamp", "id"],
+            additionalProperties: false,
+            properties: {
+                _id: {},
+                kg_produced: {
+                    bsonType: "number",
+                    description: "'kg_produced' is required and is a number",
+                    minimum: 0
+                },
+                kg_waste: {
+                    bsonType: "number",
+                    description: "'kg_waste' is required and is a number",
+                    minimum: 0
+                },
+                timestamp: {
+                    bsonType: "date",
+                    description: "'timestamp' is required and is a date"
+                },
+            }
+        }
+    };
+
+    await db.createCollection("production", {validator: jsonProductionSchema});
+
 }
 
 // Update our existing collection with JSON schema validation so we know our documents will always match the shape of our Employee model, even if added elsewhere.
