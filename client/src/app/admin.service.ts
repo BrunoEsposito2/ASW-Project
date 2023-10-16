@@ -6,7 +6,7 @@ import {Admin} from "./admin";
 @Injectable({
     providedIn: 'root'
 })
-export class EmployeeService {
+export class AdminService {
     private url = 'http://localhost:5200';
     private employees$: Subject<Admin[]> = new Subject();
 
@@ -24,11 +24,7 @@ export class EmployeeService {
         return this.employees$;
     }
 
-    getAdmin(id: string): Observable<Admin> {
-        return this.httpClient.get<Admin>(`${this.url}/admins/${id}`);
-    }
-
-    getPassword(id: string): Observable<Admin> {
-        return this.httpClient.get<Admin>(`${this.url}/admins/password/${id}`);
+    getAdmin(email: string, password: string): Observable<Admin> {
+        return this.httpClient.get<Admin>(`${this.url}/admins/${email}/${password}`);
     }
 }

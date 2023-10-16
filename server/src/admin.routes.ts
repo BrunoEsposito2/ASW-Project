@@ -1,28 +1,30 @@
 import * as express from "express";
-import * as mongodb from "mongodb";
 import {collections} from "./database";
+import bcrypt from "bcrypt";
 
 export const adminRouter = express.Router();
 adminRouter.use(express.json());
 
-adminRouter.get("/password/:id", async (req, res) => {
+adminRouter.get('/:email/:password', async (req, res) => {
     try {
-        const id = req?.params?.id;
-        const query = { _id: new mongodb.ObjectId(id) };
-        const admin = await collections.admins.findOne(query);
+        const email = req?.params?.email;
+        const password = req?.params?.password;
 
-        // TODO: manage the Admin authentication
-        if(admin.password != null){
-            let password = admin.password
-        }
+        const emailQuery = { email: email };
+        const admin = await collections.admins.findOne(emailQuery);
 
         if (admin) {
-            res.status(200).send(admin.password);
+            bcrypt.compare(password, admin.password, (err, hashRes) => {
+                if (hashRes && !err) {
+                    res.status(200).send(hashRes);
+                } else {
+                    res.status(404).send(`Failed to find the admin password: ${password}`);
+                }
+            })
         } else {
-            res.status(404).send(`Failed to find an employee: ID ${id}`);
+            res.status(404).send(`Failed to find the admin email: ${email}`);
         }
-    } catch (error) {
-        res.status(404).send(`Failed to find an employee: ID ${req?.params?.id}`);
+    } catch (err) {
+        res.status(404).send(`Failed to find the admin credentials inserted.`);
     }
-
-});
+})
