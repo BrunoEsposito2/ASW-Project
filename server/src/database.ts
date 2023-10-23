@@ -1,10 +1,12 @@
 import * as mongodb from "mongodb";
 import {Employee} from "./employee";
 import {Admin} from "./admin";
+import {Production} from "./production";
 
 export const collections: {
     employees?: mongodb.Collection<Employee>;
     admins?: mongodb.Collection<Admin>;
+    production?: mongodb.Collection<Production>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
@@ -20,32 +22,8 @@ export async function connectToDatabase(uri: string) {
     const adminsCollection = db.collection<Admin>("admins");
     collections.admins = adminsCollection;
 
-    const jsonProductionSchema = {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["kg_produced", "kg_waste", "timestamp", "id"],
-            additionalProperties: false,
-            properties: {
-                _id: {},
-                kg_produced: {
-                    bsonType: "number",
-                    description: "'kg_produced' is required and is a number",
-                    minimum: 0
-                },
-                kg_waste: {
-                    bsonType: "number",
-                    description: "'kg_waste' is required and is a number",
-                    minimum: 0
-                },
-                timestamp: {
-                    bsonType: "date",
-                    description: "'timestamp' is required and is a date"
-                },
-            }
-        }
-    };
-
-    await db.createCollection("production", {validator: jsonProductionSchema});
+    const productionCollection = db.collection<Production>("production");
+    collections.production = productionCollection;
 
 }
 
@@ -97,7 +75,32 @@ async function applySchemaValidation(db: mongodb.Db) {
         },
     };
 
-    // Try applying the modification to the collection, if the collection doesn't exist, create it
+    const jsonProductionSchema = {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["kg_produced", "kg_waste", "timestamp"],
+            additionalProperties: false,
+            properties: {
+                _id: {},
+                kg_produced: {
+                    bsonType: "number",
+                    description: "'kg_produced' is required and is a number",
+                    minimum: 0
+                },
+                kg_waste: {
+                    bsonType: "number",
+                    description: "'kg_waste' is required and is a number",
+                    minimum: 0
+                },
+                timestamp: {
+                    bsonType: "date",
+                    description: "'timestamp' is required and is a date"
+                },
+            }
+        }
+    };
+
+
    await db.command({
         collMod: "employees",
         validator: jsonEmployeesSchema
@@ -115,4 +118,13 @@ async function applySchemaValidation(db: mongodb.Db) {
            await db.createCollection("admins", {validator: jsonAdminsSchema});
        }
    })
+
+    await db.command({
+        collMod: "production",
+        validator: jsonProductionSchema
+    }).catch(async (error: mongodb.MongoServerError) => {
+        if (error.codeName === "NamespaceNotFound") {
+            await db.createCollection("production", {validator: jsonProductionSchema});
+        }
+    })
 }
