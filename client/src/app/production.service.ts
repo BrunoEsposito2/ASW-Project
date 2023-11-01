@@ -8,11 +8,13 @@ import { Production } from './production';
 })
 export class ProductionService {
     private url = 'http://localhost:5200';
-    private productions$: Subject<Production[]> = new Subject();
+    public productions$: Subject<Production[]> = new Subject();
+    private index = 0;
+    private size = 20;
 
     constructor(private httpClient: HttpClient) { }
 
-    private refreshProductions() {
+    public refreshProductions() {
         this.httpClient.get<Production[]>(`${this.url}/production`)
             .subscribe(productions => {
                 this.productions$.next(productions);
@@ -39,4 +41,18 @@ export class ProductionService {
     deleteProduction(id: string): Observable<string> {
         return this.httpClient.delete(`${this.url}/production/${id}`, { responseType: 'text' });
     }
+
+    public refreshPaginateProductions(index: number = 0, size: number = 20) {
+        this.httpClient.get<Production[]>(`${this.url}/production?index=${index}&size=${size}`)
+            .subscribe(productions => {
+                this.productions$.next(productions);
+            });
+    }
+
+    public getProductionsPaginate(index: number = 0, size: number = 20): Subject<Production[]> {
+        this.refreshPaginateProductions(index, size);
+        return this.productions$;
+    }
+
+
 }

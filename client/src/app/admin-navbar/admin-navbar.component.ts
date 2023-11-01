@@ -5,32 +5,35 @@ import {ActivatedRoute, Router} from "@angular/router";
   selector: 'app-admin-navbar',
   template: `
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light custom-nav sticky-top">
       <!-- Container wrapper -->
-      <div class="container">
+      <div class="container custom-nav">
         <!-- Navbar brand -->
         <a class="navbar-brand me-2">
-          FraBruGia S.r.l.
+          <img class="" src="../assets/tower-logo.png" alt="logo_frabrugia" style="width:100px; height:40px" >
         </a>
 
         <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+        <div class="collapse navbar-collapse custom-nav" id="navbarButtonsExample">
           <!-- Left links -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <button class="nav-link" (click)="redirectToDashboard()">Dashboard</button>
+            <li class="nav-item custom-font">
+              <button class="nav-link custom-font" (click)="redirectToDashboard()">Dashboard</button>
             </li>
             <li class="nav-item">
-              <button class="nav-link" (click)="redirectToEmployees()">Employees</button>
+              <button class="nav-link custom-font" (click)="redirectToEmployees()">Employees</button>
             </li>
             <li class="nav-item">
-              <button class="nav-link" (click)="redirectToChat()"> Chat </button>
+              <button class="nav-link custom-font" (click)="redirectToChat()"> Chat </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link custom-font" (click)="redirectToProductions()"> Productions </button>
             </li>
           </ul>
           <!-- Left links -->
 
           <div class="d-flex align-items-center">
-            <button type="button" class="btn btn-primary me-3" (click)="redirectToHomePage()">
+            <button type="button" class="btn btn-primary me-3 custom-font" (click)="redirectToHomePage()">
               Log Out
             </button>
           </div>
@@ -64,5 +67,9 @@ export class AdminNavbarComponent {
 
   redirectToEmployees(): void {
     this.router.navigate(["admins/" + this.activatedRoute.snapshot.paramMap.get('username')! + "/employees"]);
+  }
+
+  redirectToProductions(): void {
+    this.router.navigate(["admins/" + this.activatedRoute.snapshot.paramMap.get('username')! + "/productions"]);
   }
 }

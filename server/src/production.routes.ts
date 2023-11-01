@@ -13,6 +13,22 @@ productionRouter.get("/", async (_req, res) => {
         res.status(500).send(error.message);
     }
 });
+productionRouter.get('/productions', async (req, res) => {
+
+    const page: number = parseInt(req.query.page as string);
+    const pageSize: number = parseInt(req.query.pageSize as string);
+    const skip = (page - 1) * pageSize;
+    try {
+        const productions = await collections.production.find()
+            .sort({ timestamp: -1 }) // Ordinamento decrescente
+            .skip(skip)
+            .limit(pageSize);
+        res.json(productions);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Errore nel recupero delle produzioni' });
+    }
+});
 
 productionRouter.get("/:id", async (req, res) => {
     try {
@@ -88,3 +104,39 @@ productionRouter.delete("/:id", async (req, res) => {
         res.status(400).send(error.message);
     }
 });
+
+
+/*chat
+
+// Esempio di backend MongoDB con paginazione e ordinamento
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const Production = require('./models/Production'); // Assicurati di avere un modello di dati Production
+
+mongoose.connect('mongodb://localhost/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+app.get('/productions', async (req, res) => {
+  const { page, pageSize } = req.query;
+  const skip = (page - 1) * pageSize;
+
+  try {
+    const productions = await Production.find()
+      .sort({ timestamp: -1 }) // Ordinamento decrescente
+      .skip(skip)
+      .limit(parseInt(pageSize));
+    res.json(productions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Errore nel recupero delle produzioni' });
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server avviato sulla porta 3000');
+});
+
+ */

@@ -14,7 +14,7 @@ import {EmployeeRenderedComponent} from '../render/employee-rendered.component';
     }
     canvas {
       border-style: solid;
-      width: 400px;
+      width: 250px;
     }
     `
   ]

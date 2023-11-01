@@ -3,43 +3,67 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-dashboard',
   template: `
-    <h1 class="text-center">
-      FraBruGia S.r.l.
-    </h1>
     <section id="main">
       <div class="row">
         <div class="col-4">
-          <h2> Productivity component </h2>
-          <app-charts-component></app-charts-component>
+          <div class="card bg-light">
+            <div class="card-header custom-font">Productivity component</div>
+            <div class="card-body">
+              <app-charts-component></app-charts-component>
+            </div>
+          </div>
         </div>
         <div class="col-4">
-          <h2 class="text-center"> Mixer unit component </h2>
-          <app-mixer-unit-component class="d-flex justify-content-center"></app-mixer-unit-component>
+          <div class="card bg-light">
+              <div class="card-header custom-font">Mixer unit component</div>
+              <div class="card-body">
+                <app-mixer-unit-component class="d-flex justify-content-center"></app-mixer-unit-component>
+              </div>
+          </div>
         </div>
         <div class="col-4">
-          <h2> Assistants component </h2>
-          <app-assistants-component></app-assistants-component>
+          <div class="card bg-light">
+            <div class="card-header custom-font">Assistants component</div>
+            <div class="card-body">
+              <app-assistants-component></app-assistants-component>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-4">
-          <h2> Power unit component </h2>
-          <app-power-unit-component></app-power-unit-component>
-          <app-power-unit-charts-component></app-power-unit-charts-component>
+          <div class="card bg-light">
+            <div class="card-header custom-font">Power unit component</div>
+            <div class="card-body">
+              <app-power-unit-component></app-power-unit-component>
+              <app-power-unit-charts-component></app-power-unit-charts-component>
+            </div>
+          </div>
         </div>
         <div class="col-4">
-          <h2> Ingredients component </h2>
-          <app-ingredients-component></app-ingredients-component>
+          <div class="card bg-light">
+            <div class="card-header custom-font">Ingredients component </div>
+            <div class="card-body">
+              <app-ingredients-component></app-ingredients-component>
+            </div>
+          </div>
         </div>
         <div class="col-4">
-          <h2> Steps component </h2>
-          <app-steps-component></app-steps-component>
+          <div class="card bg-light">
+            <div class="card-header custom-font">Steps component</div>
+            <div class="card-body">
+              <app-steps-component></app-steps-component>
+            </div>
+          </div>          
         </div>
       </div>
     </section>
   `,
-  styles: [
-  ]
+  styles: [`
+      #main {
+        margin-top:30px;
+    }
+  `]
 })
 
 export class DashboardComponent {

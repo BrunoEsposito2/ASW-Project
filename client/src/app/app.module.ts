@@ -40,7 +40,7 @@ import { CommonModule } from '@angular/common';
 import { ProductionsListComponent } from './production-list/productions-list.component';
 import { AddProductionComponent} from './add-production/add-production-component';
 import { ProductionFormComponent } from './production-form/production-form.component';
-
+import { FakerProductionComponent} from './faker-production/faker-production.component'
 
 @NgModule({
     declarations: [
@@ -74,7 +74,8 @@ import { ProductionFormComponent } from './production-form/production-form.compo
         EmployeeChatComponent,
         ProductionsListComponent,
         AddProductionComponent,
-        ProductionFormComponent
+        ProductionFormComponent,
+        FakerProductionComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],

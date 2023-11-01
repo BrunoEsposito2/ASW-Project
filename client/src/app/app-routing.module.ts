@@ -24,7 +24,9 @@ const routes: Routes = [
   { path: 'employees/dashboard/:username', component: EmployeeComponent },
   { path: 'employees/chat/:username', component: EmployeeChatComponent },
   { path: 'productions', component: ProductionsListComponent },
+  { path: 'admins/productions', component: AuthAdminComponent },
   { path: 'productions/new-production', component: AddProductionComponent },
+  { path: 'admins/:username/productions', component: ProductionsListComponent },
 
   { path: 'admins/login', component: AuthAdminComponent },
   { path: 'admins/dashboard/:username', component: AdminComponent },

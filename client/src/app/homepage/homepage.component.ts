@@ -5,26 +5,27 @@ import {Router} from "@angular/router";
   selector: 'app-homepage',
   template: `
     <app-homepage-navbar></app-homepage-navbar>
-    <div class="px-4 py-5 my-5 text-center">
-<!--      <img class="d-block mx-auto mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->
-      <h1 class="display-5 fw-bold">Welcome to FraBruGia S.r.l.</h1>
-      <div class="col-lg-6 mx-auto">
-        <div class="col-4 custom_font">
-          <h2 class="custom-font"> Productivity component </h2>
-        <p class="lead mb-4">
-          Press the button for your role here to log in.
-        </p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <button type="button" class="btn btn-outline-primary btn-lg px-4 gap-3" (click)="adminLogin()">Admin</button>
-          <button type="button" class="btn btn-outline-primary btn-lg px-4" (click)="employeeLogin()">Employee</button>
-          <h2 class="text-center custom-font"> Mixer unit component </h2>
-          <h2 class="custom-font"> Assistants component </h2>
-          <h2 class="custom-font"> Power unit component </h2>
-          <h2 class="custom-font"> Ingredients component </h2>
+    <!--<img class="d-block mx-auto mb-4" src="../assets/tower-logo.png" alt="logo_frabrugia" >-->
+      <div class="video-container">
+        <div class="buttons">
+          <div class="button-container">
+            <div class="row">
+              <div class="card bg-light">
+                <div class="card-header custom-font">Login</div>
+                  <div class="card-body">
+                    <div class="row">
+                      <button type="button" class="col-sm-4 custom-font btn btn-primary btn-lg" (click)="adminLogin()">Admin</button>
+                      <div class="col-sm-4"></div>
+                      <button type="button" class="col-sm-4 custom-font btn btn-primary btn-lg" (click)="employeeLogin()">Operatore</button>
+                    </div>
+                  </div>
+                </div>
+             </div>
+          </div>
         </div>
-          <h2 class="custom-font"> Steps component </h2>
+        <video data-test="video-content" preload="auto" src="https://cdn.dribbble.com/userupload/8705023/file/large-cec325409ba99f93a7df8a6931e3e1c0.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
       </div>
-    </div>
+    
   `,
   styles:
     [`
@@ -33,14 +34,39 @@ import {Router} from "@angular/router";
       width: 30%;
     }
 
+    .video-container {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(5px); /* Aggiungi uno sfondo sfuocato */
+    }
+    
+    .button-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width:50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background: transparent;
+      padding: 20px;
+      z-index: 1; 
+    }
+    
     @font-face {
       font-family: 'custom_font_gemu';
       src: url('../../assets/Gemunu_Libre/static/GemunuLibre-Regular.ttf') format('truetype');
     }
     
-    .custom-font {
-      font-family: 'custom_font_gemu', sans-serif;
-    }
   `]
 
 })

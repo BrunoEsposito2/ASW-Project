@@ -158,3 +158,11 @@ html, body {
     height: 50%;
     width: 70%;
 }
+
+.custom-font {
+    font-family: 'custom_font_gemu', sans-serif;
+}
+
+.custom-nav {
+    background-color: white;
+}

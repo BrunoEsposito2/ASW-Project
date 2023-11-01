@@ -3,9 +3,16 @@ import { Production} from "../production";
 import { ProductionService} from "../production.service";
 import { AddProductionComponent} from "../add-production/add-production-component";
 import { HttpClient} from "@angular/common/http";
-import * as http from "http";
 import {Router} from "@angular/router";
+import { Component } from '@angular/core';
 
+@Component({
+    selector: 'app-faker-production', // Seleziona un selettore appropriato
+    template: `
+    <!-- Il template del tuo componente -->
+  `,
+    // ... altri metadati del componente
+})
 
 export class FakerProductionComponent {
     constructor(
@@ -51,5 +58,4 @@ calculateKgWaste(): number {
             this.addProduction(production);
         }
     }
-    // mi rimane di chiamare questo in un pulsante
 }

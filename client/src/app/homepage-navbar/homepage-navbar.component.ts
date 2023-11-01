@@ -4,12 +4,12 @@ import { Component } from '@angular/core';
   selector: 'app-homepage-navbar',
   template: `
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light custom-nav bg-light">
       <!-- Container wrapper -->
-      <div class="container">
+      <div class="container custom-nav">
         <!-- Navbar brand -->
         <a class="navbar-brand me-2">
-          FraBruGia S.r.l.
+          <img class="" src="../assets/tower-logo.png" alt="logo_frabrugia" style="width:100px; height:40px" >
         </a>
 
         <!-- Toggle button -->
@@ -26,11 +26,11 @@ import { Component } from '@angular/core';
         </button>
 
         <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+        <div class="collapse navbar-collapse custom-nav" id="navbarButtonsExample">
           <!-- Left links -->
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav custom-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
+              <a class="nav-link custom-font" href="/">Home</a>
             </li>
           </ul>
           <!-- Left links -->
