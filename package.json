@@ -33,17 +33,22 @@
     "url": "https://github.com/mongodb-developer/mean-stack-example.git"
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.8",
     "@types/cors": "^2.8.13",
     "@types/events": "^3.0.0",
     "@types/express": "^4.17.17",
+    "@types/jquery": "^3.5.25",
     "@types/node": "^20.4.2",
     "concurrently": "^7.6.0",
+    "jquery": "^3.7.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   },
   "dependencies": {
     "@angular/cdk": "^16.1.0",
     "@angular/material": "^16.1.0",
+    "@ng-bootstrap/ng-bootstrap": "^15.1.2",
+    "bootstrap": "^5.3.2",
     "chart.js": "^4.3.0",
     "core-js": "^3.23.3",
     "cors": "^2.8.5",

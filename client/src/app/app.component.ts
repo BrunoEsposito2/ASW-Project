@@ -1,4 +1,8 @@
 import {Component} from '@angular/core';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import {Toast} from "bootstrap";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +12,13 @@ import {Component} from '@angular/core';
   </div>
   `
 })
-export class AppComponent { }
+export class AppComponent {
+
+  ngOnInit() {
+
+    Array.from(document.querySelectorAll('.toast'))
+        .forEach(toastNode => new Toast(toastNode))
+
+  }
+
+}

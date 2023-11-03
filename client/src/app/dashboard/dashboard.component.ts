@@ -1,8 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-dashboard',
   template: `
+    <!--<div class="toast show bg-light" id="toast-elem" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>-->
+
+    <ngb-toast
+        (hidden)="isToastVisible = false"
+        [ngClass]="isToastVisible ? 'd-block' : 'd-none'"
+    >
+      <div [ngClass]="'toast show bg-light'">
+        <div class="toast-header">
+          <strong class="me-auto">Toast Title</strong>
+          <small>11 mins ago</small>
+          <button type="button" class="btn-close" (click)="isToastVisible = false" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          This is a toast message!
+        </div>
+      </div>
+    </ngb-toast>
+    
     <section id="main">
       <div class="row">
         <div class="col-4">
@@ -58,6 +88,7 @@ import { Component } from '@angular/core';
         </div>
       </div>
     </section>
+    <!--<button (click)="showToast()" class="btn btn-primary">Mostra Toast</button>-->
   `,
   styles: [`
       #main {
@@ -66,6 +97,14 @@ import { Component } from '@angular/core';
   `]
 })
 
-export class DashboardComponent {
+export class DashboardComponent  implements AfterViewInit {
+  isToastVisible = false;
+  showToast() {
+    this.isToastVisible = true;
+  }
 
+  ngAfterViewInit() {
+
+    $('#toast-elem').toast('show');
+  }
 }
