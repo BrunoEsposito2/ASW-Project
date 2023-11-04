@@ -26,6 +26,11 @@ import {Employee} from '../employee';
         <label for="position">Position</label>
       </div>
 
+      <div class="form-floating mb-3">
+        <input class="form-control" type="text" formControlName="img" placeholder="img" required>
+        <label for="position">Img</label>
+      </div>
+
       <div *ngIf="position.invalid && (position.dirty || position.touched)" class="alert alert-danger">
 
         <div *ngIf="position.errors?.['required']">
@@ -33,6 +38,16 @@ import {Employee} from '../employee';
         </div>
         <div *ngIf="position.errors?.['minlength']">
           Position must be at least 5 characters long.
+        </div>
+      </div>
+
+      <div *ngIf="img.invalid && (img.dirty || img.touched)" class="alert alert-danger">
+
+        <div *ngIf="img.errors?.['required']">
+          Position is required.
+        </div>
+        <div *ngIf="position.errors?.['minlength']">
+          Img must be at least 5 characters long.
         </div>
       </div>
 
@@ -80,13 +95,16 @@ export class EmployeeFormComponent implements OnInit {
   get name() { return this.employeeForm.get('name')!; }
   get position() { return this.employeeForm.get('position')!; }
   get level() { return this.employeeForm.get('level')!; }
+  get img() { return this.employeeForm.get('img')!; }
+
 
   ngOnInit() {
     this.initialState.subscribe(employee => {
       this.employeeForm = this.fb.group({
         name: [ employee.name, [Validators.required] ],
         position: [ employee.position, [ Validators.required, Validators.minLength(5) ] ],
-        level: [ employee.level, [Validators.required] ]
+        level: [ employee.level, [Validators.required] ],
+        img: [ employee.img, [ Validators.required, Validators.minLength(5) ] ],
       });
     });
 

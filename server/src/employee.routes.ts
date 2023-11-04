@@ -30,12 +30,13 @@ employeeRouter.get("/:id", async (req, res) => {
     }
 });
 
-employeeRouter.get("/:name/:position/:level", async (req, res) => {
+employeeRouter.get("/:name/:position/:level/:img", async (req, res) => {
    try {
        const name = req?.params?.name;
        const position = req?.params?.position;
        const level = req?.params?.level;
-       const query = { name: name, position: position, level: level };
+       const img = req?.params?.img;
+       const query = { name: name, position: position, level: level, img: img };
        const employee = await collections.employees.findOne(query);
 
        if (employee) {
@@ -44,7 +45,7 @@ employeeRouter.get("/:name/:position/:level", async (req, res) => {
            res.status(404).send(`Failed to find the employee`);
        }
    } catch (error) {
-       res.status(404).send(`Failed to find an employee: NAME ${req?.params?.name} POSITION ${req?.params?.position} ROLE ${req?.params?.level}`);
+       res.status(404).send(`Failed to find an employee: NAME ${req?.params?.name} POSITION ${req?.params?.position} ROLE ${req?.params?.level} IMG ${req?.params?.img}`);
    }
 });
 
@@ -103,7 +104,7 @@ employeeRouter.delete("/:id", async (req, res) => {
     }
 });
 
-employeeRouter.get("/position/:id", async (req, res) => {
+/*employeeRouter.get("/position/:id", async (req, res) => {
     try {
         const id = req?.params?.id;
         const query = { _id: new mongodb.ObjectId(id) };
@@ -129,4 +130,4 @@ employeeRouter.get("/position/:id", async (req, res) => {
         res.status(404).send(`Failed to find an employee: ID ${req?.params?.id}`);
     }
 
-});
+});*/

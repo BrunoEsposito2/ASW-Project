@@ -4,9 +4,6 @@ export interface Employee {
     name: string;
     position: string;
     level: string; //"junior" | "mid" | "senior";
-    localization: {
-      latitude: string;
-      longitude: string;
-    }
+    img: string;
     _id?: mongodb.ObjectId;
 }
