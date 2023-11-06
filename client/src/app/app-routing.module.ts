@@ -33,7 +33,8 @@ const routes: Routes = [
   { path: 'admins/chat/:username', component: AdminChatComponent },
   { path: 'admins/:username/employees', component: EmployeesListComponent },
   { path: 'admins/:username/employees/new', component: AddEmployeeComponent },
-  { path: 'admins/:username/employees/edit/:id', component: EditEmployeeComponent }
+  { path: 'admins/:username/employees/edit/:id', component: EditEmployeeComponent },
+  { path: 'employee-operating-data', redirectTo: 'employee-operating-data', pathMatch: 'full' },
 ];
 
 @NgModule({

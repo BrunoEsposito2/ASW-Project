@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import { FakerEmployeeDataService } from '../faker-employee-data';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -36,6 +37,13 @@ import {ActivatedRoute, Router} from "@angular/router";
             <button type="button" class="btn btn-primary me-3 custom-font" (click)="redirectToHomePage()">
               Log Out
             </button>
+            <button (click)="toggleFakerService()">On/Off</button>
+            <img
+                id="faker-state"
+                [src]="isFakerServiceActive ? 'assets/icons8-on-80.png' : 'assets/icons8-off-80.png'"
+                alt="faker-state"
+                style="width: 30px; height: 30px; margin-left:10px"
+            >
           </div>
         </div>
         <!-- Collapsible wrapper -->
@@ -48,9 +56,11 @@ import {ActivatedRoute, Router} from "@angular/router";
   ]
 })
 export class AdminNavbarComponent {
+  public isFakerServiceActive = false
   constructor(
       private activatedRoute: ActivatedRoute,
-      private router: Router
+      private router: Router,
+      private fakerEmployeeDataService: FakerEmployeeDataService,
   ) {  }
 
   redirectToHomePage() {
@@ -71,5 +81,15 @@ export class AdminNavbarComponent {
 
   redirectToProductions(): void {
     this.router.navigate(["admins/" + this.activatedRoute.snapshot.paramMap.get('username')! + "/productions"]);
+  }
+
+  toggleFakerService() {
+    if (this.fakerEmployeeDataService.isActive()) {
+      this.fakerEmployeeDataService.stopUpdatingDatabase();
+      this.isFakerServiceActive = false;
+    } else {
+      this.fakerEmployeeDataService.startUpdatingDatabase();
+      this.isFakerServiceActive = true;
+    }
   }
 }

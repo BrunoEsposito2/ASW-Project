@@ -2,11 +2,13 @@ import * as mongodb from "mongodb";
 import {Employee} from "./employee";
 import {Admin} from "./admin";
 import {Production} from "./production";
+import {EmployeeOperatingData} from "./employee.operating.data";
 
 export const collections: {
     employees?: mongodb.Collection<Employee>;
     admins?: mongodb.Collection<Admin>;
     production?: mongodb.Collection<Production>;
+    employee_operating_data?: mongodb.Collection<EmployeeOperatingData>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
@@ -25,11 +27,16 @@ export async function connectToDatabase(uri: string) {
     const productionCollection = db.collection<Production>("production");
     collections.production = productionCollection;
 
+    const employeesOperatingDataCollection = db.collection<EmployeeOperatingData>("employee_operating_data");
+    collections.employee_operating_data = employeesOperatingDataCollection;
+
 }
 
 // Update our existing collection with JSON schema validation so we know our documents will always match the shape of our Employee model, even if added elsewhere.
 // For more information about schema validation, see this blog series: https://www.mongodb.com/blog/post/json-schema-validation--locking-down-your-model-the-smart-way
 async function applySchemaValidation(db: mongodb.Db) {
+
+
     const jsonEmployeesSchema = {
         $jsonSchema: {
             bsonType: "object",
@@ -55,6 +62,43 @@ async function applySchemaValidation(db: mongodb.Db) {
                     bsonType: "string",
                     description: "'level' is required and is one of 'junior', 'mid', or 'senior'",
                     enum: ["junior", "mid", "senior"],
+                },
+            },
+        },
+    };
+
+
+    const jsonEmployeeOperatingDataSchema = {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_employee"],
+            additionalProperties: false,
+            properties: {
+                _id: {},
+                latitude: {
+                    bsonType: "string",
+                    description: "'latitude' is a string",
+                },
+                longitude: {
+                    bsonType: "string",
+                    description: "'longitude' is a string",
+                },
+                temperature: {
+                    bsonType: "number",
+                    description: "'temperature' is a number",
+                },
+                saturation: {
+                    bsonType: "number",
+                    description: "'saturation' is a number",
+                },
+                timeIn: {
+                    bsonType: "string",
+                    description: "'timeIn' is a string",
+                },
+                id_employee: {
+                    bsonType: "string",
+                    description: "'id_employee' is required and is a string",
+                    minLength: 5
                 },
             },
         },
@@ -115,7 +159,16 @@ async function applySchemaValidation(db: mongodb.Db) {
         }
     });
 
-   await db.command({
+    await db.command({
+        collMod: "employee_operating_data",
+        validator: jsonEmployeeOperatingDataSchema
+    }).catch(async (error: mongodb.MongoServerError) => {
+        if (error.codeName === "NamespaceNotFound") {
+            await db.createCollection("employee_operating_data", {validator: jsonEmployeeOperatingDataSchema});
+        }
+    });
+
+    await db.command({
        collMod: "admins",
        validator: jsonAdminsSchema
    }).catch(async (error: mongodb.MongoServerError) => {
