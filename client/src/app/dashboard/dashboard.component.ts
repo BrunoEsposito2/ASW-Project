@@ -97,14 +97,10 @@ import * as $ from 'jquery';
   `]
 })
 
-export class DashboardComponent  implements AfterViewInit {
+export class DashboardComponent {
   isToastVisible = false;
   showToast() {
     this.isToastVisible = true;
   }
 
-  ngAfterViewInit() {
-
-    $('#toast-elem').toast('show');
-  }
 }

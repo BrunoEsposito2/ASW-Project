@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Employee} from "../employee";
+import {EmployeeService} from "../employee.service";
 
 @Component({
   selector: 'app-assistants-component',
@@ -29,9 +31,42 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AssistantsComponentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private employeesService: EmployeeService) { }
+
+  private employees: Employee[] = [];
 
   ngOnInit(): void {
+    this.employeesService.getEmployees().subscribe(
+        (data) => {
+          this.employees = data;
+        },
+        (error) => {
+          console.error('Errore durante il recupero dei dati degli operatori:', error);
+        }
+    );
+
+
   }
 
+  private getRandomOperators(): Employee[] {
+    if (this.employees.length < 2) {
+      throw new Error('Non ci sono abbastanza operatori nel database.');
+    }
+
+    const randomIndexes = this.getRandomIndexes(this.employees.length, 2); // Genera due indici casuali
+    const randomOperators = [this.employees[randomIndexes[0]], this.employees[randomIndexes[1]]];
+
+    return randomOperators;
+  }
+
+  private getRandomIndexes(max: number, count: number): number[] {
+    const randomIndexes: number[] = [];
+    while (randomIndexes.length < count) {
+      const randomIndex = Math.floor(Math.random() * max);
+      if (!randomIndexes.includes(randomIndex)) {
+        randomIndexes.push(randomIndex);
+      }
+    }
+    return randomIndexes;
+  }
 }

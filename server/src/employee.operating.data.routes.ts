@@ -31,7 +31,7 @@ employeeOperatingDataRouter.get("/:id", async (req, res) => {
     }
 });
 
-employeeOperatingDataRouter.post("/employee-operating-data", async (req, res) => {
+employeeOperatingDataRouter.post("/", async (req, res) => {
     try {
         const data = req.body;
         const result = await collections.employee_operating_data.insertOne(data);
