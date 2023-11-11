@@ -40,7 +40,8 @@ import { CommonModule } from '@angular/common';
 import { ProductionsListComponent } from './production-list/productions-list.component';
 import { AddProductionComponent} from './add-production/add-production-component';
 import { ProductionFormComponent } from './production-form/production-form.component';
-import { FakerProductionComponent} from './faker-production/faker-production.component'
+import { FakerProductionComponent} from './faker-production/faker-production.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -89,6 +90,7 @@ import { FakerProductionComponent} from './faker-production/faker-production.com
         MatInputModule,
         MatButtonModule,
         BrowserAnimationsModule,
+        MatTooltipModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

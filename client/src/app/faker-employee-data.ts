@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import { Observable, interval, Subscription } from 'rxjs';
 import { Employee } from "./employee";
 import { EmployeeService } from "./employee.service";
 import { EmployeeOperatingDataService } from "./employee.operating.data.service";
-import {EmployeeOperatingData} from "./employee-operating-data";
+import { EmployeeOperatingData } from "./employee-operating-data";
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ import {EmployeeOperatingData} from "./employee-operating-data";
 export class FakerEmployeeDataService {
   private updateSubscription: Subscription = new Subscription();
   private Active = false;
-  private employees: Employee[] = [];
+  public employees: Employee[] = [];
+  private operatingdata: EmployeeOperatingData[] = [];
+  private dataSubject = new Subject<EmployeeOperatingData[]>();
+  private generatedEmployees = false;
+
   constructor( private employeesService: EmployeeService,
                private employeesOperatingDataService: EmployeeOperatingDataService ) { }
 
@@ -26,17 +31,20 @@ export class FakerEmployeeDataService {
     return randomOperators;
   }
   ngOnInit(): void {
-    this.employeesService.getEmployees().subscribe(
-        (data) => {
-          this.employees = data;
-        },
-        (error) => {
-          console.error('Errore durante il recupero dei dati degli operatori:', error);
-        }
-    );
+    if (!this.generatedEmployees) {
+      this.employeesService.getEmployees().subscribe(
+          (data) => {
+            this.employees = data;
+            this.generatedEmployees = true;
+          },
+          (error) => {
+            console.error('Errore durante il recupero dei dati degli operatori:', error);
+          }
+      );
+    }
+
   }
   private async getRandomOperatorsFromDatabase(): Promise<Employee[]> {
-    console.log(this.employees);
     this.employeesService.getEmployees().subscribe(
         (data) => {
           this.employees = data;
@@ -50,7 +58,9 @@ export class FakerEmployeeDataService {
     }
 
     const randomIndexes = this.getRandomIndexes(this.employees.length, 2); // Genera due indici casuali
-    const randomOperators = [this.employees[randomIndexes[0]], this.employees[randomIndexes[1]]];
+    //const randomOperators = [this.employees[randomIndexes[0]], this.employees[randomIndexes[1]]];
+    //Settato di default il primo e secondo operatore
+    const randomOperators = [this.employees[0], this.employees [1]];
 
     return randomOperators;
   }
@@ -69,6 +79,14 @@ export class FakerEmployeeDataService {
   private getRandomTemperature(): number {
     // Genera una temperatura casuale tra 36.5 e 37.2
     return 36.5 + Math.random() * (37.2 - 36.5);
+  }
+
+  sendData(data: EmployeeOperatingData[]) {
+    this.dataSubject.next(data);
+  }
+
+  getDataObservable() {
+    return this.dataSubject.asObservable();
   }
 
   private getRandomSaturation(): number {
@@ -128,11 +146,15 @@ export class FakerEmployeeDataService {
               timeIn: currentTime,
             };
 
+
+            this.operatingdata.push(randomEmployeeData);
             // Chiama il servizio per inserire i dati nel database
             this.employeesOperatingDataService.createEmployeeOperatingData(randomEmployeeData).subscribe((result) => {
-               console.log(randomEmployeeData);
             });
           });
+          console.log("Faker:" + this.operatingdata);
+          this.sendData(this.operatingdata);
+          this.operatingdata = [];
         });
       }
     });
@@ -147,5 +169,9 @@ export class FakerEmployeeDataService {
 
   public isActive(): boolean {
     return this.Active;
+  }
+
+  public getEmployees() {
+    return this.employees;
   }
 }

@@ -1,26 +1,33 @@
 import {Component, OnInit} from '@angular/core';
 import {Employee} from "../employee";
 import {EmployeeService} from "../employee.service";
+import { FakerEmployeeDataService } from "../faker-employee-data";
+import {EmployeeOperatingData} from "../employee-operating-data";
 
 @Component({
   selector: 'app-assistants-component',
   template: `
     <div class="row">
-      <div class="col-md-6">
-        <div class="card bg-light">
-          <img src="https://thumbs.dreamstime.com/b/passport-picture-cool-guy-blue-shirt-isolated-white-background-cut-out-55127029.jpg" style="width:100px; height:130px" class="card-img-top mx-auto d-block" alt="Foto Operatore 1">
-          <div class="card-body">
-            <h5 class="card-title custom-font">Operatore 1</h5>
-            <p class="card-text">Informazioni sull'Operatore 1</p>
+      <div class="col-md-6" *ngFor="let employee of employees; let i = index">
+        <div class="card bg-light" *ngIf="i < 2">
+          <div class="tooltip-container">
+            <img [src]="employee.img" style="width:90px; height:120px" class="card-img-top mx-auto d-block" data-toggle="tooltip" data-placement="top" title="{{ employee.name }}" [alt]="employee.name">
           </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card bg-light">
-          <img src="https://thumbs.dreamstime.com/b/jeune-homme-amical-36669104.jpg" style="width:100px; height:130px" class="card-img-top mx-auto d-block" alt="Foto Operatore 2">
+          <div matTooltip="Il tuo testo del tooltip">
+            <p class="card-text custom-font">Latitude:456</p>
+          </div>
           <div class="card-body">
-            <h5 class="card-title custom-font">Operatore 2</h5>
-            <p class="card-text">Informazioni sull'Operatore 2</p>
+            <h6 class="text custom-font">{{ employee.name }}</h6>
+            <p class="card-text custom-font">{{ employee.level }}</p>
+            <ng-container *ngIf="employee._id">
+              <ng-container *ngFor="let data of getOperatingData(employee._id)">
+                <p class="card-text custom-font">Latitude: {{ data.latitude }}</p>
+                <p class="card-text custom-font">Longitude: {{ data.longitude }}</p>
+                <p class="card-text custom-font">Temperature: {{ data.temperature }}</p>
+                <p class="card-text custom-font">Saturation: {{ data.saturation }}</p>
+                <p class="card-text custom-font">Time In: {{ data.timeIn }}</p>
+              </ng-container>
+            </ng-container>
           </div>
         </div>
       </div>
@@ -31,9 +38,11 @@ import {EmployeeService} from "../employee.service";
 })
 export class AssistantsComponentComponent implements OnInit {
 
-  constructor(private employeesService: EmployeeService) { }
+  private operatingdata: EmployeeOperatingData[] = [];
+  constructor(private employeesService: EmployeeService,
+              private fakerEmployeeOpData: FakerEmployeeDataService) { }
 
-  private employees: Employee[] = [];
+  public employees: Employee[] = [];
 
   ngOnInit(): void {
     this.employeesService.getEmployees().subscribe(
@@ -44,8 +53,16 @@ export class AssistantsComponentComponent implements OnInit {
           console.error('Errore durante il recupero dei dati degli operatori:', error);
         }
     );
+    this.employees = this.getEmployees();
 
+    this.fakerEmployeeOpData.getDataObservable().subscribe((newData) => {
+      this.operatingdata = newData;
+    });
 
+  }
+
+  getOperatingData(employeeId: string): EmployeeOperatingData[] {
+    return this.operatingdata.filter(item => item.id_employee === employeeId);
   }
 
   private getRandomOperators(): Employee[] {
@@ -57,6 +74,10 @@ export class AssistantsComponentComponent implements OnInit {
     const randomOperators = [this.employees[randomIndexes[0]], this.employees[randomIndexes[1]]];
 
     return randomOperators;
+  }
+
+  public getEmployees() {
+    return this.employees;
   }
 
   private getRandomIndexes(max: number, count: number): number[] {
