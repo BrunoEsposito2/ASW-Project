@@ -11,21 +11,17 @@ import {EmployeeOperatingData} from "../employee-operating-data";
       <div class="col-md-6" *ngFor="let employee of employees; let i = index">
         <div class="card bg-light" *ngIf="i < 2">
           <div class="tooltip-container">
-            <img [src]="employee.img" style="width:90px; height:120px" class="card-img-top mx-auto d-block" data-toggle="tooltip" data-placement="top" title="{{ employee.name }}" [alt]="employee.name">
-          </div>
-          <div matTooltip="Il tuo testo del tooltip">
-            <p class="card-text custom-font">Latitude:456</p>
+            <img [src]="employee.img" style="width:90px; height:120px" class="card-img-top mx-auto d-block" matTooltip="{{ employee.name }}" [alt]="employee.name">
           </div>
           <div class="card-body">
-            <h6 class="text custom-font">{{ employee.name }}</h6>
-            <p class="card-text custom-font">{{ employee.level }}</p>
+            <h5 class="card-text custom-font"> Nome: {{ employee.name }}</h5>
+            <p class="card-text custom-font"> Livello: {{ employee.level }}</p>
             <ng-container *ngIf="employee._id">
               <ng-container *ngFor="let data of getOperatingData(employee._id)">
-                <p class="card-text custom-font">Latitude: {{ data.latitude }}</p>
-                <p class="card-text custom-font">Longitude: {{ data.longitude }}</p>
-                <p class="card-text custom-font">Temperature: {{ data.temperature }}</p>
-                <p class="card-text custom-font">Saturation: {{ data.saturation }}</p>
-                <p class="card-text custom-font">Time In: {{ data.timeIn }}</p>
+                <p class="card-text custom-font">
+                  <img src="../../assets/icons8-cloud-refresh.gif" style="width:30px;height:30px" alt="Icona" [matTooltip]="'Latitude: ' + data.latitude + ', Longitude: ' + data.longitude + ', Temperature: ' + data.temperature + ', Saturation: ' + data.saturation + ', Time: ' + data.timeIn">
+                  Dati Realtime
+                </p>
               </ng-container>
             </ng-container>
           </div>
