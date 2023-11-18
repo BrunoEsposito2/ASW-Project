@@ -54,7 +54,7 @@ import * as $ from 'jquery';
         <div class="col-4">
           <div class="card bg-light">
             <div class="card-header custom-font">Assistants component</div>
-            <div class="card-body">
+            <div class="card-body less-padding">
               <app-assistants-component></app-assistants-component>
             </div>
           </div>
