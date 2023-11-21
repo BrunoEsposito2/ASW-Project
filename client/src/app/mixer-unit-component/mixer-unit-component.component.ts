@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 import {EmployeeRenderedComponent} from '../render/employee-rendered.component';
 
@@ -6,7 +6,7 @@ import {EmployeeRenderedComponent} from '../render/employee-rendered.component';
   selector: 'app-mixer-unit-component',
   template: `
     <canvas class="" #canvas ></canvas>
-    <button (click)="animate()">Play</button>
+    
   `,
   styles: [
     `p {
@@ -14,12 +14,12 @@ import {EmployeeRenderedComponent} from '../render/employee-rendered.component';
     }
     canvas {
       border-style: solid;
-      width: 250px;
+      width: 1000px;
     }
     `
   ]
 })
-export class MixerUnitComponentComponent implements OnInit {
+export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas', { static: true })
   canvas!: ElementRef<HTMLCanvasElement>;
@@ -31,12 +31,13 @@ export class MixerUnitComponentComponent implements OnInit {
     this.ctx = this.canvas.nativeElement.getContext('2d');
   }
 
-  animate(): void {
+  ngAfterViewInit(): void {
     const employee = new EmployeeRenderedComponent(this.ctx!);
     this.ctx!.fillStyle = 'red';
-  //const square = new Square(this.ctx);
-  //this.ctx!.fillRect(5, 1, 20, 20);
-  employee.draw(1, 1);
+    //const square = new Square(this.ctx);
+    //this.ctx!.fillRect(5, 1, 20, 20);
+    employee.draw(10, 10);
   }
+
 
 }
