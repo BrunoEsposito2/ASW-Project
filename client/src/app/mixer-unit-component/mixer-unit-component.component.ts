@@ -32,11 +32,13 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+
     const employee = new EmployeeRenderedComponent(this.ctx!);
     this.ctx!.fillStyle = 'red';
     //const square = new Square(this.ctx);
     //this.ctx!.fillRect(5, 1, 20, 20);
     employee.draw(10, 10);
+    employee.move(1,50)
   }
 
 

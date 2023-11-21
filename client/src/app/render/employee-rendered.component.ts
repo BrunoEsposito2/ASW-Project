@@ -20,33 +20,33 @@ export class EmployeeRenderedComponent extends Path2D implements OnInit {
      this.ctx.lineWidth = 3;
 
      //Square
-     this.ctx.strokeRect(x - 25, y - 25, 50, 80);
+     this.ctx.strokeRect(x - 20, y - 10, 40, 40);
      this.ctx.stroke();
 
      //Name
      this.ctx.font = '18px Sans Serif';
-     this.ctx.fillText('Tizio 1', x - 20, y + 50, 40)
+     this.ctx.fillText('Riccardo', x - 20, y + 25, 40)
      //Head
      this.ctx.beginPath();
-     this.ctx.arc(x, y, 20, 0, 2* Math.PI, false);
+     this.ctx.arc(x, y, 10, 0, 2* Math.PI, false);
      this.ctx.closePath();
      this.ctx.stroke();
 
      //Left eye
      this.ctx.beginPath();
-     this.ctx.arc(x - 7, y - 5, 3, 0, 2* Math.PI, false);
+     this.ctx.arc(x - 3, y - 2, 1, 0, 2* Math.PI, false);
      this.ctx.closePath();
      this.ctx.stroke();
      //Right eye
      this.ctx.beginPath();
-     this.ctx.arc(x + 7, y - 5, 3, 0, 2* Math.PI, false);
+     this.ctx.arc(x + 3, y - 2, 1, 0, 2* Math.PI, false);
      this.ctx.closePath();
      this.ctx.stroke();
 
      //// TODO: Change according to health status
      //Smile
      this.ctx.beginPath();
-     this.ctx.arc(x, y + 5, 10, 0,  Math.PI, false);
+     this.ctx.arc(x, y + 3, 3, 0,  Math.PI, false);
      this.ctx.closePath();
      this.ctx.stroke();
      // this.ctx.fillStyle = 'green';
@@ -58,10 +58,9 @@ export class EmployeeRenderedComponent extends Path2D implements OnInit {
 
    }
 
-   move(y: number, z: number) {
-    const max = this.ctx.canvas.width / z;
+   move(x: number, y: number) {
+    const max = this.ctx.canvas.width / x;
     const canvas = this.ctx.canvas;
-    let x = 0;
     const i = setInterval(() => {
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.draw(x, y);
