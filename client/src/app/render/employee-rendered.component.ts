@@ -17,11 +17,9 @@ export class EmployeeRenderedComponent extends Path2D implements OnInit {
 
   draw(x: number, y: number) {
 
-     this.ctx.lineWidth = 3;
+     this.ctx.lineWidth = 2;
 
-     //Square
-     this.ctx.strokeRect(x - 20, y - 10, 40, 40);
-     this.ctx.stroke();
+
 
      //Name
      this.ctx.font = '18px Sans Serif';
