@@ -9,7 +9,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class EmployeeRenderedComponent extends Path2D implements OnInit {
 
-  private ctx
+  private ctx;
   constructor(private context: CanvasRenderingContext2D) {
     super();
     this.ctx = context;
@@ -18,8 +18,6 @@ export class EmployeeRenderedComponent extends Path2D implements OnInit {
   draw(x: number, y: number) {
 
      this.ctx.lineWidth = 2;
-
-
 
      //Name
      this.ctx.font = '18px Sans Serif';
