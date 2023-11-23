@@ -46,9 +46,9 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
         this.ctx!.fillStyle = 'red';
         //const square = new Square(this.ctx);
         //this.ctx!.fillRect(5, 1, 20, 20);
-        employee.draw(x, 10);
-        console.log(val);
-        x+=20;
+        employee.draw(x, 10, emp.name!);
+        console.log(emp);
+        x+=40;
       }
     });
 

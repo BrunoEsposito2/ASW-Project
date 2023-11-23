@@ -15,13 +15,13 @@ export class EmployeeRenderedComponent extends Path2D implements OnInit {
     this.ctx = context;
   }
 
-  draw(x: number, y: number) {
+  draw(x: number, y: number, name: string) {
 
      this.ctx.lineWidth = 2;
 
      //Name
-     this.ctx.font = '18px Sans Serif';
-     this.ctx.fillText('Riccardo', x - 20, y + 25, 40)
+     this.ctx.font = '12px Sans Serif';
+     this.ctx.fillText(name, x - 20, y + 25, 40)
      //Head
      this.ctx.beginPath();
      this.ctx.arc(x, y, 10, 0, 2* Math.PI, false);
@@ -59,7 +59,7 @@ export class EmployeeRenderedComponent extends Path2D implements OnInit {
     const canvas = this.ctx.canvas;
     const i = setInterval(() => {
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-      this.draw(x, y);
+      //this.draw(x, y);
       x++;
       if (x >= max) {
         clearInterval(i);
