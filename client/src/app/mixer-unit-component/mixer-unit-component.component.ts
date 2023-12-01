@@ -5,6 +5,7 @@ import {EmployeeService} from "../employee.service";
 import {Employee} from "../employee";
 import {Observable} from "rxjs";
 import Konva from "konva";
+import {EmployeeShape} from "../render/EmployeeShape";
 
 @Component({
   selector: 'app-mixer-unit-component',
@@ -61,6 +62,7 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
     });
     layer.add(circle);
 
+
     // rectangle in bottom right of the stage
     var rect = new Konva.Rect({
       fill: 'green',
@@ -73,16 +75,22 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
 
 
 
+
     circle.on('mouseover', function(){
       console.log("over");
     });
+
+    var emplo = new EmployeeShape(stage, layer);
+    layer.add(emplo);
 // add the shape to the layer
     layer.add(circle);
 
 // add the layer to the stage
     stage.add(layer);
 
+
 // draw the image
+
     layer.draw();
 
     function fitStageIntoParentContainer() {
@@ -110,11 +118,11 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
     this.employees$.subscribe(val => {
       let x = 10;
       for(let emp of val){
-        let employee = new EmployeeRenderedComponent(this.ctx!);
-        this.ctx!.fillStyle = 'red';
+       // let employee = new EmployeeRenderedComponent(this.ctx!);
+        //this.ctx!.fillStyle = 'red';
         //const square = new Square(this.ctx);
         //this.ctx!.fillRect(5, 1, 20, 20);
-        employee.draw(x, 10, emp.name!);
+        //employee.draw(x, 10, emp.name!);
         console.log(emp);
         x+=40;
       }

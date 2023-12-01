@@ -17,6 +17,7 @@ export class EmployeeRenderedComponent extends Path2D implements OnInit {
 
   draw(x: number, y: number, name: string) {
 
+
      this.ctx.lineWidth = 2;
 
      //Name
