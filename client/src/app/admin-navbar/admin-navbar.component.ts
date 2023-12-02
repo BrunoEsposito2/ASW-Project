@@ -64,7 +64,10 @@ export class AdminNavbarComponent {
   ) {  }
 
   redirectToHomePage() {
-    this.router.navigate(['admins/login']);
+    localStorage.removeItem("token");
+    localStorage.removeItem("expiration");
+    sessionStorage.removeItem("onlineAdmin")
+    this.router.navigate(['/']);
   }
 
   redirectToDashboard() {

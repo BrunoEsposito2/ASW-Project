@@ -1,5 +1,8 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {Component, AfterViewInit, OnInit} from '@angular/core';
 import * as $ from 'jquery';
+import {Subject} from "rxjs";
+import {Router} from "@angular/router";
+import {AdminService} from "../admin.service";
 
 
 @Component({
@@ -97,10 +100,73 @@ import * as $ from 'jquery';
   `]
 })
 
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  private isAuthenticated = false;
+  private token: string = "";
+  private tokenTimer: any;
+  private authStatusListener = new Subject<boolean>();
+
   isToastVisible = false;
+
+  constructor(
+      private router: Router
+  ) { }
+
   showToast() {
     this.isToastVisible = true;
   }
 
+  ngOnInit(): void {
+    const authInformation = this.getAuthData();
+    console.log("auth infos " + authInformation)
+    if (!authInformation) {
+      this.logout();
+      alert("Session Expired or Login Necessary. Please, insert your credentials to start working")
+      return
+    }
+    const now = new Date();
+    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+    console.log("Expire time " + expiresIn)
+    if (expiresIn > 0) {
+      this.token = authInformation.token;
+      this.isAuthenticated = true;
+      this.setAuthTimer(expiresIn / 1000);
+      this.authStatusListener.next(true);
+    }
+  }
+
+  private getAuthData() {
+    const token = localStorage.getItem("token");
+    const expirationDate = localStorage.getItem("expiration");
+    const username = sessionStorage.getItem("onlineAdmin")
+    if (!token || !expirationDate || !username) {
+      return;
+    }
+    return {
+      token: token,
+      expirationDate: new Date(expirationDate),
+      username: username
+    }
+  }
+
+  private setAuthTimer(duration: number) {
+    this.tokenTimer = setTimeout(() => {
+      this.logout();
+    }, duration * 1000);
+  }
+
+  private clearAuthData() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("expiration");
+    sessionStorage.removeItem("onlineAdmin")
+  }
+
+  logout() {
+    this.token = "";
+    this.isAuthenticated = false;
+    this.authStatusListener.next(false);
+    clearTimeout(this.tokenTimer);
+    this.clearAuthData();
+    this.router.navigate(["/"]);
+  }
 }

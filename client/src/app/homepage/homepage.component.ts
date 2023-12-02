@@ -72,7 +72,7 @@ import {Router} from "@angular/router";
 })
 
 export class HomepageComponent {
-  constructor (private router: Router) { }
+  constructor (private router: Router) {  }
 
   adminLogin() {
     this.router.navigate(['admins/login']);

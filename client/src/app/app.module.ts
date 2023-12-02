@@ -1,11 +1,13 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth-admin/auth-admin-interceptor'
+
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {EmployeesListComponent} from './employees-list/employees-list.component';
 import {EmployeeFormComponent} from './employee-form/employee-form.component';
-import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddEmployeeComponent} from './add-employee/add-employee.component';
 import {EditEmployeeComponent} from './edit-employee/edit-employee.component';
@@ -92,7 +94,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         BrowserAnimationsModule,
         MatTooltipModule,
     ],
-  providers: [],
+  providers: [
+      AuthAdminComponent,
+      DashboardComponent,
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

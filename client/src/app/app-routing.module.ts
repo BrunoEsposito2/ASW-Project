@@ -8,7 +8,6 @@ import {AuthAdminComponent} from "./auth-admin/auth-admin.component";
 import {AdminComponent} from "./admin/admin.component";
 import {AuthEmployeeComponent} from "./auth-employee/auth-employee.component";
 import {HomepageComponent} from "./homepage/homepage.component";
-import {ChatComponent} from "./chat/chat.component";
 import {EmployeeComponent} from "./employee/employee.component";
 import {AdminChatComponent} from "./admin-chat/admin-chat.component";
 import {EmployeeChatComponent} from "./employee-chat/employee-chat.component";

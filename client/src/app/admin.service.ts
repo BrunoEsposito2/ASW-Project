@@ -8,23 +8,31 @@ import {Admin} from "./admin";
 })
 export class AdminService {
     private url = 'http://localhost:5200';
-    private employees$: Subject<Admin[]> = new Subject();
+    private admins$: Subject<Admin[]> = new Subject();
 
     constructor(private httpClient: HttpClient) { }
 
     private refreshAdmins() {
         this.httpClient.get<Admin[]>(`${this.url}/admins`)
-            .subscribe(employees => {
-                this.employees$.next(employees);
+            .subscribe(admins => {
+                this.admins$.next(admins);
             });
     }
 
     getAdmins(): Subject<Admin[]> {
         this.refreshAdmins();
-        return this.employees$;
+        return this.admins$;
     }
 
-    getAdmin(email: string, password: string): Observable<Admin> {
-        return this.httpClient.get<Admin>(`${this.url}/admins/${email}/${password}`);
+    getAdmin(email: string, password: string): Observable<{
+        token: string,
+        expiresIn: number,
+        body: boolean
+    }> {
+        return this.httpClient.get<{
+            token: string,
+            expiresIn: number,
+            body: boolean
+        }>(`${this.url}/admins/${email}/${password}`);
     }
 }
