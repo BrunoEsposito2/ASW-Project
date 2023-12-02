@@ -154,6 +154,8 @@ html, body {
 }
 */
 
+@import '/node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+
 #logoFrabrugia {
     height: 50%;
     width: 70%;
@@ -165,4 +167,8 @@ html, body {
 
 .custom-nav {
     background-color: white;
+}
+
+.less-padding {
+    padding:5px;
 }
