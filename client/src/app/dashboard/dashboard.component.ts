@@ -3,7 +3,7 @@ import * as $ from 'jquery';
 import {Subject} from "rxjs";
 import {Router} from "@angular/router";
 import {AdminService} from "../admin.service";
-import { AuthSession } from 'src/utils/AuthSession';
+import { AuthSession } from 'src/utils/auth-session';
 
 
 @Component({

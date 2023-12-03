@@ -5,7 +5,7 @@ import {AdminService} from "../admin.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {InvalidLoginInputError} from "../../errors/InvalidLoginInputError";
-import {AuthSession} from "../../utils/AuthSession";
+import {AuthSession} from "../../utils/auth-session";
 
 @Component({
   selector: 'app-auth-admin',
@@ -37,7 +37,7 @@ export class AuthAdminComponent implements OnInit {
       const now = new Date();
       const expiresIn = authData.expirationDate.getTime() - now.getTime();
       if (authData.token.search("null") < 0 && expiresIn > 0) {
-          this.router.navigate(['/admins/dashboard/' + authData.adminUsername]);
+          this.router.navigate(['/admins/dashboard/' + authData.username]);
       }
   }
 

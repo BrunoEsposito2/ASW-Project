@@ -5,11 +5,11 @@ import {
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-import { AuthAdminComponent } from "./auth-admin.component"
+import { AuthEmployeeComponent } from "./auth-employee.component";
 
 @Injectable()
-export class AuthAdminInterceptor implements HttpInterceptor {
-    constructor(private authService: AuthAdminComponent) { }
+export class AuthEmployeeInterceptor implements HttpInterceptor {
+    constructor(private authService: AuthEmployeeComponent) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const authToken = this.authService.getToken();

@@ -12,7 +12,7 @@ export class AuthSession {
         return {
             token: token,
             expirationDate: new Date(expirationDate),
-            adminUsername: username
+            username: username
         }
     }
 

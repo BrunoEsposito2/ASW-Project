@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import { FakerEmployeeDataService } from '../faker-employee-data';
-import {AuthSession} from "../../utils/AuthSession";
+import {AuthSession} from "../../utils/auth-session";
 
 @Component({
   selector: 'app-admin-navbar',

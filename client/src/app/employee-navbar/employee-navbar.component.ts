@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {AuthSession} from "../../utils/auth-session";
 
 @Component({
   selector: 'app-employee-navbar',
@@ -42,14 +43,18 @@ import {ActivatedRoute, Router} from "@angular/router";
   ]
 })
 export class EmployeeNavbarComponent {
+  private authSession: AuthSession;
 
   constructor(
       private activatedRoute: ActivatedRoute,
       private router: Router
-  ) {  }
+  ) {
+    this.authSession = new AuthSession()
+  }
 
   redirectToHomePage() {
-    this.router.navigate(['employees/login']);
+    this.authSession.clearAuthData();
+    this.router.navigate(['/']);
   }
 
   redirectToDashboard() {

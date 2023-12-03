@@ -2,7 +2,8 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './auth-admin/auth-admin-interceptor'
+import { AuthAdminInterceptor } from './auth-admin/auth-admin-interceptor';
+import { AuthEmployeeInterceptor } from './auth-employee/auth-employee-interceptor';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -96,8 +97,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ],
   providers: [
       AuthAdminComponent,
+      AuthEmployeeComponent,
       DashboardComponent,
-      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: AuthAdminInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: AuthEmployeeInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

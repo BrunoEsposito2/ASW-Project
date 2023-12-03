@@ -1,6 +1,12 @@
 import * as express from "express";
 import * as mongodb from "mongodb";
+import * as dotenv from "dotenv"
 import {collections} from "./database";
+import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
+
+dotenv.config()
+const { SECRET_ACCESS_TOKEN } = process.env;
 
 export const employeeRouter = express.Router();
 employeeRouter.use(express.json());
@@ -38,8 +44,18 @@ employeeRouter.get("/:name/:position/:level/", async (req, res) => {
        const query = { name: name, position: position, level: level };
        const employee = await collections.employees.findOne(query);
 
+       const token = jwt.sign(
+           {name: name},
+           SECRET_ACCESS_TOKEN,
+           {expiresIn: "1h"} // cookie expire time
+       )
+
        if (employee) {
-           res.status(200).send(employee);
+           res.status(200).send({
+               token: token,
+               expiresIn: 60 * 60,
+               body: true
+           });
        } else {
            res.status(404).send(`Failed to find the employee`);
        }
