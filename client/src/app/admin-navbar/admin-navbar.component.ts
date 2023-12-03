@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import { FakerEmployeeDataService } from '../faker-employee-data';
+import {AuthSession} from "../../utils/AuthSession";
 
 @Component({
   selector: 'app-admin-navbar',
@@ -56,17 +57,18 @@ import { FakerEmployeeDataService } from '../faker-employee-data';
   ]
 })
 export class AdminNavbarComponent {
+  private authSession: AuthSession;
   public isFakerServiceActive = false
   constructor(
       private activatedRoute: ActivatedRoute,
       private router: Router,
       private fakerEmployeeDataService: FakerEmployeeDataService,
-  ) {  }
+  ) {
+    this.authSession = new AuthSession()
+  }
 
   redirectToHomePage() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiration");
-    sessionStorage.removeItem("onlineAdmin")
+    this.authSession.clearAuthData();
     this.router.navigate(['/']);
   }
 

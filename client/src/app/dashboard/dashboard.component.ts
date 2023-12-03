@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import {Subject} from "rxjs";
 import {Router} from "@angular/router";
 import {AdminService} from "../admin.service";
+import { AuthSession } from 'src/utils/AuthSession';
 
 
 @Component({
@@ -101,6 +102,7 @@ import {AdminService} from "../admin.service";
 })
 
 export class DashboardComponent implements OnInit {
+  private authSession: AuthSession;
   private isAuthenticated = false;
   private token: string = "";
   private tokenTimer: any;
@@ -110,14 +112,16 @@ export class DashboardComponent implements OnInit {
 
   constructor(
       private router: Router
-  ) { }
+  ) {
+    this.authSession = new AuthSession()
+  }
 
   showToast() {
     this.isToastVisible = true;
   }
 
   ngOnInit(): void {
-    const authInformation = this.getAuthData();
+    const authInformation = this.authSession.getAuthData();
     console.log("auth infos " + authInformation)
     if (!authInformation) {
       this.logout();
@@ -135,30 +139,10 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  private getAuthData() {
-    const token = localStorage.getItem("token");
-    const expirationDate = localStorage.getItem("expiration");
-    const username = sessionStorage.getItem("onlineAdmin")
-    if (!token || !expirationDate || !username) {
-      return;
-    }
-    return {
-      token: token,
-      expirationDate: new Date(expirationDate),
-      username: username
-    }
-  }
-
   private setAuthTimer(duration: number) {
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
-  }
-
-  private clearAuthData() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiration");
-    sessionStorage.removeItem("onlineAdmin")
   }
 
   logout() {
@@ -166,7 +150,7 @@ export class DashboardComponent implements OnInit {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
-    this.clearAuthData();
+    this.authSession.clearAuthData();
     this.router.navigate(["/"]);
   }
 }

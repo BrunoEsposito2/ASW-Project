@@ -21,20 +21,15 @@ adminRouter.get('/:email/:password', async (req, res) => {
         const token = jwt.sign(
             {email: email},
             SECRET_ACCESS_TOKEN,
-            {expiresIn: "1h"}
+            {expiresIn: "1h"} // cookie expire time
         )
-        console.log("token: " + token);
 
         if (admin) {
-            /*if (!verifiedToken) {
-                req.headers.authorization = jwt.sign(admin, admin._id.toString("base64"), {expiresIn: '1h'});
-            }*/
-            console.log("passed")
             bcrypt.compare(password, admin.password, (err, hashRes) => {
                 if (hashRes && !err) {
                     res.status(200).send({
                         token: token,
-                        expiresIn: 3600,
+                        expiresIn: 60 * 60, // 1 hour is the cookie expire time
                         body: hashRes
                     });
                 } else {
