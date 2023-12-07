@@ -1,14 +1,23 @@
 import * as express from "express";
 import * as mongodb from "mongodb";
+import * as dotenv from "dotenv"
 import { collections } from "./database";
+import jwt from 'jsonwebtoken';
+
+dotenv.config()
+const { SECRET_ACCESS_TOKEN } = process.env;
 
 export const productionRouter = express.Router();
 productionRouter.use(express.json());
 
 productionRouter.get("/", async (_req, res) => {
     try {
-        const production = await collections.production.find({}).toArray();
-        res.status(200).send(production);
+        if (jwt.verify(_req.headers.authorization, SECRET_ACCESS_TOKEN)) {
+            const production = await collections.production.find({}).toArray();
+            res.status(200).send(production);
+        } else {
+            res.status(401).send("Lacks of valid authentication credentials for the requested resource")
+        }
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -19,11 +28,15 @@ productionRouter.get('/productions', async (req, res) => {
     const pageSize: number = parseInt(req.query.pageSize as string);
     const skip = (page - 1) * pageSize;
     try {
-        const productions = await collections.production.find()
-            .sort({ timestamp: -1 }) // Ordinamento decrescente
-            .skip(skip)
-            .limit(pageSize);
-        res.json(productions);
+        if (jwt.verify(req.headers.authorization, SECRET_ACCESS_TOKEN)) {
+            const productions = await collections.production.find()
+                .sort({timestamp: -1}) // Ordinamento decrescente
+                .skip(skip)
+                .limit(pageSize);
+            res.json(productions);
+        } else {
+            res.status(401).send("Lacks of valid authentication credentials for the requested resource")
+        }
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Errore nel recupero delle produzioni' });
@@ -36,10 +49,14 @@ productionRouter.get("/:id", async (req, res) => {
         const query = { _id: new mongodb.ObjectId(id) };
         const production = await collections.production.findOne(query);
 
-        if (production) {
-            res.status(200).send(production);
+        if (jwt.verify(req.headers.authorization, SECRET_ACCESS_TOKEN)) {
+            if (production) {
+                res.status(200).send(production);
+            } else {
+                res.status(404).send(`Failed to find an production: ID ${id}`);
+            }
         } else {
-            res.status(404).send(`Failed to find an production: ID ${id}`);
+            res.status(401).send("Lacks of valid authentication credentials for the requested resource")
         }
     } catch (error) {
         res.status(404).send(`Failed to find an production: ID ${req?.params?.id}`);
@@ -56,10 +73,14 @@ productionRouter.post("/", async (req, res) => {
 
         const result = await collections.production.insertOne(production);
 
-        if (result.acknowledged) {
-            res.status(201).send(`Created a new production: ID ${result.insertedId}.`);
+        if (jwt.verify(req.headers.authorization, SECRET_ACCESS_TOKEN)) {
+            if (result.acknowledged) {
+                res.status(201).send(`Created a new production: ID ${result.insertedId}.`);
+            } else {
+                res.status(500).send("Failed to create a new production.");
+            }
         } else {
-            res.status(500).send("Failed to create a new production.");
+            res.status(401).send("Lacks of valid authentication credentials for the requested resource")
         }
     } catch (error) {
         console.error(error);
@@ -74,12 +95,16 @@ productionRouter.put("/:id", async (req, res) => {
         const query = { _id: new mongodb.ObjectId(id) };
         const result = await collections.production.updateOne(query, { $set: production });
 
-        if (result && result.matchedCount) {
-            res.status(200).send(`Updated an production: ID ${id}.`);
-        } else if (!result.matchedCount) {
-            res.status(404).send(`Failed to find an production: ID ${id}`);
+        if (jwt.verify(req.headers.authorization, SECRET_ACCESS_TOKEN)) {
+            if (result && result.matchedCount) {
+                res.status(200).send(`Updated an production: ID ${id}.`);
+            } else if (!result.matchedCount) {
+                res.status(404).send(`Failed to find an production: ID ${id}`);
+            } else {
+                res.status(304).send(`Failed to update an production: ID ${id}`);
+            }
         } else {
-            res.status(304).send(`Failed to update an production: ID ${id}`);
+            res.status(401).send("Lacks of valid authentication credentials for the requested resource")
         }
     } catch (error) {
         console.error(error.message);
@@ -92,12 +117,16 @@ productionRouter.delete("/:id", async (req, res) => {
         const query = { _id: new mongodb.ObjectId(id) };
         const result = await collections.production.deleteOne(query);
 
-        if (result && result.deletedCount) {
-            res.status(202).send(`Removed an production: ID ${id}`);
-        } else if (!result) {
-            res.status(400).send(`Failed to remove an production: ID ${id}`);
-        } else if (!result.deletedCount) {
-            res.status(404).send(`Failed to find an production: ID ${id}`);
+        if (jwt.verify(req.headers.authorization, SECRET_ACCESS_TOKEN)) {
+            if (result && result.deletedCount) {
+                res.status(202).send(`Removed an production: ID ${id}`);
+            } else if (!result) {
+                res.status(400).send(`Failed to remove an production: ID ${id}`);
+            } else if (!result.deletedCount) {
+                res.status(404).send(`Failed to find an production: ID ${id}`);
+            }
+        } else {
+            res.status(401).send("Lacks of valid authentication credentials for the requested resource")
         }
     } catch (error) {
         console.error(error.message);

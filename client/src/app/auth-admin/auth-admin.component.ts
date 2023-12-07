@@ -76,6 +76,9 @@ export class AuthAdminComponent implements OnInit {
 
                         this.authSession.saveAuthData(token, expirationDate, username);
                         this.router.navigate(['/admins/dashboard/' + username]);
+                    } else {
+                        alert('Failed in receiving token.')
+                        console.log("Error: the token is " + token)
                     }
                 },
                 error: (error: HttpErrorResponse) => {

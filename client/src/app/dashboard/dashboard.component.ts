@@ -136,6 +136,8 @@ export class DashboardComponent implements OnInit {
       this.isAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
+    } else {
+      this.logout()
     }
   }
 

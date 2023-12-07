@@ -2,8 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthAdminInterceptor } from './auth-admin/auth-admin-interceptor';
-import { AuthEmployeeInterceptor } from './auth-employee/auth-employee-interceptor';
+import { AuthInterceptor } from './auth-interceptor/auth-interceptor';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -45,6 +44,7 @@ import { AddProductionComponent} from './add-production/add-production-component
 import { ProductionFormComponent } from './production-form/production-form.component';
 import { FakerProductionComponent} from './faker-production/faker-production.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {AuthSession} from "../utils/auth-session";
 
 @NgModule({
     declarations: [
@@ -96,11 +96,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatTooltipModule,
     ],
   providers: [
-      AuthAdminComponent,
-      AuthEmployeeComponent,
-      DashboardComponent,
-      { provide: HTTP_INTERCEPTORS, useClass: AuthAdminInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: AuthEmployeeInterceptor, multi: true }
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -16,7 +16,6 @@ import {InvalidLoginInputError} from "../../errors/InvalidLoginInputError";
 })
 export class AuthEmployeeComponent implements OnInit {
   private authSession: AuthSession;
-  private isAuthenticated = false;
   private token: string = "";
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>()
@@ -40,10 +39,6 @@ export class AuthEmployeeComponent implements OnInit {
       if (authData.token.search("null") < 0 && expiresIn > 0) {
           this.router.navigate(['/employees/dashboard/' + authData.username])
       }
-  }
-
-  getToken() {
-      return this.token;
   }
 
     private checkCredentials(employee: Employee): string {
@@ -73,7 +68,6 @@ export class AuthEmployeeComponent implements OnInit {
                           const expiresInDuration = response.expiresIn;
 
                           this.setAuthTimer(expiresInDuration);
-                          this.isAuthenticated = true;
 
                           const now = new Date();
                           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
@@ -95,7 +89,6 @@ export class AuthEmployeeComponent implements OnInit {
 
     logout() {
         this.token = "";
-        this.isAuthenticated = false;
         this.authStatusListener.next(false);
         clearTimeout(this.tokenTimer);
         this.authSession.clearAuthData();
