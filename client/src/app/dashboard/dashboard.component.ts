@@ -1,9 +1,4 @@
-import {Component, AfterViewInit, OnInit} from '@angular/core';
-import * as $ from 'jquery';
-import {Subject} from "rxjs";
-import {Router} from "@angular/router";
-import {AdminService} from "../admin.service";
-import { AuthSession } from 'src/utils/auth-session';
+import {Component} from '@angular/core';
 
 
 @Component({
@@ -49,10 +44,10 @@ import { AuthSession } from 'src/utils/auth-session';
         </div>
         <div class="col-4">
           <div class="card bg-light">
-              <div class="card-header custom-font">Mixer unit component</div>
-              <div class="card-body">
-                <app-mixer-unit-component class="d-flex justify-content-center"></app-mixer-unit-component>
-              </div>
+            <div class="card-header custom-font">Mixer unit component</div>
+            <div class="card-body">
+              <app-mixer-unit-component class="d-flex justify-content-center"></app-mixer-unit-component>
+            </div>
           </div>
         </div>
         <div class="col-4">
@@ -88,7 +83,7 @@ import { AuthSession } from 'src/utils/auth-session';
             <div class="card-body">
               <app-steps-component></app-steps-component>
             </div>
-          </div>          
+          </div>
         </div>
       </div>
     </section>
@@ -101,58 +96,14 @@ import { AuthSession } from 'src/utils/auth-session';
   `]
 })
 
-export class DashboardComponent implements OnInit {
-  private authSession: AuthSession;
-  private isAuthenticated = false;
-  private token: string = "";
-  private tokenTimer: any;
-  private authStatusListener = new Subject<boolean>();
-
+export class DashboardComponent {
   isToastVisible = false;
 
-  constructor(
-      private router: Router
-  ) {
-    this.authSession = new AuthSession()
+  constructor() {
   }
 
   showToast() {
     this.isToastVisible = true;
   }
 
-  ngOnInit(): void {
-    const authInformation = this.authSession.getAuthData();
-    console.log("auth infos " + authInformation)
-    if (!authInformation) {
-      this.logout();
-      alert("Session Expired or Login Necessary. Please, insert your credentials to start working")
-      return
-    }
-    const now = new Date();
-    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
-    console.log("Expire time " + expiresIn)
-    if (expiresIn > 0) {
-      this.token = authInformation.token;
-      this.isAuthenticated = true;
-      this.setAuthTimer(expiresIn / 1000);
-      this.authStatusListener.next(true);
-    } else {
-      this.logout()
-    }
-  }
-
-  private setAuthTimer(duration: number) {
-    this.tokenTimer = setTimeout(() => {
-      this.logout();
-    }, duration * 1000);
-  }
-
-  logout() {
-    this.token = "";
-    this.isAuthenticated = false;
-    this.authStatusListener.next(false);
-    clearTimeout(this.tokenTimer);
-    this.authSession.clearAuthData();
-    this.router.navigate(["/"]);
-  }
 }

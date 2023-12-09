@@ -6,8 +6,6 @@ import {
 import { Injectable } from "@angular/core";
 
 import {AuthSession} from "../../utils/auth-session";
-import {AuthAdminComponent} from "../auth-admin/auth-admin.component";
-import {AuthEmployeeComponent} from "../auth-employee/auth-employee.component";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
