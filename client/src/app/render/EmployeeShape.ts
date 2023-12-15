@@ -21,9 +21,21 @@ export class EmployeeShape extends Shape {
             y: lat,
             radius: 50
         });
+        var square = new Konva.Rect({
+            stroke: 'black',
+            x: long - 50,
+            y: lat + 50,
+            width: 100,
+            height: 100,
+        });
+        square.hide();
+
         circle.on('click', function(){
-            console.log(stage.width() +" "+ stage.height() + circle.y());
-            console.log(layer.width() + " "+layer.height());
+            square.isVisible() ?
+                square.hide() :
+                square.show();
+            layer.add(square);
+            layer.draw();
         });
 
         var righteye = new Konva.Circle({
