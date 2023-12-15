@@ -1,45 +1,48 @@
 import Konva from "konva";
 import Shape = Konva.Shape;
 import Stage = Konva.Stage;
-import {SceneCanvas} from "konva/lib/Canvas";
-import {Node} from "konva/lib/Node";
 import Layer = Konva.Layer;
 
 export class EmployeeShape extends Shape {
     private stage;
     private layer;
-    constructor(stage: Stage, layer: Layer) {
+    private lat;
+    private long;
+    constructor(stage: Stage, layer: Layer, long: number, lat: number ) {
         super();
         this.stage = stage;
         this.layer = layer;
+        this.lat = lat;
+        this.long = long;
 
         var circle = new Konva.Circle({
             stroke: 'black',
-            x: this.stage.width() - 50,
-            y: this.stage.height() - 200,
+            x: long,
+            y: lat,
             radius: 50
         });
         circle.on('click', function(){
-            console.log("over emplo");
+            console.log(stage.width() +" "+ stage.height() + circle.y());
+            console.log(layer.width() + " "+layer.height());
         });
-        
+
         var righteye = new Konva.Circle({
             stroke: 'black',
-            x: this.stage.width() - 30,
-            y: this.stage.height() - 220,
+            x: long + 20,
+            y: lat - 10,
             radius: 10
         });
         var lefteye = new Konva.Circle({
             stroke: 'black',
-            x: this.stage.width() - 70,
-            y: this.stage.height() - 220,
+            x: long - 20,
+            y: lat - 10,
             radius: 10
         });
 
         //Happy
         var arc = new Konva.Arc({
-            x: this.stage.width() - 50,
-            y: this.stage.height() - 210,
+            x: long,
+            y: lat - 20,
             innerRadius: 30,
             outerRadius: 40,
             angle: 90,
@@ -51,8 +54,8 @@ export class EmployeeShape extends Shape {
 
         //Sad
         var arc = new Konva.Arc({
-            x: this.stage.width() - 50,
-            y: this.stage.height() - 150,
+            x: long,
+            y: lat + 60,
             innerRadius: 30,
             outerRadius: 40,
             angle: 90,

@@ -31,7 +31,6 @@ import {EmployeeShape} from "../render/EmployeeShape";
 })
 export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
 
-
   private ctx!: CanvasRenderingContext2D | null;
   employees$: Observable<Employee[]> = new Observable();
 
@@ -40,6 +39,11 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.employees$ = this.employeesService.getEmployees();
+
+  }
+
+  ngAfterViewInit(): void {
+
     var sceneWidth = 1000;
     var sceneHeight = 500;
 
@@ -64,14 +68,7 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
 
 
     // rectangle in bottom right of the stage
-    var rect = new Konva.Rect({
-      fill: 'green',
-      x: stage.width() - 100,
-      y: stage.height() - 100,
-      width: 100,
-      height: 100,
-    });
-    layer.add(rect);
+
 
 
 
@@ -80,18 +77,11 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
       console.log("over");
     });
 
-    var emplo = new EmployeeShape(stage, layer);
-    layer.add(emplo);
+
 // add the shape to the layer
     layer.add(circle);
 
-// add the layer to the stage
-    stage.add(layer);
 
-
-// draw the image
-
-    layer.draw();
 
     function fitStageIntoParentContainer() {
       var container = document.querySelector('#stage-parent');
@@ -109,15 +99,12 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
     }
     fitStageIntoParentContainer();
     window.addEventListener('resize', fitStageIntoParentContainer);
-  }
-
-
-
-  ngAfterViewInit(): void {
 
     this.employees$.subscribe(val => {
       let x = 10;
       for(let emp of val){
+        let emplo = new EmployeeShape(stage, layer, 500, 100);
+        layer.add(emplo);
        // let employee = new EmployeeRenderedComponent(this.ctx!);
         //this.ctx!.fillStyle = 'red';
         //const square = new Square(this.ctx);
@@ -125,9 +112,23 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
         //employee.draw(x, 10, emp.name!);
         console.log(emp);
         x+=40;
+        var rect = new Konva.Rect({
+          fill: 'green',
+          x: stage.width() - 100,
+          y: stage.height() - 100,
+          width: 100,
+          height: 100,
+        });
+        layer.add(rect);
       }
     });
+// add the layer to the stage
+    stage.add(layer);
 
+
+// draw the image
+
+    layer.draw();
   }
 
 }
