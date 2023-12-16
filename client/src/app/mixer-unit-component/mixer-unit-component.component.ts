@@ -101,9 +101,9 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
     window.addEventListener('resize', fitStageIntoParentContainer);
 
     this.employees$.subscribe(val => {
-      let x = 10;
+      let x = 100;
       for(let emp of val){
-        let emplo = new EmployeeShape(stage, layer, 500, 100);
+        let emplo = new EmployeeShape(stage, layer, 500 + x, 100 + x, emp);
         layer.add(emplo);
        // let employee = new EmployeeRenderedComponent(this.ctx!);
         //this.ctx!.fillStyle = 'red';
@@ -112,24 +112,12 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
         //employee.draw(x, 10, emp.name!);
         console.log(emp);
         x+=40;
-        var rect = new Konva.Rect({
-          fill: 'green',
-          x: stage.width() - 100,
-          y: stage.height() - 100,
-          width: 100,
-          height: 100,
-        });
-        layer.add(rect);
       }
     });
 // add the layer to the stage
     stage.add(layer);
-
-
 // draw the image
-
     layer.draw();
   }
-
 }
 
