@@ -41,10 +41,6 @@ export class AuthAdminComponent implements OnInit {
       }
   }
 
-  getToken() {
-      return this.token;
-  }
-
   private checkCredentials(admin: Admin): string {
       if (!admin.email) {
           throw new InvalidLoginInputError("Invalid email input. Please, retry.")

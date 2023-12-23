@@ -6,25 +6,40 @@ import {AuthSession} from "../../utils/auth-session";
   selector: 'app-employee-navbar',
   template: `
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!-- Container wrapper -->
-      <div class="container">
+      <div class="container-fluid">
         <!-- Navbar brand -->
-        <a class="navbar-brand me-2">
-          FraBruGia S.r.l.
+        <a 
+            class="navbar-brand me-2"
+            [routerLink]="['/employees/dashboard/', activatedRoute.snapshot.paramMap.get('username')]"
+        >
+          <img class="" src="../assets/tower-logo.png" alt="logo_frabrugia" style="width:100px; height:40px" >
         </a>
 
+        <!-- Toggle button -->
+        <button
+            class="navbar-toggler"
+            type="button"
+            (click)="noListNav.toggle()"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+
         <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+        <div
+            class="collapse navbar-collapse"
+            id="navbarButtonsExample"
+            mdbCollapse
+            #noListNav="mdbCollapse"
+        >
           <!-- Left links -->
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <button class="nav-link" (click)="redirectToDashboard()">Dashboard</button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link" (click)="redirectToChat()"> Chat </button>
-            </li>
-          </ul>
+          <div class="navbar-nav me-auto mb-2 mb-lg-0">
+            <a class="nav-link active" (click)="redirectToDashboard()">Dashboard</a>
+            <a class="nav-link active" (click)="redirectToChat()"> Chat </a>
+          </div>
           <!-- Left links -->
 
           <div class="d-flex align-items-center">
@@ -46,7 +61,7 @@ export class EmployeeNavbarComponent {
   private authSession: AuthSession;
 
   constructor(
-      private activatedRoute: ActivatedRoute,
+      public activatedRoute: ActivatedRoute,
       private router: Router
   ) {
     this.authSession = new AuthSession()

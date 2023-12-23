@@ -1,35 +1,6 @@
-/*.container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  //background-color: #f2f2f2;
-  font-family: Arial, sans-serif;
-}*/
-
 h1 {
   text-align: center;
   margin-bottom: 20px;
-}
-
-/*.chatbox {
-  display: flex;
-  width: 600px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.user-list {
-  flex: 1;
-  padding: 20px;
-  border-right: 1px solid #e6e6e6;
-}*/
-
-h2 {
-  margin-bottom: 10px;
 }
 
 .user {
@@ -40,28 +11,23 @@ h2 {
 }
 
 .user-indicator {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #ccc;
-  margin-right: 10px;
+  display: inline-block;
+  position: relative;
+  color: grey;
+  //color: cornflowerblue;
+}
+
+#usericon {
+  transform: translate(-134%, -10%);
 }
 
 .user.active .user-indicator {
-  background-color: #4caf50;
+  color: #4caf50;
 }
 
 .user p {
   margin: 0;
 }
-
-/*.messages-list {
-  //flex: 2;
-  padding: 20px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}*/
 
 .message {
   display: flex;
@@ -76,6 +42,7 @@ h2 {
 .message-box {
   padding: 5px;
   border-radius: 5px;
+  //background-color: #6a11cb;
   //background-color: cornflowerblue;
   white-space: pre-wrap;
   word-wrap: break-word;

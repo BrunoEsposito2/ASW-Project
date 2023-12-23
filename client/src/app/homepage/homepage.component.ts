@@ -10,13 +10,12 @@ import {Router} from "@angular/router";
         <div class="buttons">
           <div class="button-container">
             <div class="row">
-              <div class="card bg-light">
-                <div class="card-header custom-font">Login</div>
+              <div class="card bg-light text-center">
+                <div class="card-header">LOGIN</div>
                   <div class="card-body">
-                    <div class="row">
-                      <button type="button" class="col-sm-4 custom-font btn btn-primary btn-lg" (click)="adminLogin()">Admin</button>
-                      <div class="col-sm-4"></div>
-                      <button type="button" class="col-sm-4 custom-font btn btn-primary btn-lg" (click)="employeeLogin()">Operatore</button>
+                    <div class="col" role="group" aria-label="First group">
+                      <button type="button" id="adminButton" class="btn me-2 btn-primary btn-lg custom-font mb-2" (click)="adminLogin()">Admin</button>
+                      <button type="button" id="opButton" class="btn btn-primary btn-lg custom-font mb-2" (click)="employeeLogin()">Operatore</button>
                     </div>
                   </div>
                 </div>
@@ -58,7 +57,6 @@ import {Router} from "@angular/router";
       transform: translate(-50%, -50%);
       text-align: center;
       background: transparent;
-      padding: 20px;
       z-index: 1; 
     }
     
@@ -66,7 +64,6 @@ import {Router} from "@angular/router";
       font-family: 'custom_font_gemu';
       src: url('../../assets/Gemunu_Libre/static/GemunuLibre-Regular.ttf') format('truetype');
     }
-    
   `]
 
 })

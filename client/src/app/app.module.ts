@@ -43,6 +43,9 @@ import { AddProductionComponent} from './add-production/add-production-component
 import { ProductionFormComponent } from './production-form/production-form.component';
 import { FakerProductionComponent} from './faker-production/faker-production.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MdbCollapseModule} from "mdb-angular-ui-kit/collapse";
+import {MdbDropdownModule} from "mdb-angular-ui-kit/dropdown";
+import {MessageListService} from "../utils/message-list.service";
 
 @NgModule({
     declarations: [
@@ -82,6 +85,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         //PowerUnitChartsComponent
     ],
     imports: [
+        /* Mdb frontend components */
+        MdbCollapseModule,
+
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
@@ -92,9 +98,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatButtonModule,
         BrowserAnimationsModule,
         MatTooltipModule,
+        MdbDropdownModule,
     ],
   providers: [
-      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+      MessageListService
   ],
   bootstrap: [AppComponent]
 })
