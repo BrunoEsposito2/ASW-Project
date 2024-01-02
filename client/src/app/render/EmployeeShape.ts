@@ -33,7 +33,7 @@ export class EmployeeShape extends Shape {
         });
         var text = new Konva.Text({
             x: 0,
-            y: 100,
+            y: 70,
             text: employee.name?.toString(),
             fontSize: 30,
             fontFamily: 'Calibri',

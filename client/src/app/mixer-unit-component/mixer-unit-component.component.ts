@@ -6,6 +6,7 @@ import {Employee} from "../employee";
 import {Observable} from "rxjs";
 import Konva from "konva";
 import {EmployeeShape} from "../render/EmployeeShape";
+import {FakerEmployeeDataService} from "../faker-employee-data";
 
 @Component({
   selector: 'app-mixer-unit-component',
@@ -33,13 +34,16 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
 
   private ctx!: CanvasRenderingContext2D | null;
   employees$: Observable<Employee[]> = new Observable();
-
-  constructor(private employeesService: EmployeeService) {}
+  employeesArray: Employee[] = new Array();
+  constructor(private employeesService: EmployeeService, private fakeEmployeeService: FakerEmployeeDataService) {}
 
   ngOnInit(): void {
-
     this.employees$ = this.employeesService.getEmployees();
-
+    this.employees$.subscribe(val => {
+      for(let emp of val){
+        this.employeesArray.push(emp);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -56,31 +60,6 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
 
     var layer = new Konva.Layer();
     stage.add(layer);
-
-    // add circle into center
-    var circle = new Konva.Circle({
-      radius: 50,
-      fill: 'red',
-      x: stage.width() / 2,
-      y: stage.height() / 2,
-    });
-    layer.add(circle);
-
-
-    // rectangle in bottom right of the stage
-
-
-
-
-
-    circle.on('mouseover', function(){
-      console.log("over");
-    });
-
-
-// add the shape to the layer
-    layer.add(circle);
-
 
 
     function fitStageIntoParentContainer() {
@@ -100,20 +79,23 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
     fitStageIntoParentContainer();
     window.addEventListener('resize', fitStageIntoParentContainer);
 
-    this.employees$.subscribe(val => {
+    this.fakeEmployeeService.getDataObservable().subscribe(val => {
       let x = 100;
-      for(let emp of val){
-        let emplo = new EmployeeShape(stage, layer, 500 + x, 100 + x, emp);
-        layer.add(emplo);
-       // let employee = new EmployeeRenderedComponent(this.ctx!);
-        //this.ctx!.fillStyle = 'red';
-        //const square = new Square(this.ctx);
-        //this.ctx!.fillRect(5, 1, 20, 20);
-        //employee.draw(x, 10, emp.name!);
-        console.log(emp);
-        x+=40;
+      let n = 0;
+      console.log(this.employeesArray);
+      for(let empData of val){
+        if(n<2){
+          console.log(empData);
+          let emp = this.employeesArray.find(i => i._id == empData["id_employee"]);
+          let emplo = new EmployeeShape(stage, layer, Number(empData["longitude"]), Number(empData["latitude"]), emp!);
+          layer.add(emplo);
+          n++;
+          x+= 40;
+        }
       }
+
     });
+
 // add the layer to the stage
     stage.add(layer);
 // draw the image
