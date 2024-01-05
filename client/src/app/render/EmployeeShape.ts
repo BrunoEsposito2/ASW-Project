@@ -10,18 +10,21 @@ export class EmployeeShape extends Shape {
     private lat;
     private long;
     private temp;
+    private sat;
     private employee
 
-    constructor(stage: Stage, layer: Layer, long: number, lat: number, temp: number, employee: Employee ) {
+    constructor(stage: Stage, layer: Layer, long: number, lat: number, temp: number, sat: number, employee: Employee ) {
         super();
         this.stage = stage;
         this.layer = layer;
         this.lat = lat;
         this.long = long;
         this.temp = temp;
+        this.sat = sat;
         this.employee = employee;
 
         var tempAlarm = temp < 37;
+        var satAlarm = sat > 95;
 
         var circle = new Konva.Circle({
             stroke: 'black',
@@ -37,6 +40,7 @@ export class EmployeeShape extends Shape {
             y: lat + infopos,
             rotation: 0
         });
+        infogroup.hide();
         var square = new Konva.Rect({
             stroke: 'black',
             fill: 'white',
@@ -46,16 +50,64 @@ export class EmployeeShape extends Shape {
             height: 150,
         });
         infogroup.add(square);
-        infogroup.hide();
+
         var text = new Konva.Text({
             x: 0,
-            y: 10,
+            y: 0,
             text: employee.name?.toString(),
             fontSize: 45,
             fontFamily: 'Calibri',
             fill: (tempAlarm) ? 'green' : 'red',
         });
         infogroup.add(text);
+
+        var tempImage = new Image();
+        tempImage.onload = function(){
+            var tempIcon = new Konva.Image({
+                x: -10,
+                y: 40,
+                width: 60,
+                height: 60,
+                image: tempImage,
+            });
+            infogroup.add(tempIcon);
+        }
+        tempImage.src = "../../assets/icons8-temperature-64.png";
+
+        var tempText = new Konva.Text({
+            x: 40,
+            y: 40,
+            text: temp.toString() + " °",
+            fontSize: 35,
+            fontFamily: 'Calibri',
+            fill: (tempAlarm) ? 'green' : 'red',
+        });
+        infogroup.add(tempText);
+
+        var satText = new Konva.Text({
+            x: 40,
+            y: 100,
+            text: sat.toString() + " %",
+            fontSize: 35,
+            fontFamily: 'Calibri',
+            fill: (satAlarm) ? 'green' : 'red',
+        });
+        infogroup.add(satText);
+
+        var satImage = new Image();
+        satImage.onload = function(){
+            var satIcon = new Konva.Image({
+                x: 0,
+                y: 100,
+                width: 50,
+                height: 50,
+                image: satImage,
+            });
+            infogroup.add(satIcon);
+        }
+        tempImage.src = "../../assets/icons8-temperature-64.png";
+        satImage.src = "../../assets/icons8-saturation-96.png";
+
         layer.add(infogroup);
 
         circle.on('click', function(){

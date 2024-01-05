@@ -88,7 +88,7 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
         if(n<2){
           console.log(empData);
           let emp = this.employeesArray.find(i => i._id == empData["id_employee"]);
-          let emplo = new EmployeeShape(stage, layer, Number(empData["longitude"]), Number(empData["latitude"]), Number(empData["temperature"]), emp!);
+          let emplo = new EmployeeShape(stage, layer, Number(empData["longitude"]), Number(empData["latitude"]), Number(empData["temperature"]), Number(empData["saturation"]), emp!);
           layer.add(emplo);
           n++;
           x+= 40;
