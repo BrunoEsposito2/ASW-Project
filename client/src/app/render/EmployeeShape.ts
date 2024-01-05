@@ -9,14 +9,19 @@ export class EmployeeShape extends Shape {
     private layer;
     private lat;
     private long;
+    private temp;
     private employee
-    constructor(stage: Stage, layer: Layer, long: number, lat: number, employee: Employee ) {
+
+    constructor(stage: Stage, layer: Layer, long: number, lat: number, temp: number, employee: Employee ) {
         super();
         this.stage = stage;
         this.layer = layer;
         this.lat = lat;
         this.long = long;
+        this.temp = temp;
         this.employee = employee;
+
+        var tempAlarm = temp < 37;
 
         var circle = new Konva.Circle({
             stroke: 'black',
@@ -26,9 +31,10 @@ export class EmployeeShape extends Shape {
         });
 
         //Info square
+        var infopos = (lat < 350) ? 50 : - 150;
         var infogroup = new Konva.Group({
             x: long - 50,
-            y: lat + 50,
+            y: lat + infopos,
             rotation: 0
         });
         var text = new Konva.Text({
@@ -37,7 +43,7 @@ export class EmployeeShape extends Shape {
             text: employee.name?.toString(),
             fontSize: 30,
             fontFamily: 'Calibri',
-            fill: 'green',
+            fill: (tempAlarm) ? 'green' : 'red',
         });
         infogroup.add(text);
         layer.add(infogroup);
@@ -73,31 +79,32 @@ export class EmployeeShape extends Shape {
             radius: 10
         });
 
-        //Happy
-        var arc = new Konva.Arc({
-            x: long,
-            y: lat - 20,
-            innerRadius: 30,
-            outerRadius: 40,
-            angle: 90,
-            fill: 'green',
-            stroke: 'black',
-            strokeWidth: 4,
-            rotation: 45
-        });
-
-        //Sad
-        var arc = new Konva.Arc({
-            x: long,
-            y: lat + 60,
-            innerRadius: 30,
-            outerRadius: 40,
-            angle: 90,
-            fill: 'red',
-            stroke: 'black',
-            strokeWidth: 4,
-            rotation: 225
-        });
+        if(tempAlarm)
+            //Happy
+            var arc = new Konva.Arc({
+                x: long,
+                y: lat - 10,
+                innerRadius: 30,
+                outerRadius: 40,
+                angle: 90,
+                fill: 'green',
+                stroke: 'black',
+                strokeWidth: 4,
+                rotation: 45
+            });
+        else
+            //Sad
+            var arc = new Konva.Arc({
+                x: long,
+                y: lat + 60,
+                innerRadius: 30,
+                outerRadius: 40,
+                angle: 90,
+                fill: 'red',
+                stroke: 'black',
+                strokeWidth: 4,
+                rotation: 225
+            });
         this.layer.add(arc);
         this.layer.add(lefteye);
         this.layer.add(righteye);
