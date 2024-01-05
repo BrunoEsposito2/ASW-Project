@@ -31,32 +31,32 @@ export class EmployeeShape extends Shape {
         });
 
         //Info square
-        var infopos = (lat < 350) ? 50 : - 150;
+        var infopos = (lat < 300) ? 50 : - 200;
         var infogroup = new Konva.Group({
             x: long - 50,
             y: lat + infopos,
             rotation: 0
         });
+        var square = new Konva.Rect({
+            stroke: 'black',
+            fill: 'white',
+            x: 0,
+            y: 0,
+            width: 150,
+            height: 150,
+        });
+        infogroup.add(square);
+        infogroup.hide();
         var text = new Konva.Text({
             x: 0,
-            y: 70,
+            y: 10,
             text: employee.name?.toString(),
-            fontSize: 30,
+            fontSize: 45,
             fontFamily: 'Calibri',
             fill: (tempAlarm) ? 'green' : 'red',
         });
         infogroup.add(text);
         layer.add(infogroup);
-
-        var square = new Konva.Rect({
-            stroke: 'black',
-            x: 0,
-            y: 0,
-            width: 100,
-            height: 100,
-        });
-        infogroup.add(square);
-        infogroup.hide();
 
         circle.on('click', function(){
             infogroup.isVisible() ?
