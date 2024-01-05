@@ -80,6 +80,7 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
     window.addEventListener('resize', fitStageIntoParentContainer);
 
     this.fakeEmployeeService.getDataObservable().subscribe(val => {
+      layer.destroyChildren();
       let x = 100;
       let n = 0;
       console.log(this.employeesArray);
