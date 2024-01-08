@@ -45,7 +45,10 @@ import { FakerProductionComponent} from './faker-production/faker-production.com
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MdbCollapseModule} from "mdb-angular-ui-kit/collapse";
 import {MdbDropdownModule} from "mdb-angular-ui-kit/dropdown";
-import {MessageListService} from "../utils/message-list.service";
+import {MdbRippleModule} from "mdb-angular-ui-kit/ripple";
+import { FloatingChatComponent } from './floating-chat/floating-chat.component';
+import {MdbTabsModule} from "mdb-angular-ui-kit/tabs";
+import {SocketChatService} from "../utils/socket-chat.service";
 
 @NgModule({
     declarations: [
@@ -81,28 +84,32 @@ import {MessageListService} from "../utils/message-list.service";
         AddProductionComponent,
         ProductionFormComponent,
         FakerProductionComponent,
+        FloatingChatComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],
     imports: [
         /* Mdb frontend components */
         MdbCollapseModule,
+        MdbDropdownModule,
+        MdbRippleModule,
+        MdbTabsModule,
+
+        /* Material frontend components */
+        MatCardModule,
+        MatInputModule,
+        MatButtonModule,
+        MatTooltipModule,
 
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
-        MatCardModule,
-        MatInputModule,
-        MatButtonModule,
         BrowserAnimationsModule,
-        MatTooltipModule,
-        MdbDropdownModule,
     ],
   providers: [
-      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-      MessageListService
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

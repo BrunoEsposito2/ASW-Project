@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import { FakerEmployeeDataService } from '../faker-employee-data';
 import {AuthSession} from "../../utils/auth-session";
+import {SocketChatService} from "../../utils/socket-chat.service";
 
 @Component({
   selector: 'app-admin-navbar',
@@ -73,15 +74,19 @@ import {AuthSession} from "../../utils/auth-session";
 export class AdminNavbarComponent {
   private authSession: AuthSession;
   public isFakerServiceActive = false
+
   constructor(
       public activatedRoute: ActivatedRoute,
       private router: Router,
+      protected socketService: SocketChatService,
       private fakerEmployeeDataService: FakerEmployeeDataService
   ) {
     this.authSession = new AuthSession()
+    this.socketService.openConnections(this.activatedRoute.snapshot.paramMap.get('username')!)
   }
 
   redirectToHomePage() {
+    this.socketService.disconnect()
     this.authSession.clearAuthData();
     this.router.navigate(['/']);
   }

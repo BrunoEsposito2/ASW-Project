@@ -35,6 +35,7 @@ import {EmployeeService} from '../employee.service';
     </table>
 
     <button class="btn btn-primary mt-3" [routerLink]="['new']">Add a New Employee</button>
+    <app-floating-chat></app-floating-chat>
   `
 })
 export class EmployeesListComponent implements OnInit {
