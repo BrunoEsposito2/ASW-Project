@@ -24,6 +24,8 @@ let messageList: ChatMessage[] = [];
 
 if (!fs.existsSync('chat-messages.json')) {
     fs.writeFileSync('chat-messages.json', '[]');
+} else {
+    messageList = JSON.parse(fs.readFileSync('chat-messages.json', 'utf8'));
 }
 
 io.on('connection', (socket: Socket) => {

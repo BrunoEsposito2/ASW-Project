@@ -105,11 +105,8 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               class="btn btn-lg btn-primary btn-floating position-fixed bottom-0 end-0"
               [ngClass]="{ 'active': isActive }"
               style="margin-right: 20px; margin-bottom: 20px;"
-              (mouseenter)="displayButtons()"
-              (touchstart)="displayButtons()"
+              (click)="displayButtons()"
               mdbRipple>
-              <!--(click)="toggleChat()"-->
-              
         <i class="fas fa-message"></i>
       </button>
     </div>
