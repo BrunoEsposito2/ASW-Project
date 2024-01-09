@@ -23,8 +23,8 @@ export class EmployeeShape extends Shape {
         this.sat = sat;
         this.employee = employee;
 
-        var tempAlarm = temp < 37;
-        var satAlarm = sat > 95;
+        var tempAlarm = temp > 37;
+        var satAlarm = sat < 95;
 
         var circle = new Konva.Circle({
             stroke: 'black',
@@ -57,7 +57,7 @@ export class EmployeeShape extends Shape {
             text: employee.name?.toString(),
             fontSize: 45,
             fontFamily: 'Calibri',
-            fill: (tempAlarm) ? 'green' : 'red',
+            fill: (tempAlarm || satAlarm) ? 'red' : 'green',
         });
         infogroup.add(text);
 
@@ -76,21 +76,21 @@ export class EmployeeShape extends Shape {
 
         var tempText = new Konva.Text({
             x: 40,
-            y: 40,
-            text: temp.toString() + " °",
-            fontSize: 35,
+            y: 50,
+            text: temp.toFixed(2).toString() + "°",
+            fontSize: 32,
             fontFamily: 'Calibri',
-            fill: (tempAlarm) ? 'green' : 'red',
+            fill: (tempAlarm) ? 'red' : 'green',
         });
         infogroup.add(tempText);
 
         var satText = new Konva.Text({
-            x: 40,
-            y: 100,
-            text: sat.toString() + " %",
-            fontSize: 35,
+            x: 50,
+            y: 110,
+            text: sat.toFixed(2).toString() + "%",
+            fontSize: 32,
             fontFamily: 'Calibri',
-            fill: (satAlarm) ? 'green' : 'red',
+            fill: (satAlarm) ? 'red' : 'green',
         });
         infogroup.add(satText);
 
@@ -131,7 +131,7 @@ export class EmployeeShape extends Shape {
             radius: 10
         });
 
-        if(tempAlarm)
+        if(!tempAlarm && !satAlarm)
             //Happy
             var arc = new Konva.Arc({
                 x: long,

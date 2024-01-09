@@ -1,6 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {EmployeesListComponent} from "../employees-list/employees-list.component";
-import {EmployeeRenderedComponent} from '../render/employee-rendered.component';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {EmployeeService} from "../employee.service";
 import {Employee} from "../employee";
 import {Observable} from "rxjs";
@@ -32,7 +30,6 @@ import {FakerEmployeeDataService} from "../faker-employee-data";
 })
 export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
 
-  private ctx!: CanvasRenderingContext2D | null;
   employees$: Observable<Employee[]> = new Observable();
   employeesArray: Employee[] = new Array();
   constructor(private employeesService: EmployeeService, private fakeEmployeeService: FakerEmployeeDataService) {}
