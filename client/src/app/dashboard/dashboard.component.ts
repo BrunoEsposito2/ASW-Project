@@ -1,5 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
-import * as $ from 'jquery';
+import {Component} from '@angular/core';
 
 
 @Component({
@@ -45,10 +44,10 @@ import * as $ from 'jquery';
         </div>
         <div class="col-4">
           <div class="card bg-light">
-              <div class="card-header custom-font">Mixer unit component</div>
-              <div class="card-body">
-                <app-mixer-unit-component class="d-flex justify-content-center"></app-mixer-unit-component>
-              </div>
+            <div class="card-header custom-font">Mixer unit component</div>
+            <div class="card-body">
+              <app-mixer-unit-component class="d-flex justify-content-center"></app-mixer-unit-component>
+            </div>
           </div>
         </div>
         <div class="col-4">
@@ -84,7 +83,7 @@ import * as $ from 'jquery';
             <div class="card-body">
               <app-steps-component></app-steps-component>
             </div>
-          </div>          
+          </div>
         </div>
       </div>
     </section>
@@ -99,6 +98,10 @@ import * as $ from 'jquery';
 
 export class DashboardComponent {
   isToastVisible = false;
+
+  constructor() {
+  }
+
   showToast() {
     this.isToastVisible = true;
   }

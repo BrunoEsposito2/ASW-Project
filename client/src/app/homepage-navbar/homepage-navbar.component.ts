@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
   selector: 'app-homepage-navbar',
   template: `
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light custom-nav bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <!-- Container wrapper -->
-      <div class="container custom-nav">
+      <div class="container-fluid">
         <!-- Navbar brand -->
-        <a class="navbar-brand me-2">
+        <a class="navbar-brand me-2" href="/">
           <img class="" src="../assets/tower-logo.png" alt="logo_frabrugia" style="width:100px; height:40px" >
         </a>
 
@@ -16,9 +16,7 @@ import { Component } from '@angular/core';
         <button
             class="navbar-toggler"
             type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarButtonsExample"
-            aria-controls="navbarButtonsExample"
+            (click)="noListNav.toggle()"
             aria-expanded="false"
             aria-label="Toggle navigation"
         >
@@ -26,13 +24,16 @@ import { Component } from '@angular/core';
         </button>
 
         <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse custom-nav" id="navbarButtonsExample">
+        <div 
+            class="collapse navbar-collapse" 
+            id="navbarNavAltMarkup"
+            mdbCollapse
+            #noListNav="mdbCollapse"
+        >
           <!-- Left links -->
-          <ul class="navbar-nav custom-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link custom-font" href="/">Home</a>
-            </li>
-          </ul>
+          <div class="navbar-nav">
+            <a class="nav-link active" href="/">Home</a>
+          </div>
           <!-- Left links -->
         </div>
         <!-- Collapsible wrapper -->
