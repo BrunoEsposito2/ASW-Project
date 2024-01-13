@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <app-admin-navbar></app-admin-navbar>
     <app-chat></app-chat>
+    <app-footer></app-footer>
   `,
   styles: [
   ]

@@ -69,6 +69,9 @@ import {Employee} from '../employee';
 
       <button class="btn btn-primary" type="submit" [disabled]="employeeForm.invalid">Add</button>
     </form>
+    
+    <app-floating-chat></app-floating-chat>
+    <app-footer></app-footer>
   `,
   styles: [
     `.employee-form {

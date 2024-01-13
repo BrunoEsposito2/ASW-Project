@@ -86,14 +86,14 @@ import {SocketChatService} from "../../utils/socket-chat.service";
     <div *ngIf="buttonsOn" class="position-fixed bottom-0 end-0">
       <button type="button"
               class="btn btn-floating btn-secondary btn-lg" 
-              style="margin-bottom: 30px;"
+              style="margin-bottom: 40px;"
               (click)="toggleChat()"
               mdbRipple>
         <i class="fas fa-plus"></i>
       </button>
       <button type="button" 
               class="btn btn-floating btn-secondary btn-lg"
-              style="margin-right: 25px; margin-bottom: 70px;"
+              style="margin-right: 25px; margin-bottom: 90px;"
               (click)="redirectToChat()"
               mdbRipple>
         <i class="fa fa-external-link"></i>
@@ -104,7 +104,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
       <button type="button" 
               class="btn btn-lg btn-primary btn-floating position-fixed bottom-0 end-0"
               [ngClass]="{ 'active': isActive }"
-              style="margin-right: 20px; margin-bottom: 20px;"
+              style="margin-right: 20px; margin-bottom: 40px;"
               (click)="displayButtons()"
               mdbRipple>
         <i class="fas fa-message"></i>

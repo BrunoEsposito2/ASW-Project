@@ -49,6 +49,7 @@ import {MdbRippleModule} from "mdb-angular-ui-kit/ripple";
 import { FloatingChatComponent } from './floating-chat/floating-chat.component';
 import {MdbTabsModule} from "mdb-angular-ui-kit/tabs";
 import {SocketChatService} from "../utils/socket-chat.service";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -85,6 +86,7 @@ import {SocketChatService} from "../utils/socket-chat.service";
         ProductionFormComponent,
         FakerProductionComponent,
         FloatingChatComponent,
+        FooterComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],

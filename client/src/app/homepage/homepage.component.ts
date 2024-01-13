@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
   selector: 'app-homepage',
   template: `
     <app-homepage-navbar></app-homepage-navbar>
-    <!--<img class="d-block mx-auto mb-4" src="../assets/tower-logo.png" alt="logo_frabrugia" >-->
       <div class="video-container">
         <div class="buttons">
           <div class="button-container">
@@ -24,18 +23,13 @@ import {Router} from "@angular/router";
         </div>
         <video data-test="video-content" preload="auto" src="https://cdn.dribbble.com/userupload/8705023/file/large-cec325409ba99f93a7df8a6931e3e1c0.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
       </div>
-    
+    <app-footer></app-footer>
   `,
   styles:
     [`
-    #logoFrabrugia {
-      height: 40%;
-      width: 30%;
-    }
-
     .video-container {
       position: relative;
-      height: 100vh;
+      height: 90vh;
       overflow: hidden;
     }
 

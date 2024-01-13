@@ -33,6 +33,8 @@ import {Employee} from "../employee";
 
       <button class="btn btn-primary" type="submit" [disabled]="productionForm.invalid">Add</button>
     </form>
+    
+    <app-footer></app-footer>
   `,
     styles: [
         `.production-form {
