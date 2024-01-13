@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthSession} from "../../utils/auth-session";
+import {SocketChatService} from "../../utils/socket-chat.service";
 
 @Component({
   selector: 'app-employee-navbar',
@@ -62,12 +63,15 @@ export class EmployeeNavbarComponent {
 
   constructor(
       public activatedRoute: ActivatedRoute,
-      private router: Router
+      private router: Router,
+      private socketService: SocketChatService
   ) {
     this.authSession = new AuthSession()
+    this.socketService.openConnections(this.activatedRoute.snapshot.paramMap.get('username')!)
   }
 
   redirectToHomePage() {
+    this.socketService.disconnect()
     this.authSession.clearAuthData();
     this.router.navigate(['/']);
   }
