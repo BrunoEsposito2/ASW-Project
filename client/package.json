@@ -5,9 +5,10 @@
   "license": "Apache 2.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "start": "ng serve client && concurrently \"ng serve chat\"",
+    "build": "ng build client && concurrently \"ng build chat\"",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
