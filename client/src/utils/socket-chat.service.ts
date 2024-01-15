@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {io} from "socket.io-client";
 import {ChatMessage} from "../app/chat-message";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: "platform"
@@ -11,7 +12,8 @@ export class SocketChatService {
   userList: string[] = [];
   userName: string = "";
   activeUser: string = "";
-  messageList: ChatMessage[] = [];
+  messageList: ChatMessage[] = []
+  messageListObservable: Observable<ChatMessage[]> = new Observable<ChatMessage[]>();
   message: string = "";
 
   constructor() {   }
@@ -38,7 +40,7 @@ export class SocketChatService {
     });
 
     this.socket.on('chat-messages', (messageList: ChatMessage[]) => {
-      this.messageList = messageList
+      this.messageListObservable.subscribe(list => this.messageList = messageList)
     })
   }
 
