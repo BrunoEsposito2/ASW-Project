@@ -7,6 +7,7 @@ import {adminRouter} from "./admin.routes";
 import {productionRouter} from "./production.routes";
 import {employeeOperatingDataRouter} from "./employee.operating.data.routes";
 import cookieParser from "cookie-parser";
+import {cycleProductionRouter} from "./cycle-production.routes";
 
 // Load environment variables from the .env file, where the ATLAS_URI is configured
 dotenv.config();
@@ -28,6 +29,8 @@ connectToDatabase(ATLAS_URI)
         app.use("/admins", adminRouter);
         app.use("/production", productionRouter);
         app.use("/employee-operating-data", employeeOperatingDataRouter);
+        app.use("/cycle-production", cycleProductionRouter);
+
         // start the Express server
         app.listen(5200, () => {
             console.log(`Database server is running at http://localhost:5200...`);

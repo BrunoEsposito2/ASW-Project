@@ -3,12 +3,14 @@ import {Employee} from "./employee";
 import {Admin} from "./admin";
 import {Production} from "./production";
 import {EmployeeOperatingData} from "./employee.operating.data";
+import {CycleProduction} from "./cycle-production";
 
 export const collections: {
     employees?: mongodb.Collection<Employee>;
     admins?: mongodb.Collection<Admin>;
     production?: mongodb.Collection<Production>;
     employee_operating_data?: mongodb.Collection<EmployeeOperatingData>;
+    cycle_production?: mongodb.Collection<CycleProduction>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
@@ -29,6 +31,10 @@ export async function connectToDatabase(uri: string) {
 
     const employeesOperatingDataCollection = db.collection<EmployeeOperatingData>("employee_operating_data");
     collections.employee_operating_data = employeesOperatingDataCollection;
+
+    const cycleproductionCollection = db.collection<CycleProduction>("cycle_production");
+    collections.cycle_production = cycleproductionCollection;
+
 
 }
 
@@ -67,6 +73,32 @@ async function applySchemaValidation(db: mongodb.Db) {
         },
     };
 
+    const jsonCycleProductionSchema = {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["date", "cycle"],
+            additionalProperties: false,
+            properties: {
+                _id: {},
+                date: {
+                    bsonType: "string",
+                    description: "'date' is a string",
+                },
+                currentState: {
+                    bsonType: "string",
+                    description: "'currentState' is a number", // Modificato da string a number
+                },
+                currentValue: {
+                    bsonType: "string",
+                    description: "'currentValue' is a number", // Modificato da string a number
+                },
+                cycle: {
+                    bsonType: "string",
+                    description: "'cycle' is required",
+                },
+            },
+        },
+    };
 
     const jsonEmployeeOperatingDataSchema = {
         $jsonSchema: {
@@ -185,4 +217,18 @@ async function applySchemaValidation(db: mongodb.Db) {
             await db.createCollection("production", {validator: jsonProductionSchema});
         }
     })
+
+    await db.command({
+        collMod: "cycle_production",
+        validator: jsonCycleProductionSchema
+    }).then((result) => {
+        console.log("Command result:", result);
+    }).catch(async (error: mongodb.MongoServerError) => {
+        console.error("Error during command:", error);
+        if (error.codeName === "NamespaceNotFound") {
+            console.log("Collection not found, creating...");
+            await db.createCollection("cycle_production", {validator: jsonCycleProductionSchema});
+            console.log("Collection created successfully.");
+        }
+    });
 }
