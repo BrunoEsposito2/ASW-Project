@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import { FakerEmployeeDataService } from '../faker-employee-data';
+import {FakerCycleProduction} from "../faker-cycle-production";
+import {FakerProductionService} from "../faker-production-service/faker.production.service";
 import {AuthSession} from "../../utils/auth-session";
 import {SocketChatService} from "../../utils/socket-chat.service";
 
@@ -79,7 +81,9 @@ export class AdminNavbarComponent {
       public activatedRoute: ActivatedRoute,
       private router: Router,
       protected socketService: SocketChatService,
-      private fakerEmployeeDataService: FakerEmployeeDataService
+      private fakerEmployeeDataService: FakerEmployeeDataService,
+      private fakerCycleProduction : FakerCycleProduction,
+      private fakerProduction : FakerProductionService,
   ) {
     this.authSession = new AuthSession()
     this.socketService.openConnections(this.activatedRoute.snapshot.paramMap.get('username')!)
@@ -109,10 +113,14 @@ export class AdminNavbarComponent {
 
   toggleFakerService() {
     if (this.fakerEmployeeDataService.isActive()) {
+      this.fakerCycleProduction.stopUpdating();
       this.fakerEmployeeDataService.stopUpdatingDatabase();
+      this.fakerProduction.stopUpdating();
       this.isFakerServiceActive = false;
     } else {
+      this.fakerCycleProduction.startUpdating();
       this.fakerEmployeeDataService.startUpdatingDatabase();
+      this.fakerProduction.startUpdating();
       this.isFakerServiceActive = true;
     }
   }
