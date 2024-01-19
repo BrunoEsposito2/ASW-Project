@@ -38,6 +38,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { EmployeeNavbarComponent } from './employee-navbar/employee-navbar.component';
 import { AdminChatComponent } from './admin-chat/admin-chat.component';
 import { EmployeeChatComponent } from './employee-chat/employee-chat.component';
+import { CommonModule } from '@angular/common';
 import { ProductionsListComponent } from './production-list/productions-list.component';
 import { AddProductionComponent} from './add-production/add-production-component';
 import { ProductionFormComponent } from './production-form/production-form.component';
@@ -108,7 +109,12 @@ import { FooterComponent } from './footer/footer.component';
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
+        MatCardModule,
+        MatInputModule,
+        MatButtonModule,
         BrowserAnimationsModule,
+        MatTooltipModule,
+        MatProgressBarModule
     ],
   providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
