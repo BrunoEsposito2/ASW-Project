@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Production } from '../production'
 import { ProductionService } from '../production.service';
+import {Subject} from "rxjs";
 
 import {interval, Subject, Subscription} from "rxjs";
 import {CycleProduction} from "../cycle-production";
@@ -14,6 +15,7 @@ export class FakerProductionService {
     private Active = false;
     private dataSubject = new Subject<Production>();
     constructor(private productionService: ProductionService) {}
+    private dataSubject = new Subject<Production>();
 
     addProduction(production: Production) {
         this.productionService.createProduction(production).subscribe({
@@ -29,6 +31,10 @@ export class FakerProductionService {
 
     calculateKgProduced(): number {
         return Math.floor(Math.random() * (500 - 100 + 1)) + 100; // genera un numero casuale tra 100 e 500
+    }
+
+    getDataObservable() {
+        return this.dataSubject.asObservable();
     }
 
     calculateKgWaste(): number {

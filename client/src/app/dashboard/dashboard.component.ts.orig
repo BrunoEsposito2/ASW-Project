@@ -1,8 +1,13 @@
-import {Component} from '@angular/core';
+<<<<<<< HEAD
+import { Component, AfterViewInit } from '@angular/core';
+import * as $ from 'jquery';
 import {EmployeeService} from "../employee.service";
 import {FakerEmployeeDataService} from "../faker-employee-data";
 import {EmployeeOperatingData} from "../employee-operating-data";
 import {Employee} from "../employee";
+=======
+import {Component} from '@angular/core';
+>>>>>>> 0a2cc64a7750ddf1b08a7dd6c4aa387d47e93621
 
 
 @Component({
@@ -90,12 +95,18 @@ import {Employee} from "../employee";
 
 export class DashboardComponent {
   isToastVisible = false;
+<<<<<<< HEAD
   private operatingdata: EmployeeOperatingData[] = [];
   public employees: Employee[] = [];
   private alertTemperature = 37;
   private alertSaturation = 92;
   public messageToast: string = '';
   public currentTime: string = '';
+=======
+
+  constructor() {
+  }
+>>>>>>> 0a2cc64a7750ddf1b08a7dd6c4aa387d47e93621
 
   showToast() {
     this.isToastVisible = true;

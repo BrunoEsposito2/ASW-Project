@@ -26,13 +26,13 @@ import { BehaviorSubject } from 'rxjs';
                 </h2>
                 <div class="accordion-collapse collapse show" id="accordion-collapse">
                   <div class="accordion-body less-padding">
-                  <img src="../../assets/icons8-gps.png" style="width: 20px; height: 20px;" alt="Latitude Icon" *ngIf="employee._id">
+                  <img src="../../assets/icons8-gps.png" title="Posizione" style="width: 20px; height: 20px;" alt="Latitude Icon" *ngIf="employee._id">
                   {{ accordionData[employee._id]?.latitude }} - {{ accordionData[employee._id]?.longitude }}<br>
-                  <img src="../../assets/icons8-temperature-64.png" style="width: 20px; height: 20px;" alt="Temperature Icon" *ngIf="employee._id">
+                  <img src="../../assets/icons8-temperature-64.png" title="Temperatura" style="width: 20px; height: 20px;" alt="Temperature Icon" *ngIf="employee._id">
                   {{ accordionData[employee._id]?.temperature | number:'1.1-2' }}<br>
-                  <img src="../../assets/icons8-saturation-96.png" style="width: 20px; height: 20px;" alt="Saturation Icon" *ngIf="employee._id">
+                  <img src="../../assets/icons8-saturation-96.png" title="Saturazione" style="width: 20px; height: 20px;" alt="Saturation Icon" *ngIf="employee._id">
                   {{ accordionData[employee._id]?.saturation | number:'1.1-2' }}<br>
-                  <img src="../../assets/icons8-time-100.png" style="width: 20px; height: 20px;" alt="Time Icon" *ngIf="employee._id">
+                  <img src="../../assets/icons8-time-100.png" title="Data/Ora" style="width: 20px; height: 20px;" alt="Time Icon" *ngIf="employee._id">
                   {{ accordionData[employee._id]?.timeIn }}
                 </div>
                 </div>
@@ -65,6 +65,34 @@ export class AssistantsComponentComponent implements OnInit {
   public employees: Employee[] = [];
   public isAccordionOpen: { [id: string]: boolean } = {};
   public accordionData: { [id: string]: any } = {};
+  private toastInfoSubject = new BehaviorSubject<{ show: boolean, message: string }>({ show: false, message: '' });
+  public toastInfo$ = this.toastInfoSubject.asObservable();
+  private alertTemperature = 37;
+  private alertSaturation = 92;
+
+  /*showToast(employeeId: string) {
+    const employeeOperatingData = this.operatingdata.find(item => item.id_employee === employeeId);
+
+    if (employeeOperatingData && employeeOperatingData.temperature !== null && employeeOperatingData.saturation !== null) {
+      if (employeeOperatingData.temperature > this.alertTemperature && employeeOperatingData.saturation < this.alertSaturation) {
+        this.toastInfoSubject.next({ show: true, message: 'This is a toast message!' });
+      } else {
+        this.toastInfoSubject.next({ show: false, message: '' });
+      }
+    } else {
+      // In caso di employeeOperatingData null o temperature/saturation null, nascondi il toast
+      this.toastInfoSubject.next({ show: false, message: '' });
+    }
+  }*/
+
+  /*Notifiche operatore
+      |> Cambia ricetta
+      |> Vai in pausa
+      |> Fine del turno
+      |> Vieni in cabina
+      |> Allarme antiincendio
+      |> Allarme generico
+   */
 
   ngOnInit(): void {
     this.employeesService.getEmployees().subscribe(
@@ -75,13 +103,17 @@ export class AssistantsComponentComponent implements OnInit {
           console.error('Errore durante il recupero dei dati degli operatori:', error);
         }
     );
+
+
+
+
     this.employees = this.getEmployees();
 
     this.fakerEmployeeOpData.getDataObservable().subscribe((newData) => {
       this.operatingdata = newData;
-      console.log(this.operatingdata);
 
       for (let employeeId in this.isAccordionOpen) {
+
         if (this.isAccordionOpen[employeeId]) {
           this.updateEmployeeAccordionData(employeeId);
         }
@@ -101,7 +133,6 @@ export class AssistantsComponentComponent implements OnInit {
     this.accordionData[employeeId] = employeeOperatingData.length > 0 ? employeeOperatingData[0] : null;
   }
 
-// Funzione per chiudere l'accordion
   closeAccordion(employee: any): void {
     this.isAccordionOpen[employee._id] = false;
     this.accordionData[employee._id] = {};
