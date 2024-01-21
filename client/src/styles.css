@@ -172,3 +172,25 @@ html, body {
 .less-padding {
     padding:5px;
 }
+
+.toast-custom {
+    margin-top:5px;
+    padding: 5px;
+}
+
+.body-toast {
+    padding:5px;
+}
+
+.alert-custom {
+    background-color: crimson;
+}
+
+.close-custom {
+    margin-left: 5px;
+    color: white;
+}
+
+.btn-close {
+    color: white !important;
+}

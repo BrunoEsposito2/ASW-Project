@@ -12,8 +12,8 @@ import {EmployeeOperatingData} from "../employee-operating-data";
 export class FakerProductionService {
     private updateSubscription: Subscription = new Subscription();
     private Active = false;
-    private dataSubject = new Subject<Production>();
     constructor(private productionService: ProductionService) {}
+    private dataSubject = new Subject<Production>();
 
     addProduction(production: Production) {
         this.productionService.createProduction(production).subscribe({
