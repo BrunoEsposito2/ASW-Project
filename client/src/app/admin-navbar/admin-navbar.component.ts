@@ -44,7 +44,6 @@ import {SocketChatService} from "../../utils/socket-chat.service";
             <a class="nav-link active" (click)="redirectToDashboard()">Dashboard</a>
             <a class="nav-link active" (click)="redirectToEmployees()">Employees</a>
             <a class="nav-link active" (click)="redirectToChat()">Chat</a>
-            <a class="nav-link active" (click)="redirectToProductions()"> Productions </a>
           </div>
           
           <!-- Left links -->
@@ -53,15 +52,6 @@ import {SocketChatService} from "../../utils/socket-chat.service";
             <button type="button" class="btn btn-primary me-3" (click)="redirectToHomePage()">
               Log Out
             </button>
-            <button type="button" (click)="toggleFakerService()">
-              On/Off
-            </button>
-            <img
-                id="faker-state"
-                [src]="isFakerServiceActive ? 'assets/icons8-on-80.png' : 'assets/icons8-off-80.png'"
-                alt="faker-state"
-                style="width: 30px; height: 30px; margin-left:10px"
-            >
           </div>
         </div>
         <!-- Collapsible wrapper -->
@@ -87,6 +77,7 @@ export class AdminNavbarComponent {
   ) {
     this.authSession = new AuthSession()
     this.socketService.openConnections(this.activatedRoute.snapshot.paramMap.get('username')!)
+    this.toggleFakerService()
   }
 
   redirectToHomePage() {
