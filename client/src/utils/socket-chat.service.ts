@@ -54,6 +54,16 @@ export class SocketChatService {
     }
   }
 
+  sendMessageWarningOrAlert(message: string): void {
+    const regex = /^(\n|''| .*)/;
+    if (!regex.test(message)) {
+      const msgToSend = {message: message, userName: this.userName, color: ""}
+      this.socket.emit('message', msgToSend);
+      this.messageList.push(msgToSend);
+      this.message = "";
+    }
+  }
+
   filteredUserList() {
     return this.userList.filter(u => u != this.activeUser)
   }

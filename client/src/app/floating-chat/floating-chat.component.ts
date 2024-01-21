@@ -87,14 +87,14 @@ import {SocketChatService} from "../../utils/socket-chat.service";
       <button type="button"
               class="btn btn-floating btn-secondary btn-lg"
               style="margin-right: 15px; margin-bottom: 100px;"
-              (click)="redirectToChat()"
+              (click)='socketService.sendMessageWarningOrAlert("warning")'
               mdbRipple>
         <i class="fa fa-warning"></i>
       </button>
       <button type="button"
               class="btn btn-floating btn-secondary btn-lg"
               style="margin-right: 15px; margin-bottom: 100px;"
-              (click)="redirectToChat()"
+              (click)='socketService.sendMessageWarningOrAlert("alert")'
               mdbRipple>
         <i class="fa fa-fire"></i>
       </button>
