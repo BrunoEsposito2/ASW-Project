@@ -85,19 +85,37 @@ import {SocketChatService} from "../../utils/socket-chat.service";
       
     <div *ngIf="buttonsOn" class="position-fixed bottom-0 end-0">
       <button type="button"
-              class="btn btn-floating btn-secondary btn-lg" 
-              style="margin-bottom: 40px;"
-              (click)="toggleChat()"
-              mdbRipple>
-        <i class="fas fa-plus"></i>
-      </button>
-      <button type="button" 
               class="btn btn-floating btn-secondary btn-lg"
-              style="margin-right: 25px; margin-bottom: 90px;"
+              style="margin-right: 15px; margin-bottom: 100px;"
+              (click)="redirectToChat()"
+              mdbRipple>
+        <i class="fa fa-warning"></i>
+      </button>
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg"
+              style="margin-right: 15px; margin-bottom: 100px;"
+              (click)="redirectToChat()"
+              mdbRipple>
+        <i class="fa fa-fire"></i>
+      </button>
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg"
+              style="margin-right: -105px; margin-bottom: 100px;"
               (click)="redirectToChat()"
               mdbRipple>
         <i class="fa fa-external-link"></i>
       </button>
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg" 
+              style="margin-bottom: 40px; margin-right:80px;"
+              (click)="toggleChat()"
+              mdbRipple>
+        <i class="fas fa-plus"></i>
+      </button>
+      
+
+      
+
     </div>
       
     <div>
