@@ -1,34 +1,25 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as $ from 'jquery';
+import {EmployeeService} from "../employee.service";
+import {FakerEmployeeDataService} from "../faker-employee-data";
+import {EmployeeOperatingData} from "../employee-operating-data";
+import {Employee} from "../employee";
 
 
 @Component({
   selector: 'app-dashboard',
   template: `
-    <!--<div class="toast show bg-light" id="toast-elem" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-
-        <strong class="me-auto">Bootstrap</strong>
-        <small>11 mins ago</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">
-        Hello, world! This is a toast message.
-      </div>
-    </div>-->
-
     <ngb-toast
         (hidden)="isToastVisible = false"
-        [ngClass]="isToastVisible ? 'd-block' : 'd-none'"
-    >
-      <div [ngClass]="'toast show bg-light'">
-        <div class="toast-header">
-          <strong class="me-auto">Toast Title</strong>
-          <small>11 mins ago</small>
-          <button type="button" class="btn-close" (click)="isToastVisible = false" aria-label="Close"></button>
+        [ngClass]="isToastVisible ? 'd-block' : 'd-none'">
+      <div [ngClass]="'toast show toast-custom'">
+        <div class="toast-header toast-custom alert-custom">
+          <strong class="me-auto text-white">Alert</strong>
+          <small class="text-white">{{currentTime}}</small>
+          <button type="button" class="btn-close close-custom" (click)="isToastVisible = false" aria-label="Close"></button>
         </div>
-        <div class="toast-body">
-          This is a toast message!
+        <div class="toast-body body-toast">
+          {{messageToast}}
         </div>
       </div>
     </ngb-toast>
@@ -82,7 +73,8 @@ import * as $ from 'jquery';
           <div class="card bg-light">
             <div class="card-header custom-font">Steps component</div>
             <div class="card-body">
-              <app-steps-component></app-steps-component>
+              <app-steps-component>
+              </app-steps-component>
             </div>
           </div>          
         </div>
@@ -99,8 +91,68 @@ import * as $ from 'jquery';
 
 export class DashboardComponent {
   isToastVisible = false;
+  private operatingdata: EmployeeOperatingData[] = [];
+  public employees: Employee[] = [];
+  private alertTemperature = 37;
+  private alertSaturation = 92;
+  public messageToast: string = '';
+  public currentTime: string = '';
+
   showToast() {
     this.isToastVisible = true;
   }
+
+  constructor(private employeesService: EmployeeService,
+              private fakerEmployeeOpData: FakerEmployeeDataService) { }
+  ngOnInit(): void {
+
+    this.employeesService.getEmployees().subscribe(
+        (data) => {
+          this.employees = data;
+        },
+        (error) => {
+          console.error('Errore durante il recupero dei dati degli operatori:', error);
+        }
+    );
+
+    this.fakerEmployeeOpData.getDataObservable().subscribe((newData) => {
+      this.operatingdata = newData;
+
+      this.operatingdata.forEach((elem) => {
+        const employeeId = elem.id_employee;
+
+        const hours = new Date().getHours();
+        const minutes = new Date().getMinutes();
+        if(minutes<10) {
+          this.currentTime = hours + ":0" + minutes;
+        } else {
+          this.currentTime = hours + ":" + minutes;
+        }
+
+
+        const matchingEmployee = this.employees.find((employee) => employee._id === employeeId);
+
+        if (matchingEmployee) {
+          const employeeName = matchingEmployee.name;
+
+          // @ts-ignore
+          if (elem.saturation < this.alertSaturation) {
+            this.messageToast = `Errore, saturazione di: ${elem.saturation?.toPrecision(4)}, valore basso per ${employeeName}`;
+            this.showToast();
+          }
+
+          // @ts-ignore
+          if (elem.temperature > this.alertTemperature) {
+            this.messageToast = `Allarme! Temperatura di: ${elem.temperature?.toPrecision(4)}°C, valore alto per ${employeeName}`;
+            this.showToast();
+          }
+        }
+      });
+    });
+
+  }
+
+
+
 
 }

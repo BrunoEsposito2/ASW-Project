@@ -31,6 +31,16 @@ export class ProductionService {
     }
 
     createProduction(production: Production): Observable<string> {
+
+        production = {
+            kg_produced: production.kg_produced,
+            kg_waste: production.kg_waste,
+            timestamp: new Date().toISOString(),
+        };
+
+
+
+        console.log("service " + `${this.url}/production` + JSON.stringify(production));
         return this.httpClient.post(`${this.url}/production`, production, { responseType: 'text' });
     }
 

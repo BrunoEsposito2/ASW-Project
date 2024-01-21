@@ -30,20 +30,6 @@ export class FakerEmployeeDataService {
 
     return randomOperators;
   }
-  ngOnInit(): void {
-    if (!this.generatedEmployees) {
-      this.employeesService.getEmployees().subscribe(
-          (data) => {
-            this.employees = data;
-            this.generatedEmployees = true;
-          },
-          (error) => {
-            console.error('Errore durante il recupero dei dati degli operatori:', error);
-          }
-      );
-    }
-
-  }
   private async getRandomOperatorsFromDatabase(): Promise<Employee[]> {
     this.employeesService.getEmployees().subscribe(
         (data) => {
@@ -110,19 +96,30 @@ export class FakerEmployeeDataService {
 
   private getCurrentTime(): string {
     const now = new Date();
-    // Formattiamo l'orario attuale come "YYYY-MM-DD HH:MM:SS"
+
     const formattedTime = `${now.getFullYear()}-${this.formatNumber(now.getMonth() + 1)}-${this.formatNumber(now.getDate())} ${this.formatNumber(now.getHours())}:${this.formatNumber(now.getMinutes())}:${this.formatNumber(now.getSeconds())}`;
     return formattedTime;
   }
 
   private formatNumber(value: number): string {
-    // Formattiamo il numero aggiungendo uno zero iniziale se è inferiore a 10
     return value < 10 ? `0${value}` : `${value}`;
   }
 
   startUpdatingDatabase(): void {
     this.Active = true;
-    console.log("Let's start");
+
+    if (!this.generatedEmployees) {
+      this.employeesService.getEmployees().subscribe(
+          (data) => {
+            this.employees = data;
+            this.generatedEmployees = true;
+          },
+          (error) => {
+            console.error('Errore durante il recupero dei dati degli operatori:', error);
+          }
+      );
+    }
+
     this.updateSubscription = interval(5000).subscribe(() => {
       if (this.Active) {
         const randomOperatorsPromise = this.getRandomOperatorsFromDatabase();
