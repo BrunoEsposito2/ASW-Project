@@ -29,6 +29,8 @@ import {AdminNavbarComponent} from "../admin-navbar/admin-navbar.component";
     </table>
 
     <button class="btn btn-primary mt-3" [routerLink]="['/productions/new-production']">Add a New Production</button>
+    
+    <app-floating-chat></app-floating-chat>
   `
 })
 export class ProductionsListComponent implements OnInit {

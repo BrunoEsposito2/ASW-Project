@@ -35,8 +35,16 @@ export class EmployeeService {
     return this.httpClient.get<Employee>(`${this.url}/employees/${id}`);
   }
 
-  getEmployeeByInfo(name: string, position: string, level: string): Observable<Employee> {
-    return this.httpClient.get<Employee>(`${this.url}/employees/${name}/${position}/${level}`);
+  getEmployeeByInfo(name: string, position: string, level: string): Observable<{
+    token: string,
+    expiresIn: number,
+    body: boolean
+  }> {
+    return this.httpClient.get<{
+      token: string,
+      expiresIn: number,
+      body: boolean
+    }>(`${this.url}/employees/${name}/${position}/${level}`);
   }
 
   createEmployee(employee: Employee): Observable<string> {

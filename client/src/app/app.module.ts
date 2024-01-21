@@ -1,11 +1,13 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth-interceptor/auth-interceptor';
+
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {EmployeesListComponent} from './employees-list/employees-list.component';
 import {EmployeeFormComponent} from './employee-form/employee-form.component';
-import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddEmployeeComponent} from './add-employee/add-employee.component';
 import {EditEmployeeComponent} from './edit-employee/edit-employee.component';
@@ -36,12 +38,17 @@ import { EmployeeComponent } from './employee/employee.component';
 import { EmployeeNavbarComponent } from './employee-navbar/employee-navbar.component';
 import { AdminChatComponent } from './admin-chat/admin-chat.component';
 import { EmployeeChatComponent } from './employee-chat/employee-chat.component';
-import { CommonModule } from '@angular/common';
 import { ProductionsListComponent } from './production-list/productions-list.component';
 import { AddProductionComponent} from './add-production/add-production-component';
 import { ProductionFormComponent } from './production-form/production-form.component';
 import { FakerProductionComponent} from './faker-production/faker-production.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MdbCollapseModule} from "mdb-angular-ui-kit/collapse";
+import {MdbDropdownModule} from "mdb-angular-ui-kit/dropdown";
+import {MdbRippleModule} from "mdb-angular-ui-kit/ripple";
+import { FloatingChatComponent } from './floating-chat/floating-chat.component';
+import {MdbTabsModule} from "mdb-angular-ui-kit/tabs";
+import {SocketChatService} from "../utils/socket-chat.service";
 
 @NgModule({
     declarations: [
@@ -77,22 +84,33 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         AddProductionComponent,
         ProductionFormComponent,
         FakerProductionComponent,
+        FloatingChatComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],
     imports: [
+        /* Mdb frontend components */
+        MdbCollapseModule,
+        MdbDropdownModule,
+        MdbRippleModule,
+        MdbTabsModule,
+
+        /* Material frontend components */
+        MatCardModule,
+        MatInputModule,
+        MatButtonModule,
+        MatTooltipModule,
+
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
-        MatCardModule,
-        MatInputModule,
-        MatButtonModule,
         BrowserAnimationsModule,
-        MatTooltipModule,
     ],
-  providers: [],
+  providers: [
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
