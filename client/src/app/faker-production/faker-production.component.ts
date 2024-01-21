@@ -51,7 +51,7 @@ calculateKgWaste(): number {
             const production: Production = {
                 kg_produced: this.calculateKgProduced(),
                 kg_waste: this.calculateKgWaste(),
-                timestamp: new Date(now.getTime() - i * 60 * 60 * 1000) // sfalsa di un'ora indietro
+                timestamp: new Date(now.getTime() - i * 60 * 60 * 1000).toISOString() // sfalsa di un'ora indietro
             };
 
             productions.push(production);

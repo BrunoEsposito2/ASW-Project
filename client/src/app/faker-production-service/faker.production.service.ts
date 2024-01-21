@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Production } from '../production'
 import { ProductionService } from '../production.service';
+import {Subject} from "rxjs";
 
 @Injectable({
     providedIn: 'root', // Configura il servizio come un servizio radice
 })
 export class FakerProductionService {
     constructor(private productionService: ProductionService) {}
+    private dataSubject = new Subject<Production>();
 
     addProduction(production: Production) {
         this.productionService.createProduction(production).subscribe({
@@ -24,6 +26,10 @@ export class FakerProductionService {
         return Math.floor(Math.random() * (500 - 100 + 1)) + 100; // genera un numero casuale tra 100 e 500
     }
 
+    getDataObservable() {
+        return this.dataSubject.asObservable();
+    }
+
     calculateKgWaste(): number {
         return Math.floor(Math.random() * (150 - 50 + 1)) + 50; // genera un numero casuale tra 50 e 150
     }
@@ -38,7 +44,7 @@ export class FakerProductionService {
             const production: Production = {
                 kg_produced: this.calculateKgProduced(),
                 kg_waste: this.calculateKgWaste(),
-                timestamp: new Date(now.getTime() - i * 60 * 60 * 1000) // sfalsa di un'ora indietro
+                timestamp: new Date(now.getTime() - i * 60 * 60 * 1000).toISOString() // sfalsa di un'ora indietro
             };
 
             productions.push(production);
