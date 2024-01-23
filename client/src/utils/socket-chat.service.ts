@@ -14,7 +14,10 @@ export class SocketChatService {
   activeUser: string = "";
   messageList: ChatMessage[] = []
   messageListObservable: Observable<ChatMessage[]> = new Observable<ChatMessage[]>();
+  messageRoomList: ChatMessage[] = []
+  messageRoomListObservable: Observable<ChatMessage[]> = new Observable<ChatMessage[]>();
   message: string = "";
+  receiver: string = "";
 
   constructor() {   }
 
@@ -40,7 +43,19 @@ export class SocketChatService {
     });
 
     this.socket.on('chat-messages', (messageList: ChatMessage[]) => {
+      this.messageList = messageList;
       this.messageListObservable.subscribe(list => this.messageList = messageList)
+    })
+
+    this.socket.on('joinedRoom', (messageList: ChatMessage[]) => {
+      this.messageRoomList = messageList;
+      this.messageRoomListObservable.subscribe(list => this.messageRoomList = messageList)
+    })
+
+    this.socket.on('room-message', (data: {message: string, userName: string, color: string}) => {
+      if (data && data.message !== "" && (data.userName == this.receiver || this.userName == data.userName)) {
+        this.messageRoomList.push(data)
+      }
     })
   }
 
@@ -52,6 +67,28 @@ export class SocketChatService {
       this.messageList.push(msgToSend)
       this.message = "";
     }
+  }
+
+  sendRoomMessage(): void {
+    const regex = /^(\n|''| .*)/;
+    if (!regex.test(this.message)) {
+      const msgToSend = {message: this.message, userName: this.userName, color: ""}
+      this.socket.emit('room-message', msgToSend);
+      this.messageRoomList.push(msgToSend)
+      this.message = "";
+    }
+  }
+
+  sendBroadcastHistoryRequest() {
+    this.receiver = ''
+    this.socket.emit('history')
+  }
+
+  sendHistoryRequest(username: string) {
+    this.receiver = username
+    this.messageRoomList = []
+    let roomName: string | string[] = [this.userName, this.receiver]
+    this.socket.emit('joinRoom', roomName.sort().toString().replace(",", "-"));
   }
 
   filteredUserList() {

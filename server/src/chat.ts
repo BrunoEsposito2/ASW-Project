@@ -21,6 +21,8 @@ app.get('/', (req, res) => {
 
 let userList = new Map();
 let messageList: ChatMessage[] = [];
+let messageRoomList: ChatMessage[] = [];
+const clientRooms: any = {}
 
 if (!fs.existsSync('chat-messages.json')) {
     fs.writeFileSync('chat-messages.json', '[]');
@@ -41,14 +43,40 @@ io.on('connection', (socket: Socket) => {
         socket.broadcast.emit('message-broadcast', {message: msg.message, userName: msg.userName, color: msg.color});
     });
 
-    socket.on('history', () => {
-        const messages: ChatMessage[] = JSON.parse(fs.readFileSync('chat-messages.json', 'utf-8'))
-        socket.emit('chat-messages', [...messages])
+    socket.on('history', (username) => {
+        messageList = JSON.parse(fs.readFileSync('chat-messages.json', 'utf-8'))
+        socket.emit('chat-messages', [...messageList])
+    })
+
+    socket.on('joinRoom', (roomId: string) => {
+        Object.values(clientRooms).forEach((room: string) => {
+            if (room.includes(socket.id)) {
+                socket.leave(roomId);
+            }
+        });
+        console.log("joinRoom " + roomId)
+        socket.join(roomId)
+        clientRooms[socket.id] = roomId
+        if (!fs.existsSync(roomId + '-chat-messages.json')) {
+            fs.writeFileSync(roomId + '-chat-messages.json', '[]');
+        } else {
+            messageRoomList = JSON.parse(fs.readFileSync(roomId + '-chat-messages.json', 'utf8'));
+        }
+        socket.emit('joinedRoom', [...messageRoomList])
+    })
+
+    socket.on('room-message', (msg) => {
+        const roomId = clientRooms[socket.id]
+        if (roomId) {
+            addRoomMessage(msg, roomId)
+            socket.to(roomId).emit('room-message', msg)
+        }
     })
 
     socket.on('disconnect', () => {
         removeUser(userName, socket.id);
-        fs.writeFileSync('chat-messages.json', "[]")
+        const files: string[] = fs.readdirSync('.')
+        files.filter(file => file.includes("messages")).forEach(file => fs.writeFileSync(file, "[]"))
         socket.broadcast.emit('user-list', [...userList.keys()])
     });
 });
@@ -66,6 +94,22 @@ function addMessage(message: ChatMessage) {
         messageList.push(message)
     }
     fs.writeFileSync('chat-messages.json', JSON.stringify(messageList))
+}
+
+function addRoomMessage(message: ChatMessage, roomId: string) {
+    if (!fs.existsSync(roomId + '-chat-messages.json')) {
+        fs.writeFileSync(roomId + '-chat-messages.json', '[]');
+    } else {
+        messageRoomList = JSON.parse(fs.readFileSync(roomId + '-chat-messages.json', 'utf8'));
+    }
+    if (messageRoomList.filter(msg => msg.userName == message.userName).length < 1) {
+        message.color = getRandomColor()
+        messageRoomList.push(message)
+    } else {
+        message.color = messageRoomList.filter(msg => msg.userName == message.userName)[0].color
+        messageRoomList.push(message)
+    }
+    fs.writeFileSync(roomId + '-chat-messages.json', JSON.stringify(messageRoomList))
 }
 
 function addUser(username: string | string[], id: String) {
