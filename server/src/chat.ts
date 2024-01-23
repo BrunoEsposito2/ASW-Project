@@ -22,7 +22,6 @@ app.get('/', (req, res) => {
 let userList = new Map();
 let messageList: ChatMessage[] = [];
 let messageRoomList: ChatMessage[] = [];
-const clientRooms: any = {}
 
 if (!fs.existsSync('chat-messages.json')) {
     fs.writeFileSync('chat-messages.json', '[]');
@@ -31,8 +30,12 @@ if (!fs.existsSync('chat-messages.json')) {
 }
 
 io.on('connection', (socket: Socket) => {
+    let room: string = ""
+    let receiverName: string = ""
     let userName = socket.handshake.query.userName;
     addUser(userName, socket.id);
+
+    socket.join(userName)
 
     socket.broadcast.emit('user-list', [...userList.keys()]);
     socket.emit('user-list', [...userList.keys()]);
@@ -48,29 +51,20 @@ io.on('connection', (socket: Socket) => {
         socket.emit('chat-messages', [...messageList])
     })
 
-    socket.on('joinRoom', (roomId: string) => {
-        Object.values(clientRooms).forEach((room: string) => {
-            if (room.includes(socket.id)) {
-                socket.leave(roomId);
-            }
-        });
-        console.log("joinRoom " + roomId)
-        socket.join(roomId)
-        clientRooms[socket.id] = roomId
+    socket.on('joinRoom', (roomId: string, receiver: string) => {
+        room = roomId
+        receiverName = receiver
         if (!fs.existsSync(roomId + '-chat-messages.json')) {
             fs.writeFileSync(roomId + '-chat-messages.json', '[]');
         } else {
             messageRoomList = JSON.parse(fs.readFileSync(roomId + '-chat-messages.json', 'utf8'));
         }
-        socket.emit('joinedRoom', [...messageRoomList])
+        socket.to(userName).emit('joinedRoom', [...messageRoomList])
     })
 
     socket.on('room-message', (msg) => {
-        const roomId = clientRooms[socket.id]
-        if (roomId) {
-            addRoomMessage(msg, roomId)
-            socket.to(roomId).emit('room-message', msg)
-        }
+        addRoomMessage(msg, room)
+        socket.to(receiverName).emit('room-message', [...messageRoomList])
     })
 
     socket.on('disconnect', () => {

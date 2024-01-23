@@ -52,10 +52,8 @@ export class SocketChatService {
       this.messageRoomListObservable.subscribe(list => this.messageRoomList = messageList)
     })
 
-    this.socket.on('room-message', (data: {message: string, userName: string, color: string}) => {
-      if (data && data.message !== "" && (data.userName == this.receiver || this.userName == data.userName)) {
-        this.messageRoomList.push(data)
-      }
+    this.socket.on('room-message', (data: ChatMessage[]) => {
+      this.messageRoomList = data
     })
   }
 
@@ -88,7 +86,7 @@ export class SocketChatService {
     this.receiver = username
     this.messageRoomList = []
     let roomName: string | string[] = [this.userName, this.receiver]
-    this.socket.emit('joinRoom', roomName.sort().toString().replace(",", "_"));
+    this.socket.emit('joinRoom', roomName.sort().toString().replace(",", "_"), this.receiver);
   }
 
   filteredUserList() {
