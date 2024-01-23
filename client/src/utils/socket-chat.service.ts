@@ -88,7 +88,7 @@ export class SocketChatService {
     this.receiver = username
     this.messageRoomList = []
     let roomName: string | string[] = [this.userName, this.receiver]
-    this.socket.emit('joinRoom', roomName.sort().toString().replace(",", "-"));
+    this.socket.emit('joinRoom', roomName.sort().toString().replace(",", "_"));
   }
 
   filteredUserList() {
