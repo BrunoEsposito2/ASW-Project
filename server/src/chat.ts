@@ -59,12 +59,12 @@ io.on('connection', (socket: Socket) => {
         } else {
             messageRoomList = JSON.parse(fs.readFileSync(roomId + '-chat-messages.json', 'utf8'));
         }
-        socket.to(userName).emit('joinedRoom', [...messageRoomList])
+        socket.to(userName).emit('joinedRoom', room, [...messageRoomList])
     })
 
     socket.on('room-message', (msg) => {
         addRoomMessage(msg, room)
-        socket.to(receiverName).emit('room-message', [...messageRoomList])
+        socket.to(receiverName).emit('room-message', room, [...messageRoomList])
     })
 
     socket.on('disconnect', () => {
@@ -93,6 +93,7 @@ function addMessage(message: ChatMessage) {
 function addRoomMessage(message: ChatMessage, roomId: string) {
     if (!fs.existsSync(roomId + '-chat-messages.json')) {
         fs.writeFileSync(roomId + '-chat-messages.json', '[]');
+        messageRoomList = []
     } else {
         messageRoomList = JSON.parse(fs.readFileSync(roomId + '-chat-messages.json', 'utf8'));
     }

@@ -47,7 +47,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                     <ng-template #elseBlock>
                       <div class="card-body"  style="position: relative; height: 420px; overflow-y: scroll;" #chatMessages>
 
-                        <div class="message" *ngFor="let msg of socketService.messageRoomList" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
+                        <div class="message" *ngFor="let msg of socketService.messageRooms.get(socketService.getRoomId())" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
                           <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>
                           <div class="message-box d-flex justify-content-between text-break">
 
