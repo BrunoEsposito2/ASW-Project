@@ -63,7 +63,15 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                           <div class="user-indicator align-self-center far fa-circle fa-3x"></div>
                           <div id="usericon" class="fas fa-user text-dark text-opacity-50 align-self-center fa-2x"></div>
                           <div *ngIf="user != socketService.activeUser" class="pt-1">
-                            <p class="fw-bold text-break text-capitalize mb-0" style="max-width: 200px; color: grey;">{{ user }}</p>
+                              <p class="fw-bold text-break text-capitalize align-top d-inline" style="max-width: 200px; color: grey;">{{ user }}</p>
+                              <button type="button"
+                                      class="btn btn-md btn-primary d-inline"
+                                      style="margin-left:20px;"
+  
+                                      title="Invia Notifiche"
+                                      mdbRipple>
+                                <i class="fas fa-message"></i>
+                              </button>
                           </div>
                           <div *ngIf="user == socketService.activeUser" class="pt-1">
                             <p class="fw-bold text-break text-capitalize mb-0" style="max-width: 200px; color: grey;"> You </p>
@@ -87,14 +95,16 @@ import {SocketChatService} from "../../utils/socket-chat.service";
       <button type="button"
               class="btn btn-floating btn-secondary btn-lg"
               style="margin-right: 15px; margin-bottom: 100px;"
-              (click)='socketService.sendMessageWarningOrAlert("warning")'
+              (click)='socketService.sendMessageWarningOrAlert("Allarme generico")'
+              title="Allarme generico"
               mdbRipple>
         <i class="fa fa-warning"></i>
       </button>
       <button type="button"
               class="btn btn-floating btn-secondary btn-lg"
               style="margin-right: 15px; margin-bottom: 100px;"
-              (click)='socketService.sendMessageWarningOrAlert("alert")'
+              (click)='socketService.sendMessageWarningOrAlert("Allarme Antincendio")'
+              title="Allarme Antincendio"
               mdbRipple>
         <i class="fa fa-fire"></i>
       </button>
@@ -102,6 +112,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               class="btn btn-floating btn-secondary btn-lg"
               style="margin-right: -105px; margin-bottom: 100px;"
               (click)="redirectToChat()"
+              title="Vai alla chat"
               mdbRipple>
         <i class="fa fa-external-link"></i>
       </button>
@@ -109,6 +120,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               class="btn btn-floating btn-secondary btn-lg" 
               style="margin-bottom: 40px; margin-right:80px;"
               (click)="toggleChat()"
+              title="Invia un messaggio"
               mdbRipple>
         <i class="fas fa-plus"></i>
       </button>
@@ -124,6 +136,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               [ngClass]="{ 'active': isActive }"
               style="margin-right: 20px; margin-bottom: 40px;"
               (click)="displayButtons()"
+              title="Invia messaggi"
               mdbRipple>
         <i class="fas fa-message"></i>
       </button>
