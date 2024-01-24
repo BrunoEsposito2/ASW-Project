@@ -26,8 +26,6 @@ import { BehaviorSubject } from 'rxjs';
                 </h2>
                 <div class="accordion-collapse collapse show" id="accordion-collapse">
                   <div class="accordion-body less-padding">
-                  <img src="../../assets/icons8-gps.png" title="Posizione" style="width: 20px; height: 20px;" alt="Latitude Icon" *ngIf="employee._id">
-                  {{ accordionData[employee._id]?.latitude }} - {{ accordionData[employee._id]?.longitude }}<br>
                   <img src="../../assets/icons8-temperature-64.png" title="Temperatura" style="width: 20px; height: 20px;" alt="Temperature Icon" *ngIf="employee._id">
                   {{ accordionData[employee._id]?.temperature | number:'1.1-2' }}<br>
                   <img src="../../assets/icons8-saturation-96.png" title="Saturazione" style="width: 20px; height: 20px;" alt="Saturation Icon" *ngIf="employee._id">
