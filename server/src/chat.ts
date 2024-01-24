@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 
 let userList = new Map();
 let messageList: ChatMessage[] = [];
+let messageRoomList: ChatMessage[] = [];
 
 if (!fs.existsSync('chat-messages.json')) {
     fs.writeFileSync('chat-messages.json', '[]');
@@ -29,8 +30,12 @@ if (!fs.existsSync('chat-messages.json')) {
 }
 
 io.on('connection', (socket: Socket) => {
+    let room: string = ""
+    let receiverName: string = ""
     let userName = socket.handshake.query.userName;
     addUser(userName, socket.id);
+
+    socket.join(userName)
 
     socket.broadcast.emit('user-list', [...userList.keys()]);
     socket.emit('user-list', [...userList.keys()]);
@@ -41,14 +46,31 @@ io.on('connection', (socket: Socket) => {
         socket.broadcast.emit('message-broadcast', {message: msg.message, userName: msg.userName, color: msg.color});
     });
 
-    socket.on('history', () => {
-        const messages: ChatMessage[] = JSON.parse(fs.readFileSync('chat-messages.json', 'utf-8'))
-        socket.emit('chat-messages', [...messages])
+    socket.on('history', (username) => {
+        messageList = JSON.parse(fs.readFileSync('chat-messages.json', 'utf-8'))
+        socket.emit('chat-messages', [...messageList])
+    })
+
+    socket.on('joinRoom', (roomId: string, receiver: string) => {
+        room = roomId
+        receiverName = receiver
+        if (!fs.existsSync(roomId + '-chat-messages.json')) {
+            fs.writeFileSync(roomId + '-chat-messages.json', '[]');
+        } else {
+            messageRoomList = JSON.parse(fs.readFileSync(roomId + '-chat-messages.json', 'utf8'));
+        }
+        socket.to(userName).emit('joinedRoom', [...messageRoomList])
+    })
+
+    socket.on('room-message', (msg) => {
+        addRoomMessage(msg, room)
+        socket.to(receiverName).emit('room-message', [...messageRoomList])
     })
 
     socket.on('disconnect', () => {
         removeUser(userName, socket.id);
-        fs.writeFileSync('chat-messages.json', "[]")
+        const files: string[] = fs.readdirSync('.')
+        files.filter(file => file.includes("messages")).forEach(file => fs.writeFileSync(file, "[]"))
         socket.broadcast.emit('user-list', [...userList.keys()])
     });
 });
@@ -66,6 +88,22 @@ function addMessage(message: ChatMessage) {
         messageList.push(message)
     }
     fs.writeFileSync('chat-messages.json', JSON.stringify(messageList))
+}
+
+function addRoomMessage(message: ChatMessage, roomId: string) {
+    if (!fs.existsSync(roomId + '-chat-messages.json')) {
+        fs.writeFileSync(roomId + '-chat-messages.json', '[]');
+    } else {
+        messageRoomList = JSON.parse(fs.readFileSync(roomId + '-chat-messages.json', 'utf8'));
+    }
+    if (messageRoomList.filter(msg => msg.userName == message.userName).length < 1) {
+        message.color = getRandomColor()
+        messageRoomList.push(message)
+    } else {
+        message.color = messageRoomList.filter(msg => msg.userName == message.userName)[0].color
+        messageRoomList.push(message)
+    }
+    fs.writeFileSync(roomId + '-chat-messages.json', JSON.stringify(messageRoomList))
 }
 
 function addUser(username: string | string[], id: String) {

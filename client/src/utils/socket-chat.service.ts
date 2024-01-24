@@ -14,7 +14,10 @@ export class SocketChatService {
   activeUser: string = "";
   messageList: ChatMessage[] = []
   messageListObservable: Observable<ChatMessage[]> = new Observable<ChatMessage[]>();
+  messageRoomList: ChatMessage[] = []
+  messageRoomListObservable: Observable<ChatMessage[]> = new Observable<ChatMessage[]>();
   message: string = "";
+  receiver: string = "";
 
   constructor() {   }
 
@@ -40,7 +43,17 @@ export class SocketChatService {
     });
 
     this.socket.on('chat-messages', (messageList: ChatMessage[]) => {
+      this.messageList = messageList;
       this.messageListObservable.subscribe(list => this.messageList = messageList)
+    })
+
+    this.socket.on('joinedRoom', (messageList: ChatMessage[]) => {
+      this.messageRoomList = messageList;
+      this.messageRoomListObservable.subscribe(list => this.messageRoomList = messageList)
+    })
+
+    this.socket.on('room-message', (data: ChatMessage[]) => {
+      this.messageRoomList = data
     })
   }
 
@@ -54,14 +67,36 @@ export class SocketChatService {
     }
   }
 
+
   sendMessageWarningOrAlert(message: string): void {
     const regex = /^(\n|''| .*)/;
     if (!regex.test(message)) {
       const msgToSend = {message: message, userName: this.userName, color: ""}
       this.socket.emit('message', msgToSend);
       this.messageList.push(msgToSend);
+    }
+  }
+
+  sendRoomMessage(): void {
+    const regex = /^(\n|''| .*)/;
+    if (!regex.test(this.message)) {
+      const msgToSend = {message: this.message, userName: this.userName, color: ""}
+      this.socket.emit('room-message', msgToSend);
+      this.messageRoomList.push(msgToSend)
+
       this.message = "";
     }
+  }
+  sendBroadcastHistoryRequest() {
+    this.receiver = ''
+    this.socket.emit('history')
+  }
+
+  sendHistoryRequest(username: string) {
+    this.receiver = username
+    this.messageRoomList = []
+    let roomName: string | string[] = [this.userName, this.receiver]
+    this.socket.emit('joinRoom', roomName.sort().toString().replace(",", "_"), this.receiver);
   }
 
   filteredUserList() {
