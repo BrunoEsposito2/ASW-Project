@@ -83,14 +83,14 @@ export class FakerEmployeeDataService {
   private getRandomLatitude(): string {
     // Genera una latitudine casuale
     // Ad esempio, generiamo un valore tra 44.400 e 44.450
-    const latitude = 44.400 + Math.random() * (44.450 - 44.400);
+    const latitude = 0 + Math.random() * (500);
     return latitude.toFixed(6); // Formattiamo il valore a 6 decimali
   }
 
   private getRandomLongitude(): string {
     // Genera una longitudine casuale
     // Ad esempio, generiamo un valore tra 12.150 e 12.200
-    const longitude = 12.150 + Math.random() * (12.200 - 12.150);
+    const longitude = 0 + Math.random() * (1000);
     return longitude.toFixed(6); // Formattiamo il valore a 6 decimali
   }
 

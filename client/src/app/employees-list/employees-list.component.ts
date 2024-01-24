@@ -7,36 +7,51 @@ import {EmployeeService} from '../employee.service';
   selector: 'app-employees-list',
   template: `
     <app-admin-navbar></app-admin-navbar>
-    <h2 class="text-center m-5">Employees List</h2>
+    <h2 class="text-center m-4">Employees List</h2>
 
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Level</th>
-                <th>Img</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+    <div class="table-responsive" style="height: 410px; overflow-y: scroll;">
+      <table class="table align-middle mb-0 bg-white">
+          <thead class="bg-light sticky-top">
+              <tr>
+                  <th>Name</th>
+                  <th>Position</th>
+                  <th>Level</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+  
+          <tbody>
+              <tr *ngFor="let employee of employees$ | async">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img
+                          [src]="employee.img"
+                          alt=""
+                          style="width: 55px; height: 55px"
+                          class="rounded-circle"
+                      />
+                      <div class="ms-3">
+                        {{employee.name}}
+                      </div>
+                    </div>
+                  </td>
+                  <td>{{employee.position}}</td>
+                  <td>{{employee.level}}</td>
+                  <td>
+                      <button class="btn btn-primary me-1" [routerLink]="['edit/', employee._id]">Edit</button>
+                      <button class="btn btn-danger" (click)="deleteEmployee(employee._id || '')">Delete</button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
 
-        <tbody>
-            <tr *ngFor="let employee of employees$ | async">
-                <td>{{employee.name}}</td>
-                <td>{{employee.position}}</td>
-                <td>{{employee.level}}</td>
-                <td>{{employee.img}}</td>
-                <td>
-                    <button class="btn btn-primary me-1" [routerLink]="['edit/', employee._id]">Edit</button>
-                    <button class="btn btn-danger" (click)="deleteEmployee(employee._id || '')">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <button class="btn btn-primary mt-3" [routerLink]="['new']">Add a New Employee</button>
+    <button class="btn btn-primary mt-4" [routerLink]="['new']">Add a New Employee</button>
     <app-floating-chat></app-floating-chat>
-  `
+    
+    <app-footer></app-footer>
+  `,
+  styleUrls: ['./employees-list.component.scss']
 })
 export class EmployeesListComponent implements OnInit {
   employees$: Observable<Employee[]> = new Observable();

@@ -56,6 +56,8 @@ import {Admin} from "../admin"
         </div>
       </div>
     </section>
+    
+    <app-footer></app-footer>
   `,
   styleUrls: [
 

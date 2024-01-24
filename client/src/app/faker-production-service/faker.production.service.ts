@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Production } from '../production'
 import { ProductionService } from '../production.service';
-import {Subject} from "rxjs";
+
+import {interval, Subject, Subscription} from "rxjs";
+import {CycleProduction} from "../cycle-production";
+import {EmployeeOperatingData} from "../employee-operating-data";
 
 @Injectable({
     providedIn: 'root', // Configura il servizio come un servizio radice
 })
 export class FakerProductionService {
+    private updateSubscription: Subscription = new Subscription();
+    private Active = false;
     constructor(private productionService: ProductionService) {}
     private dataSubject = new Subject<Production>();
 
@@ -24,10 +29,6 @@ export class FakerProductionService {
 
     calculateKgProduced(): number {
         return Math.floor(Math.random() * (500 - 100 + 1)) + 100; // genera un numero casuale tra 100 e 500
-    }
-
-    getDataObservable() {
-        return this.dataSubject.asObservable();
     }
 
     calculateKgWaste(): number {
@@ -49,6 +50,47 @@ export class FakerProductionService {
 
             productions.push(production);
             this.addProduction(production);
+        }
+    }
+
+    generateSingleProduction(): Production {
+        const now: string = new Date().toString();
+
+        const production: Production = {
+            kg_produced: this.calculateKgProduced(),
+            kg_waste: this.calculateKgWaste(),
+            timestamp: now
+        };
+        this.addProduction(production);
+        this.sendData(production);
+        return production;
+    }
+
+    sendData(data: Production) {
+        this.dataSubject.next(data);
+    }
+
+    getDataObservable() {
+        return this.dataSubject.asObservable();
+    }
+
+    startUpdating(): void {
+        this.Active = true;
+
+        console.log("Cycle Production");
+
+        this.updateSubscription = interval(15000).subscribe(() => {
+            if(this.Active) {
+                console.log("Creating Production");
+                console.log(JSON.stringify(this.generateSingleProduction()));
+            }
+        });
+    }
+
+    stopUpdating(): void {
+        this.Active = false;
+        if(this.updateSubscription) {
+            this.updateSubscription.unsubscribe();
         }
     }
 

@@ -38,17 +38,21 @@ import { EmployeeComponent } from './employee/employee.component';
 import { EmployeeNavbarComponent } from './employee-navbar/employee-navbar.component';
 import { AdminChatComponent } from './admin-chat/admin-chat.component';
 import { EmployeeChatComponent } from './employee-chat/employee-chat.component';
+import { CommonModule } from '@angular/common';
 import { ProductionsListComponent } from './production-list/productions-list.component';
 import { AddProductionComponent} from './add-production/add-production-component';
 import { ProductionFormComponent } from './production-form/production-form.component';
 import { FakerProductionComponent} from './faker-production/faker-production.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { FakerCycleProduction } from "./faker-cycle-production";
 import {MdbCollapseModule} from "mdb-angular-ui-kit/collapse";
 import {MdbDropdownModule} from "mdb-angular-ui-kit/dropdown";
 import {MdbRippleModule} from "mdb-angular-ui-kit/ripple";
 import { FloatingChatComponent } from './floating-chat/floating-chat.component';
 import {MdbTabsModule} from "mdb-angular-ui-kit/tabs";
 import {SocketChatService} from "../utils/socket-chat.service";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -84,7 +88,9 @@ import {SocketChatService} from "../utils/socket-chat.service";
         AddProductionComponent,
         ProductionFormComponent,
         FakerProductionComponent,
+        StepsComponentComponent,
         FloatingChatComponent,
+        FooterComponent,
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],
@@ -100,6 +106,7 @@ import {SocketChatService} from "../utils/socket-chat.service";
         MatInputModule,
         MatButtonModule,
         MatTooltipModule,
+        MatProgressBarModule,
 
         BrowserModule,
         AppRoutingModule,

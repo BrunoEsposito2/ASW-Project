@@ -26,6 +26,9 @@ export class AddProductionComponent {
     }
 
     addProduction(production: Production) {
+        if(!production.timestamp) {
+            production.timestamp = new Date().toISOString();
+        }
         this.productionService.createProduction(production)
             .subscribe({
                 next: () => {

@@ -70,6 +70,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
         </div>
       </div>
     </section>
+    
+    <app-footer></app-footer>
   `,
   styleUrls: ['./login-employee-component.component.css']
 })

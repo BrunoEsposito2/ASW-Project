@@ -7,6 +7,7 @@ import {Component} from '@angular/core';
     <div>
       <app-dashboard></app-dashboard>
       <app-floating-chat></app-floating-chat>
+      <app-footer></app-footer>
     </div>
   `,
   styles: [
