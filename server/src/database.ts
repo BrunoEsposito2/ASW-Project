@@ -45,7 +45,7 @@ async function applySchemaValidation(db: mongodb.Db) {
     const jsonEmployeesSchema = {
         $jsonSchema: {
             bsonType: "object",
-            required: ["name", "position", "level"],
+            required: ["name", "position"],
             additionalProperties: false,
             properties: {
                 _id: {},
@@ -68,6 +68,11 @@ async function applySchemaValidation(db: mongodb.Db) {
                     description: "'level' is required and is one of 'junior', 'mid', or 'senior'",
                     enum: ["junior", "mid", "senior"],
                 },
+                password: {
+                    bsonType: "string",
+                    description: "'password' is required and is a string",
+                    minLength: 8
+                }
             },
         },
     };

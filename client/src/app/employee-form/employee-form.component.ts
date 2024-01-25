@@ -26,11 +26,6 @@ import {Employee} from '../employee';
         <label for="position">Position</label>
       </div>
 
-      <div class="form-floating mb-3">
-        <input class="form-control" type="text" formControlName="img" placeholder="img" required>
-        <label for="position">Img</label>
-      </div>
-
       <div *ngIf="position.invalid && (position.dirty || position.touched)" class="alert alert-danger">
 
         <div *ngIf="position.errors?.['required']">
@@ -41,13 +36,18 @@ import {Employee} from '../employee';
         </div>
       </div>
 
+      <div class="form-floating mb-3">
+        <input class="form-control" type="text" formControlName="img" placeholder="Img" required>
+        <label for="img">Image</label>
+      </div>
+
       <div *ngIf="img.invalid && (img.dirty || img.touched)" class="alert alert-danger">
 
         <div *ngIf="img.errors?.['required']">
-          Position is required.
+          Image is required.
         </div>
-        <div *ngIf="position.errors?.['minlength']">
-          Img must be at least 5 characters long.
+        <div *ngIf="img.errors?.['minlength']">
+          Image must be at least 5 characters long.
         </div>
       </div>
 
@@ -64,6 +64,21 @@ import {Employee} from '../employee';
           <input class="form-check-input" type="radio" formControlName="level" name="level" id="level-senior"
             value="senior">
           <label class="form-check-label" for="level-senior">Senior</label>
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input class="form-control" type="text" formControlName="password" placeholder="Password" required>
+        <label for="password">Password</label>
+      </div>
+
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+
+        <div *ngIf="password.errors?.['required']">
+          Password is required.
+        </div>
+        <div *ngIf="password.errors?.['minlength']">
+          Password must be at least 8 characters long.
         </div>
       </div>
 
@@ -99,15 +114,17 @@ export class EmployeeFormComponent implements OnInit {
   get position() { return this.employeeForm.get('position')!; }
   get level() { return this.employeeForm.get('level')!; }
   get img() { return this.employeeForm.get('img')!; }
+  get password() { return this.employeeForm.get('password')!; }
 
 
   ngOnInit() {
     this.initialState.subscribe(employee => {
       this.employeeForm = this.fb.group({
-        name: [ employee.name, [Validators.required] ],
+        name: [ employee.name, [Validators.required, Validators.minLength(3)] ],
         position: [ employee.position, [ Validators.required, Validators.minLength(5) ] ],
         level: [ employee.level, [Validators.required] ],
         img: [ employee.img, [ Validators.required, Validators.minLength(5) ] ],
+        password: [ employee.password, [ Validators.required, Validators.minLength(8)]]
       });
     });
 
