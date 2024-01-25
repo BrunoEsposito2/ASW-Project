@@ -17,7 +17,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
             <div class="card-group mb-3 shadow-3-strong border-dark">
               <div class="card">
                 <h1 class="mb-3 text-center mt-4" style="color: dodgerblue">Active Users List</h1>
-                <div class="card-body position-relative" style="height: 41rem; overflow-y: scroll;">
+                <div class="card-body position-relative" style="height: 65vh; overflow-y: scroll;">
                   <ul class="user-list mb-3">
                     <li class="user d-grid gap-1 p-2 border-bottom" style="margin-left: -25px;" *ngFor="let user of socketService.filteredUserList()" [ngClass]="{'active': user === socketService.activeUser}">
                       <a
@@ -70,7 +70,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                 </ng-template>
               </div>
               
-              <div *ngIf="socketService.receiver == ''; else elseBlock2" class="card-body"  style="position: relative; height: 38rem; overflow-y: scroll;" #chatMessages>
+              <div *ngIf="socketService.receiver == ''; else elseBlock2" class="card-body"  style="position: relative; height: 65vh; overflow-y: scroll;" #chatMessages>
                 
                 <div class="message" *ngFor="let msg of socketService.messageList" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
                   <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>
@@ -100,7 +100,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               </div>
               
               <ng-template #elseBlock2>
-                <div class="card-body"  style="position: relative; height: 38rem; overflow-y: scroll;" #chatMessages>
+                <div class="card-body"  style="position: relative; height: 65vh; overflow-y: scroll;" #chatMessages>
                   
                    <div class="message" *ngFor="let msg of socketService.messageRooms.get(socketService.getRoomId())" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
                      <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>

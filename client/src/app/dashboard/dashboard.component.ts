@@ -23,7 +23,7 @@ import {Employee} from "../employee";
       </div>
     </ngb-toast>
     
-    <section id="main">
+    <section id="main" style="height: 88vh; overflow: hidden;">
       <div class="row">
         <div class="col-4">
           <div class="card bg-light">

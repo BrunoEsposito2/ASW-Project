@@ -8,8 +8,10 @@ import {EmployeeService} from '../employee.service';
   selector: 'app-edit-employee.component.ts',
   template: `
     <app-admin-navbar></app-admin-navbar>
-    <h2 class="text-center m-5">Edit an Employee</h2>
-    <edit-employee-form [initialState]="employee" (formSubmitted)="editEmployee($event)"></edit-employee-form>
+    <section style="height: 90vh; overflow: hidden;">
+      <h2 class="text-center m-5">Edit an Employee</h2>
+      <edit-employee-form [initialState]="employee" (formSubmitted)="editEmployee($event)"></edit-employee-form>
+    </section>
   `
 })
 export class EditEmployeeComponent implements OnInit {
