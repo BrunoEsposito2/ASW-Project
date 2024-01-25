@@ -105,6 +105,15 @@ employeeRouter.put("/:id", async (req, res) => {
         const id = req?.params?.id;
         const employee = req.body;
         const query = { _id: new mongodb.ObjectId(id) };
+
+        if (employee.password != '' || employee.password != null || employee.password != undefined) {
+            //hashing the new employee password
+            employee.password = bcrypt.hashSync(employee.password, 10)
+        } else {
+            const employeeFound= await collections.employees.findOne(query);
+            employee.password = employeeFound.password
+        }
+
         const result = await collections.employees.updateOne(query, { $set: employee });
 
         if (jwt.verify(req.headers.authorization, SECRET_ACCESS_TOKEN)) {

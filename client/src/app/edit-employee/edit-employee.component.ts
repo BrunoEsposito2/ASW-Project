@@ -7,8 +7,9 @@ import {EmployeeService} from '../employee.service';
 @Component({
   selector: 'app-edit-employee.component.ts',
   template: `
+    <app-admin-navbar></app-admin-navbar>
     <h2 class="text-center m-5">Edit an Employee</h2>
-    <app-employee-form [initialState]="employee" (formSubmitted)="editEmployee($event)"></app-employee-form>
+    <edit-employee-form [initialState]="employee" (formSubmitted)="editEmployee($event)"></edit-employee-form>
   `
 })
 export class EditEmployeeComponent implements OnInit {
@@ -27,6 +28,7 @@ export class EditEmployeeComponent implements OnInit {
     }
 
     this.employeeService.getEmployee(id !).subscribe((employee) => {
+      employee.password = ''
       this.employee.next(employee);
     });
   }
