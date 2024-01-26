@@ -98,30 +98,10 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                   <mdb-tab title="Active Users List">
 
                     <ul class="user-list mb-3" style="height: 331.5px; overflow-y: scroll;">
-<!-- <<<<<<< HEAD -->
-                      <li class="user p-2 border-bottom" style="margin-left: -25px;" *ngFor="let user of socketService.userList" [ngClass]="{'active': user === socketService.activeUser}">
-                        <div class="d-flex flex-row">
-                          <div class="user-indicator align-self-center far fa-circle fa-3x"></div>
-                          <div id="usericon" class="fas fa-user text-dark text-opacity-50 align-self-center fa-2x"></div>
-                          <div *ngIf="user != socketService.activeUser" class="pt-1">
-                              <p class="fw-bold text-break text-capitalize align-top d-inline" style="max-width: 200px; color: grey;">{{ user }}</p>
-                              <button type="button"
-                                      class="btn btn-md btn-primary d-inline"
-                                      style="margin-left:20px;"
-  
-                                      title="Invia Notifiche"
-                                      mdbRipple>
-                                <i class="fas fa-message"></i>
-                              </button>
-                          </div>
-                        </div>
-                      </li>
-<!--======= -->
-                      <li class="user d-grid gap-1 p-2 border-bottom" style="margin-left: -25px;" *ngFor="let user of socketService.filteredUserList()" [ngClass]="{'active': user === socketService.activeUser}">
+                      <li class="user gap-1 p-2 border-bottom row" style="margin-left: -25px;" *ngFor="let user of socketService.filteredUserList()" [ngClass]="{'active': user === socketService.activeUser}">
                         <a 
-                            class="btn btn-light"
+                            class="btn btn-light col-sm-8"
                             type="button"
-                            (click)="socketService.sendHistoryRequest(user)"
                         >
                           <div class="d-flex flex-row">
                             <div class="user-indicator align-self-center far fa-circle fa-3x"></div>
@@ -129,10 +109,42 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                             <p class="fw-bold text-break text-capitalize mb-0" style="max-width: 200px; color: grey;">
                               {{ user }}
                             </p>
-<!-- >>>>>>> authentication -->
                           </div>
                         </a>
-                        
+                        <button type="button"
+                                class="btn btn-md btn-primary col-sm-2"
+                                style="margin-left:20px;"
+                                (click)="socketService.sendHistoryRequest(user)"
+                                title="Invia Notifiche"
+                                mdbRipple>
+                          <i class="fas fa-message"></i>
+                        </button>
+                        <div class="row g-3">
+                          <button class="col-2 btn btn-sm btn-warning"
+                                  title="Cambia ricetta"
+                                  mdbRipple>
+                            <i class="fas fa-message"></i>
+                          </button>
+                          <div class="col-1"></div>
+                          <button class="col-2 btn btn-sm btn-info"
+                                  title="Vieni in cabina"
+                                  mdbRipple>
+                            <i class="fas fa-message"></i>
+                          </button>
+                          <div class="col-1"></div>
+                          <button class="col-2 btn btn-sm btn-success"
+                                  title="Vai in pausa"
+                                  mdbRipple>
+                            <i class="fas fa-message"></i>
+                          </button>
+                          <div class="col-1"></div>
+                          <button class="col-2 btn btn-sm btn-danger"
+                                  title="Fine del turno"
+                                  mdbRipple>
+                            <i class="fas fa-message"></i>
+                          </button>
+                          <div class="col-1"></div>
+                        </div>
                       </li>
                     </ul>
                     <div class="d-grid gap-1">
@@ -184,10 +196,6 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               mdbRipple>
         <i class="fas fa-plus"></i>
       </button>
-      
-
-      
-
     </div>
       
     <div>
