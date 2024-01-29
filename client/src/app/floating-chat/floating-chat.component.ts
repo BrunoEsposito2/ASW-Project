@@ -122,26 +122,30 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                         <div class="row g-3">
                           <button class="col-2 btn btn-sm btn-warning"
                                   title="Cambia ricetta"
+                                  (click)="sendSingleMessage(user, 'Cambia ricetta')"
                                   mdbRipple>
-                            <i class="fas fa-message"></i>
+                            <i class="fas fa-exchange"></i>
                           </button>
                           <div class="col-1"></div>
                           <button class="col-2 btn btn-sm btn-info"
                                   title="Vieni in cabina"
+                                  (click)="sendSingleMessage(user, 'Vieni in cabina')"
                                   mdbRipple>
-                            <i class="fas fa-message"></i>
+                            <i class="fas fa-chalkboard-teacher"></i>
                           </button>
                           <div class="col-1"></div>
                           <button class="col-2 btn btn-sm btn-success"
                                   title="Vai in pausa"
+                                  (click)="sendSingleMessage(user, 'Vai in pausa')"
                                   mdbRipple>
-                            <i class="fas fa-message"></i>
+                            <i class="fas fa-pause"></i>
                           </button>
                           <div class="col-1"></div>
                           <button class="col-2 btn btn-sm btn-danger"
                                   title="Fine del turno"
+                                  (click)="sendSingleMessage(user, 'Fine del turno')"
                                   mdbRipple>
-                            <i class="fas fa-message"></i>
+                            <i class="fas fa-house"></i>
                           </button>
                           <div class="col-1"></div>
                         </div>
@@ -257,5 +261,11 @@ export class FloatingChatComponent implements AfterViewChecked {
 
   getTitle(): string {
     return this.socketService.receiver == '' ? "Broadcast Chat" : this.socketService.receiver;
+  }
+
+  sendSingleMessage(user: string, message: string): void {
+    this.socketService.sendHistoryRequest(user);
+    this.socketService.message = message;
+    this.socketService.sendRoomMessage();
   }
 }
