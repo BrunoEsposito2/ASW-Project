@@ -191,14 +191,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               mdbRipple>
         <i class="fa fa-fire"></i>
       </button>
-      <button type="button"
-              class="btn btn-floating btn-secondary btn-lg"
-              style="margin-right: -105px; margin-bottom: 100px;"
-              (click)="redirectToChat()"
-              title="Vai alla chat"
-              mdbRipple>
-        <i class="fa fa-external-link"></i>
-      </button>
+      
       <button type="button"
               class="btn btn-floating btn-secondary btn-lg" 
               style="margin-bottom: 40px; margin-right:80px;"
@@ -219,6 +212,22 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               mdbRipple>
         <i class="fas fa-message"></i>
       </button>
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg btn-floating position-fixed bottom-0 end-0"
+              style="margin-right: 15px; margin-bottom: 100px;"
+              (click)='socketService.sendMessageWarningOrAlert("Allarme generico")'
+              title="Allarme generico"
+              mdbRipple>
+        <i class="fa fa-warning"></i>
+      </button>
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg btn-floating position-fixed bottom-0 end-0"
+              style="margin-right: 15px; margin-bottom: 150px;"
+              (click)='socketService.sendMessageWarningOrAlert("Allarme Antincendio")'
+              title="Allarme Antincendio"
+              mdbRipple>
+        <i class="fa fa-fire"></i>
+      </button>
     </div>
   `,
   styleUrls: ['../chat/chat.component.scss']
@@ -227,9 +236,11 @@ export class FloatingChatComponent implements AfterViewChecked {
   @ViewChild('chatMessages') chatMessages!: ElementRef;
 
   isActive: boolean
+  buttonsOn: boolean
 
   constructor(protected socketService: SocketChatService) {
     this.isActive = false
+    this.buttonsOn = false
   }
 
   ngAfterViewChecked(): void {
@@ -250,5 +261,19 @@ export class FloatingChatComponent implements AfterViewChecked {
     this.socketService.sendHistoryRequest(user);
     this.socketService.message = message;
     this.socketService.sendRoomMessage();
+  }
+
+  toggleChat() {
+    this.displayButtons()
+    this.isActive = !this.isActive
+  }
+
+  displayButtons() {
+    if (this.isActive) {
+      this.isActive = false
+      this.buttonsOn = false
+    } else {
+      this.buttonsOn = !this.buttonsOn
+    }
   }
 }
