@@ -13,9 +13,7 @@ export class SocketChatService {
   userName: string = "";
   activeUser: string = "";
   messageList: ChatMessage[] = []
-  messageListObservable: Observable<ChatMessage[]> = new Observable<ChatMessage[]>();
-  messageRoomList: ChatMessage[] = []
-  messageRoomListObservable: Observable<ChatMessage[]> = new Observable<ChatMessage[]>();
+  messageRooms: Map<string, ChatMessage[]> = new Map<string, ChatMessage[]>();
   message: string = "";
   receiver: string = "";
 
@@ -43,17 +41,15 @@ export class SocketChatService {
     });
 
     this.socket.on('chat-messages', (messageList: ChatMessage[]) => {
-      this.messageList = messageList;
-      this.messageListObservable.subscribe(list => this.messageList = messageList)
+      this.messageList = messageList
     })
 
-    this.socket.on('joinedRoom', (messageList: ChatMessage[]) => {
-      this.messageRoomList = messageList;
-      this.messageRoomListObservable.subscribe(list => this.messageRoomList = messageList)
+    this.socket.on('joinedRoom', (room: string, messageList: ChatMessage[]) => {
+      this.messageRooms.set(room, messageList)
     })
 
-    this.socket.on('room-message', (data: ChatMessage[]) => {
-      this.messageRoomList = data
+    this.socket.on('room-message', (room: string, data: ChatMessage[]) => {
+      this.messageRooms.set(room, data)
     })
   }
 
@@ -82,11 +78,24 @@ export class SocketChatService {
     if (!regex.test(this.message)) {
       const msgToSend = {message: this.message, userName: this.userName, color: ""}
       this.socket.emit('room-message', msgToSend);
-      this.messageRoomList.push(msgToSend)
 
+
+      const roomId = this.getRoomId()
+      if (this.messageRooms.has(roomId)) {
+        const existingMessages = this.messageRooms.get(roomId)
+        if (existingMessages != undefined) {
+          existingMessages.push(msgToSend)
+          this.messageRooms.set(roomId, existingMessages)
+        }
+      }
       this.message = "";
     }
   }
+
+  getRoomId(): string {
+    return [this.userName, this.receiver].sort().toString().replace(",", "_")
+  }
+
   sendBroadcastHistoryRequest() {
     this.receiver = ''
     this.socket.emit('history')
@@ -94,7 +103,6 @@ export class SocketChatService {
 
   sendHistoryRequest(username: string) {
     this.receiver = username
-    this.messageRoomList = []
     let roomName: string | string[] = [this.userName, this.receiver]
     this.socket.emit('joinRoom', roomName.sort().toString().replace(",", "_"), this.receiver);
   }

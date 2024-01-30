@@ -7,8 +7,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   selector: 'app-login-employee-component',
   template: `
     <app-homepage-navbar></app-homepage-navbar>
-    <section class="vh-100 bg-image"
-             style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+    <section class="vh-90 bg-image"
+             style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp'); height: 90vh; overflow: hidden;">
       <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -43,18 +43,15 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
                       </div>
                     </div>
 
-                    <div class="mb-4">
-                      <div class="form-check d-flex align-items-center mb-3">
-                        <input class="form-check-input me-2" type="radio" formControlName="level" name="level" id="level-junior" value="junior" required>
-                        <label class="form-check-label" for="level-junior">Junior</label>
-                      </div>
-                      <div class="form-check d-flex align-content-between mb-3">
-                        <input class="form-check-input me-2" type="radio" formControlName="level" name="level" id="level-mid" value="mid" required>
-                        <label class="form-check-label" for="level-mid">Mid</label>
-                      </div>
-                      <div class="form-check d-flex align-content-center mb-3">
-                        <input class="form-check-input me-2" type="radio" formControlName="level" name="level" id="level-senior" value="senior" required>
-                        <label class="form-check-label" for="level-senior">Senior</label>
+                    <div class="form-floating mb-4">
+                      <input type="text" id="password" formControlName="password" placeholder="Password"
+                             class="form-control form-control-lg" required/>
+                      <label class="form-label" for="password">Password</label>
+                    </div>
+
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger" role="alert">
+                      <div *ngIf="password.errors?.['required']">
+                        Password is required.
                       </div>
                     </div>
                     
@@ -91,13 +88,14 @@ export class LoginEmployeeComponentComponent {
 
   get name() { return this.employeeForm.get('name')!; }
   get position() { return this.employeeForm.get('position')!; }
+  get password() { return this.employeeForm.get('password')!; }
 
   ngOnInit() {
     this.initialState.subscribe(employee => {
       this.employeeForm = this.fb.group({
         name: [ employee.name, [Validators.required] ],
         position: [ employee.position, [ Validators.required ] ],
-        level: [ employee.level, [Validators.required] ]
+        password: [ employee.password, [ Validators.required ] ]
       });
     });
 

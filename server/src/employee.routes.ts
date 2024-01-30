@@ -44,12 +44,12 @@ employeeRouter.get("/:id", async (req, res) => {
     }
 });
 
-employeeRouter.get("/:name/:position/:level/", async (req, res) => {
+employeeRouter.post("/login", async (req, res) => {
    try {
-       const name = req?.params?.name;
-       const position = req?.params?.position;
-       const level = req?.params?.level;
-       const query = { name: name, position: position, level: level };
+       const name = req.body.name;
+       const position = req.body.position;
+       const password = req.body.password;
+       const query = { name: name, position: position };
        const employee = await collections.employees.findOne(query);
 
        const token = jwt.sign(
@@ -59,22 +59,30 @@ employeeRouter.get("/:name/:position/:level/", async (req, res) => {
        )
 
        if (employee) {
-           res.status(200).send({
-               token: token,
-               expiresIn: 60 * 60,
-               body: true
-           });
+           if (bcrypt.compareSync(password, employee.password)) {
+               res.status(200).send({
+                   token: token,
+                   expiresIn: 60 * 60,
+                   body: true
+               });
+           } else {
+               res.status(401).send(`Invalid credentials inserted.`)
+           }
        } else {
            res.status(404).send(`Failed to find the employee`);
        }
    } catch (error) {
-       res.status(404).send(`Failed to find an employee: NAME ${req?.params?.name} POSITION ${req?.params?.position} ROLE ${req?.params?.level} `);
+       res.status(404).send(`Failed to find an employee: NAME ${req.body.name} POSITION ${req.body.position} `);
    }
 });
 
 employeeRouter.post("/", async (req, res) => {
     try {
         const employee = req.body;
+
+        //hashing the employee password
+        employee.password = bcrypt.hashSync(employee.password, 10)
+
         const result = await collections.employees.insertOne(employee);
 
         if (jwt.verify(req.headers.authorization, SECRET_ACCESS_TOKEN)) {
@@ -97,6 +105,15 @@ employeeRouter.put("/:id", async (req, res) => {
         const id = req?.params?.id;
         const employee = req.body;
         const query = { _id: new mongodb.ObjectId(id) };
+
+        if (employee.password != '' || employee.password != null || employee.password != undefined) {
+            //hashing the new employee password
+            employee.password = bcrypt.hashSync(employee.password, 10)
+        } else {
+            const employeeFound= await collections.employees.findOne(query);
+            employee.password = employeeFound.password
+        }
+
         const result = await collections.employees.updateOne(query, { $set: employee });
 
         if (jwt.verify(req.headers.authorization, SECRET_ACCESS_TOKEN)) {

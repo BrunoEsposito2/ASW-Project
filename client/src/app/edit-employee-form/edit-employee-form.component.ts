@@ -4,8 +4,8 @@ import {BehaviorSubject} from 'rxjs';
 import {Employee} from '../employee';
 
 @Component({
-  selector: 'app-employee-form',
-  template: `
+    selector: 'edit-employee-form',
+    template: `
     <form class="employee-form" autocomplete="off" [formGroup]="employeeForm" (ngSubmit)="submitForm()">
       <div class="form-floating mb-3">
         <input class="form-control" type="text" id="name" formControlName="name" placeholder="Name" required>
@@ -82,56 +82,56 @@ import {Employee} from '../employee';
         </div>
       </div>
 
-      <button class="btn btn-primary" type="submit" [disabled]="employeeForm.invalid">Add</button>
+      <button class="btn btn-primary" type="submit" [disabled]="employeeForm.invalid">Edit</button>
     </form>
     
     <app-floating-chat></app-floating-chat>
     <app-footer></app-footer>
   `,
-  styles: [
-    `.employee-form {
+    styles: [
+        `.employee-form {
       max-width: 560px;
       margin-left: auto;
       margin-right: auto;
     }`
-  ]
+    ]
 })
-export class EmployeeFormComponent implements OnInit {
-  @Input()
-  initialState: BehaviorSubject<Employee> = new BehaviorSubject({});
+export class EditEmployeeFormComponent implements OnInit {
+    @Input()
+    initialState: BehaviorSubject<Employee> = new BehaviorSubject({});
 
-  @Output()
-  formValuesChanged = new EventEmitter<Employee>();
+    @Output()
+    formValuesChanged = new EventEmitter<Employee>();
 
-  @Output()
-  formSubmitted = new EventEmitter<Employee>();
+    @Output()
+    formSubmitted = new EventEmitter<Employee>();
 
-  employeeForm: FormGroup = new FormGroup({});
+    employeeForm: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder) { }
+    constructor(private fb: FormBuilder) { }
 
-  get name() { return this.employeeForm.get('name')!; }
-  get position() { return this.employeeForm.get('position')!; }
-  get level() { return this.employeeForm.get('level')!; }
-  get img() { return this.employeeForm.get('img')!; }
-  get password() { return this.employeeForm.get('password')!; }
+    get name() { return this.employeeForm.get('name')!; }
+    get position() { return this.employeeForm.get('position')!; }
+    get level() { return this.employeeForm.get('level')!; }
+    get img() { return this.employeeForm.get('img')!; }
+    get password() { return this.employeeForm.get('password')!; }
 
 
-  ngOnInit() {
-    this.initialState.subscribe(employee => {
-      this.employeeForm = this.fb.group({
-        name: [ employee.name, [Validators.required, Validators.minLength(3)] ],
-        position: [ employee.position, [ Validators.required, Validators.minLength(5) ] ],
-        level: [ employee.level, [Validators.required] ],
-        img: [ employee.img, [ Validators.required, Validators.minLength(5) ] ],
-        password: [ employee.password, [ Validators.required, Validators.minLength(8)]]
-      });
-    });
+    ngOnInit() {
+        this.initialState.subscribe(employee => {
+            this.employeeForm = this.fb.group({
+                name: [ employee.name, [Validators.required, Validators.minLength(3)] ],
+                position: [ employee.position, [ Validators.required, Validators.minLength(5) ] ],
+                level: [ employee.level, [Validators.required] ],
+                img: [ employee.img, [ Validators.required, Validators.minLength(5) ] ],
+                password: [ employee.password, [ Validators.required, Validators.minLength(8)]]
+            });
+        });
 
-    this.employeeForm.valueChanges.subscribe((val) => { this.formValuesChanged.emit(val); });
-  }
+        this.employeeForm.valueChanges.subscribe((val) => { this.formValuesChanged.emit(val); });
+    }
 
-  submitForm() {
-    this.formSubmitted.emit(this.employeeForm.value);
-  }
+    submitForm() {
+        this.formSubmitted.emit(this.employeeForm.value);
+    }
 }

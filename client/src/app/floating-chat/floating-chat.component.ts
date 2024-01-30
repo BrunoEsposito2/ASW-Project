@@ -6,17 +6,24 @@ import {SocketChatService} from "../../utils/socket-chat.service";
   selector: 'app-floating-chat',
   template: `
     <div *ngIf="isActive">
-      <section class="position-fixed bottom-0 end-0">
+      <section class="position-fixed bottom-0 end-0" style="padding-bottom: 20px">
+        <button 
+            type="button" (click)="this.isActive = false" 
+            style="position: absolute; top: 0; right: 0; z-index: 9999; margin-right: 36px; margin-top: 38px; border-radius: 50%; width: 25px; height: 25px" 
+            class="btn btn-outline-primary bg-primary text-light p-0" 
+        >
+          <i class="fas fa-times"></i>
+        </button>
         <div class="container px-5 py-5">
           <div class="row d-flex justify-content-center">
-            <div class="col-md-16 col-lg-14 col-xl-12">
+            <div class="col-12">
               
               <div class="card shadow-3-strong border-dark">
                 <mdb-tabs>
                   <mdb-tab [title]="getTitle()">
 
-                    <div *ngIf="socketService.receiver == ''; else elseBlock" class="card-body"  style="position: relative; height: 420px; overflow-y: scroll;" #chatMessages>
-
+                    <div *ngIf="socketService.receiver == ''; else elseBlock" class="card-body"  style="position: relative; height: 300px; overflow-y: scroll;" #chatMessages>
+                      
                       <div class="message" *ngFor="let msg of socketService.messageList" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
                         <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>
                         <div class="message-box d-flex justify-content-between text-break">
@@ -45,9 +52,9 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                     </div>
                     
                     <ng-template #elseBlock>
-                      <div class="card-body"  style="position: relative; height: 420px; overflow-y: scroll;" #chatMessages>
+                      <div class="card-body"  style="position: relative; height: 300px; overflow-y: scroll;" #chatMessages>
 
-                        <div class="message" *ngFor="let msg of socketService.messageRoomList" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
+                        <div class="message" *ngFor="let msg of socketService.messageRooms.get(socketService.getRoomId())" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
                           <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>
                           <div class="message-box d-flex justify-content-between text-break">
 
@@ -166,7 +173,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
         </div>
       </section>
     </div>
-      
+    
     <div *ngIf="buttonsOn" class="position-fixed bottom-0 end-0">
       <button type="button"
               class="btn btn-floating btn-secondary btn-lg"
@@ -207,8 +214,8 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               class="btn btn-lg btn-primary btn-floating position-fixed bottom-0 end-0"
               [ngClass]="{ 'active': isActive }"
               style="margin-right: 20px; margin-bottom: 40px;"
-              (click)="displayButtons()"
               title="Invia messaggi"
+              (click)="this.isActive = !this.isActive"
               mdbRipple>
         <i class="fas fa-message"></i>
       </button>
@@ -220,14 +227,8 @@ export class FloatingChatComponent implements AfterViewChecked {
   @ViewChild('chatMessages') chatMessages!: ElementRef;
 
   isActive: boolean
-  buttonsOn: boolean
 
-  constructor(
-      private activatedRoute: ActivatedRoute,
-      private router: Router,
-      protected socketService: SocketChatService
-  ) {
-    this.buttonsOn = false
+  constructor(protected socketService: SocketChatService) {
     this.isActive = false
   }
 
@@ -239,24 +240,6 @@ export class FloatingChatComponent implements AfterViewChecked {
 
   scrollToBottom(): void {
     this.chatMessages.nativeElement.scrollTop = this.chatMessages.nativeElement.scrollHeight;
-  }
-
-  toggleChat() {
-    this.displayButtons()
-    this.isActive = !this.isActive
-  }
-
-  displayButtons() {
-    if (this.isActive) {
-      this.isActive = false
-      this.buttonsOn = false
-    } else {
-      this.buttonsOn = !this.buttonsOn
-    }
-  }
-
-  redirectToChat(): void {
-    this.router.navigate(["admins/chat/" + this.activatedRoute.snapshot.paramMap.get('username') !]);
   }
 
   getTitle(): string {

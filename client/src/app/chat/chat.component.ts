@@ -17,7 +17,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
             <div class="card-group mb-3 shadow-3-strong border-dark">
               <div class="card">
                 <h1 class="mb-3 text-center mt-4" style="color: dodgerblue">Active Users List</h1>
-                <div class="card-body position-relative" style="height: 41rem; overflow-y: scroll;">
+                <div class="card-body position-relative" style="height: 65vh; overflow-y: scroll;">
                   <ul class="user-list mb-3">
                     <li class="user d-grid gap-1 p-2 border-bottom" style="margin-left: -25px;" *ngFor="let user of socketService.filteredUserList()" [ngClass]="{'active': user === socketService.activeUser}">
                       <a
@@ -70,7 +70,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                 </ng-template>
               </div>
               
-              <div *ngIf="socketService.receiver == ''; else elseBlock2" class="card-body"  style="position: relative; height: 38rem; overflow-y: scroll;" #chatMessages>
+              <div *ngIf="socketService.receiver == ''; else elseBlock2" class="card-body"  style="position: relative; height: 65vh; overflow-y: scroll;" #chatMessages>
                 
                 <div class="message" *ngFor="let msg of socketService.messageList" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
                   <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>
@@ -100,34 +100,34 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               </div>
               
               <ng-template #elseBlock2>
-                <div class="card-body"  style="position: relative; height: 38rem; overflow-y: scroll;" #chatMessages>
+                <div class="card-body"  style="position: relative; height: 65vh; overflow-y: scroll;" #chatMessages>
+                  
+                   <div class="message" *ngFor="let msg of socketService.messageRooms.get(socketService.getRoomId())" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
+                     <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>
+                     <div class="message-box d-flex justify-content-between text-break">
 
-                  <div class="message" *ngFor="let msg of socketService.messageRoomList" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
-                    <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>
-                    <div class="message-box d-flex justify-content-between text-break">
+                       <div *ngIf="msg.userName == socketService.activeUser" class="card bg-secondary bg-opacity-10 shadow-3-strong border-dark small mb-3"
+                            style="min-width: 30px; max-width: 500px; min-height: 25px; white-space: normal; word-wrap: break-word;">
+                         <div class="card-body d-flex justify-content-start small p-3">
+                           <p class="content mb-0" style="font-size: small;">{{ msg.message }}</p>
+                         </div>
+                       </div>
 
-                      <div *ngIf="msg.userName == socketService.activeUser" class="card bg-secondary bg-opacity-10 shadow-3-strong border-dark small mb-3"
-                           style="min-width: 30px; max-width: 500px; min-height: 25px; white-space: normal; word-wrap: break-word;">
-                        <div class="card-body d-flex justify-content-start small p-3">
-                          <p class="content mb-0" style="font-size: small;">{{ msg.message }}</p>
-                        </div>
-                      </div>
+                       <div *ngIf="msg.userName != socketService.activeUser" class="card bg-info bg-opacity-10 shadow-3-strong border-dark small mb-3"
+                            style="min-width: 30px; max-width: 500px; min-height: 25px; white-space: normal; word-wrap: break-word;">
+                         <div class="card-title d-flex justify-content-start p-3">
+                           <p class="name text-break text-capitalize" style="font-size: medium" [style.color]="msg.color">{{ msg.userName }}</p>
+                         </div>
+                         <div class="card-body d-flex justify-content-start small p-3">
+                           <p class="content mb-0" style="font-size: small; margin-top: -25px;">{{ msg.message }}</p>
+                         </div>
+                       </div>
 
-                      <div *ngIf="msg.userName != socketService.activeUser" class="card bg-info bg-opacity-10 shadow-3-strong border-dark small mb-3"
-                           style="min-width: 30px; max-width: 500px; min-height: 25px; white-space: normal; word-wrap: break-word;">
-                        <div class="card-title d-flex justify-content-start p-3">
-                          <p class="name text-break text-capitalize" style="font-size: medium" [style.color]="msg.color">{{ msg.userName }}</p>
-                        </div>
-                        <div class="card-body d-flex justify-content-start small p-3">
-                          <p class="content mb-0" style="font-size: small; margin-top: -25px;">{{ msg.message }}</p>
-                        </div>
-                      </div>
+                     </div>
+                     <i *ngIf="msg.userName == socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start ms-3" style="color: #4caf50"></i>
+                   </div>
+                 </div>
 
-                    </div>
-                    <i *ngIf="msg.userName == socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start ms-3" style="color: #4caf50"></i>
-                  </div>
-
-                </div>
               </ng-template>
               
               <div class="card-footer shadow-3-strong">
@@ -171,6 +171,4 @@ export class ChatComponent implements AfterViewChecked {
   scrollToBottom(): void {
     this.chatMessages.nativeElement.scrollTop = this.chatMessages.nativeElement.scrollHeight;
   }
-
-  protected readonly console = console;
 }

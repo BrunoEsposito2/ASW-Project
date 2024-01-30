@@ -48,8 +48,8 @@ export class AuthEmployeeComponent implements OnInit {
         if (!employee.position) {
             throw new InvalidLoginInputError("Invalid position input. Please, retry.")
         }
-        if (!employee.level) {
-            throw new InvalidLoginInputError("Invalid level input. Please, retry.")
+        if (!employee.password) {
+            throw new InvalidLoginInputError("Invalid password input. Please, retry.")
         }
         return employee.name;
     }
@@ -58,7 +58,7 @@ export class AuthEmployeeComponent implements OnInit {
       try {
           const username: string = this.checkCredentials(employee);
 
-          this.employeeService.getEmployeeByInfo(employee.name !, employee.position !, employee.level !)
+          this.employeeService.getEmployeeByInfo(employee.name !, employee.position !, employee.password !)
               .subscribe({
                   next: (response) => {
                       // control of the cookie session storing

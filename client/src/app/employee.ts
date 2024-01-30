@@ -4,4 +4,5 @@ export interface Employee {
     level?: 'junior' | 'mid' | 'senior';
     img?: string;
     _id?: string;
+    password?: string;
 }

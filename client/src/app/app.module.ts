@@ -53,6 +53,7 @@ import { FloatingChatComponent } from './floating-chat/floating-chat.component';
 import {MdbTabsModule} from "mdb-angular-ui-kit/tabs";
 import {SocketChatService} from "../utils/socket-chat.service";
 import { FooterComponent } from './footer/footer.component';
+import {EditEmployeeFormComponent} from "./edit-employee-form/edit-employee-form.component";
 
 @NgModule({
     declarations: [
@@ -81,6 +82,7 @@ import { FooterComponent } from './footer/footer.component';
         HomepageNavbarComponent,
         AdminNavbarComponent,
         EmployeeComponent,
+        EditEmployeeFormComponent,
         EmployeeNavbarComponent,
         AdminChatComponent,
         EmployeeChatComponent,

@@ -35,16 +35,21 @@ export class EmployeeService {
     return this.httpClient.get<Employee>(`${this.url}/employees/${id}`);
   }
 
-  getEmployeeByInfo(name: string, position: string, level: string): Observable<{
+  getEmployeeByInfo(name: string, position: string, password: string): Observable<{
     token: string,
     expiresIn: number,
     body: boolean
   }> {
-    return this.httpClient.get<{
+    const authData = {
+      name: name,
+      position: position,
+      password: password
+    }
+    return this.httpClient.post<{
       token: string,
       expiresIn: number,
       body: boolean
-    }>(`${this.url}/employees/${name}/${position}/${level}`);
+    }>(`${this.url}/employees/login`, authData);
   }
 
   createEmployee(employee: Employee): Observable<string> {

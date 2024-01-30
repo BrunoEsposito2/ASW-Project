@@ -6,4 +6,5 @@ export interface Employee {
     level: string; //"junior" | "mid" | "senior";
     img: string;
     _id?: mongodb.ObjectId;
+    password: string;
 }

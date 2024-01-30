@@ -6,8 +6,11 @@ import {EmployeeService} from '../employee.service';
 @Component({
   selector: 'app-add-employee',
   template: `
-    <h2 class="text-center m-5">Add a New Employee</h2>
-    <app-employee-form (formSubmitted)="addEmployee($event)"></app-employee-form>
+    <app-admin-navbar></app-admin-navbar>
+    <section style="height: 90vh; overflow: hidden;">
+        <h2 class="text-center m-5">Add a New Employee</h2>
+        <app-employee-form (formSubmitted)="addEmployee($event)"></app-employee-form>
+    </section>
   `
 })
 export class AddEmployeeComponent {
