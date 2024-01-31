@@ -58,11 +58,12 @@ export class AuthAdminComponent implements OnInit {
         this.adminService.getAdmin(admin.email !, admin.password !)
             .subscribe({
                 next: (response) => {
+                    const responseData = JSON.parse(response)
                     // control of the cookie session storing
-                    const token = response.token;
+                    const token = responseData.token;
                     this.token = token;
-                    if (token && response.body) {
-                        const expiresInDuration = response.expiresIn;
+                    if (token != null && responseData.body) {
+                        const expiresInDuration = responseData.expiresIn;
 
                         this.setAuthTimer(expiresInDuration);
                         this.isAuthenticated = true;

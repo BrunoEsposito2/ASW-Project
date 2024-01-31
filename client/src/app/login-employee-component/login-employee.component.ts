@@ -8,7 +8,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   template: `
     <app-homepage-navbar></app-homepage-navbar>
     <section class="vh-90 bg-image"
-             style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp'); height: 90vh; overflow: hidden;">
+             style="height: 90vh; overflow: hidden;">
+      <video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video><video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
       <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -70,9 +71,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
     
     <app-footer></app-footer>
   `,
-  styleUrls: ['./login-employee-component.component.css']
+  styleUrls: ['./login-employee.component.css']
 })
-export class LoginEmployeeComponentComponent {
+export class LoginEmployeeComponent {
   @Input()
   initialState: BehaviorSubject<Employee> = new BehaviorSubject({});
 

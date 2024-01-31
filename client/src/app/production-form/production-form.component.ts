@@ -22,12 +22,12 @@ import {Employee} from "../employee";
 
       <div class="form-floating mb-3">
         <input class="form-control" type="number" id="kg_waste" formControlName="kg_waste" placeholder="Kg Waste" required>
-        <label for="kg_waste">Kg Waste</label>
+        <label for="kg_waste">Kg Wasted</label>
       </div>
 
       <div *ngIf="kg_waste.invalid && (kg_waste.dirty || kg_waste.touched)" class="alert alert-danger">
         <div *ngIf="kg_waste.errors?.['required']">
-          Kg Waste is required.
+          Kg Wasted is required.
         </div>
       </div>
 

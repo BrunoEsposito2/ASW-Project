@@ -96,7 +96,7 @@ import {Employee} from '../employee';
     }`
   ]
 })
-export class EmployeeFormComponent implements OnInit {
+export class AddEmployeeFormComponent implements OnInit {
   @Input()
   initialState: BehaviorSubject<Employee> = new BehaviorSubject({});
 

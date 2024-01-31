@@ -24,15 +24,11 @@ export class AdminService {
         return this.admins$;
     }
 
-    getAdmin(email: string, password: string): Observable<{
-        token: string,
-        expiresIn: number,
-        body: boolean
-    }> {
-        return this.httpClient.get<{
-            token: string,
-            expiresIn: number,
-            body: boolean
-        }>(`${this.url}/admins/${email}/${password}`);
+    getAdmin(email: string, password: string): Observable<string> {
+        const dataToSend = {
+            email: email,
+            password: password
+        }
+        return this.httpClient.post<string>(`${this.url}/admins/auth`, dataToSend, {responseType: 'json'});
     }
 }

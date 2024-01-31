@@ -9,7 +9,7 @@ import {EmployeeService} from '../employee.service';
   template: `
     <app-admin-navbar></app-admin-navbar>
     <section style="height: 90vh; overflow: hidden;">
-      <h2 class="text-center m-5">Edit an Employee</h2>
+      <h2 class="text-center m-5">Edit Employee Data</h2>
       <edit-employee-form [initialState]="employee" (formSubmitted)="editEmployee($event)"></edit-employee-form>
     </section>
   `

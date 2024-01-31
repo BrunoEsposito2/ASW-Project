@@ -44,7 +44,7 @@ employeeRouter.get("/:id", async (req, res) => {
     }
 });
 
-employeeRouter.post("/login", async (req, res) => {
+employeeRouter.post("/auth", async (req, res) => {
    try {
        const name = req.body.name;
        const position = req.body.position;
@@ -59,15 +59,18 @@ employeeRouter.post("/login", async (req, res) => {
        )
 
        if (employee) {
-           if (bcrypt.compareSync(password, employee.password)) {
-               res.status(200).send({
-                   token: token,
-                   expiresIn: 60 * 60,
-                   body: true
-               });
-           } else {
-               res.status(401).send(`Invalid credentials inserted.`)
-           }
+           bcrypt.compare(password, employee.password, (err, hashRes) => {
+               if (hashRes && !err) {
+                   const jsonResponse = JSON.stringify({
+                       token: token,
+                       expiresIn: 60 * 60, // 1 hour is the cookie expire time
+                       body: hashRes
+                   })
+                   res.status(200).json(jsonResponse);
+               } else {
+                   res.status(401).send(`Invalid credentials inserted.`)
+               }
+           })
        } else {
            res.status(404).send(`Failed to find the employee`);
        }
@@ -155,31 +158,3 @@ employeeRouter.delete("/:id", async (req, res) => {
         res.status(400).send(error.message);
     }
 });
-
-/*employeeRouter.get("/position/:id", async (req, res) => {
-    try {
-        const id = req?.params?.id;
-        const query = { _id: new mongodb.ObjectId(id) };
-        const employee = await collections.employees.findOne(query);
-
-        if(employee.localization == null){
-          let position =
-            {
-              latitude: "100",
-              longitude: "100"
-            }
-          
-          employee.localization = position;
-            const result = await collections.employees.updateOne(query, { $set: employee.localization });
-        }
-
-        if (employee) {
-            res.status(200).send(employee.localization);
-        } else {
-            res.status(404).send(`Failed to find an employee: ID ${id}`);
-        }
-    } catch (error) {
-        res.status(404).send(`Failed to find an employee: ID ${req?.params?.id}`);
-    }
-
-});*/

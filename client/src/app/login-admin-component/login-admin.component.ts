@@ -9,7 +9,8 @@ import {Admin} from "../admin"
   template: `
     <app-homepage-navbar></app-homepage-navbar>
     <section class="vh-90 bg-image"
-             style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp'); height: 90vh; overflow: hidden;">
+             style="height: 90vh; overflow: hidden;">
+      <video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video><video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
       <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -59,11 +60,19 @@ import {Admin} from "../admin"
     
     <app-footer></app-footer>
   `,
-  styleUrls: [
-
-  ]
+  styles: [`
+    .video-container {
+      position: absolute;
+      top: -30%;
+      left: -30%;
+      width: 140%;
+      height: 140%;
+      object-fit: cover;
+      filter: blur(10px); /* Aggiungi uno sfondo sfuocato */
+    }
+  `]
 })
-export class LoginAdminComponentComponent implements OnInit {
+export class LoginAdminComponent implements OnInit {
   @Input()
   initialState: BehaviorSubject<Admin> = new BehaviorSubject({});
 

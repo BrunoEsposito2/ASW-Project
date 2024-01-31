@@ -61,11 +61,12 @@ export class AuthEmployeeComponent implements OnInit {
           this.employeeService.getEmployeeByInfo(employee.name !, employee.position !, employee.password !)
               .subscribe({
                   next: (response) => {
+                      const responseData = JSON.parse(response)
                       // control of the cookie session storing
-                      const token = response.token;
+                      const token = responseData.token;
                       this.token = token;
-                      if (token && response.body) {
-                          const expiresInDuration = response.expiresIn;
+                      if (token && responseData.body) {
+                          const expiresInDuration = responseData.expiresIn;
 
                           this.setAuthTimer(expiresInDuration);
 

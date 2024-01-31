@@ -16,7 +16,7 @@ import {AdminNavbarComponent} from "../admin-navbar/admin-navbar.component";
                 <thead class="bg-light sticky-top">
                 <tr>
                     <th>KG Produced</th>
-                    <th>KG Waste</th>
+                    <th>KG Wasted</th>
                     <th>Timestamp</th>
                 </tr>
                 </thead>

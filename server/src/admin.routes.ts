@@ -10,10 +10,10 @@ const { SECRET_ACCESS_TOKEN } = process.env;
 export const adminRouter = express.Router();
 adminRouter.use(express.json());
 
-adminRouter.get('/:email/:password', async (req, res) => {
+adminRouter.post('/auth', async (req, res) => {
     try {
-        const email = req?.params?.email;
-        const password = req?.params?.password;
+        const email = req.body.email;
+        const password = req.body.password;
 
         const emailQuery = { email: email };
         const admin = await collections.admins.findOne(emailQuery);
@@ -27,13 +27,14 @@ adminRouter.get('/:email/:password', async (req, res) => {
         if (admin) {
             bcrypt.compare(password, admin.password, (err, hashRes) => {
                 if (hashRes && !err) {
-                    res.status(200).send({
+                    const jsonResponse = JSON.stringify({
                         token: token,
                         expiresIn: 60 * 60, // 1 hour is the cookie expire time
                         body: hashRes
-                    });
+                    })
+                    res.status(200).json(jsonResponse);
                 } else {
-                    res.status(404).send(`Failed to find the admin password: ${password}`);
+                    res.status(401).send(`Failed to find the admin password: ${password}`);
                 }
             })
         } else {

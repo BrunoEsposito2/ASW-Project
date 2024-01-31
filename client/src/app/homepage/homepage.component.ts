@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
                   <div class="card-body">
                     <div class="col" role="group" aria-label="First group">
                       <button type="button" id="adminButton" class="btn me-2 btn-primary btn-lg custom-font mb-2" (click)="adminLogin()">Admin</button>
-                      <button type="button" id="opButton" class="btn btn-primary btn-lg custom-font mb-2" (click)="employeeLogin()">Operatore</button>
+                      <button type="button" id="opButton" class="btn btn-primary btn-lg custom-font mb-2" (click)="employeeLogin()">Employee</button>
                     </div>
                   </div>
                 </div>

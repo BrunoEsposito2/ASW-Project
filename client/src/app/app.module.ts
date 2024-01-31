@@ -7,7 +7,7 @@ import { AuthInterceptor } from './auth-interceptor/auth-interceptor';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {EmployeesListComponent} from './employees-list/employees-list.component';
-import {EmployeeFormComponent} from './employee-form/employee-form.component';
+import {AddEmployeeFormComponent} from './employee-form/add-employee-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddEmployeeComponent} from './add-employee/add-employee.component';
 import {EditEmployeeComponent} from './edit-employee/edit-employee.component';
@@ -25,8 +25,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginAdminComponentComponent } from './login-admin-component/login-admin-component.component';
-import { LoginEmployeeComponentComponent } from './login-employee-component/login-employee-component.component';
+import { LoginAdminComponent } from './login-admin-component/login-admin.component';
+import { LoginEmployeeComponent } from './login-employee-component/login-employee.component';
 import { AuthAdminComponent } from './auth-admin/auth-admin.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthEmployeeComponent } from './auth-employee/auth-employee.component';
@@ -59,7 +59,7 @@ import {EditEmployeeFormComponent} from "./edit-employee-form/edit-employee-form
     declarations: [
         AppComponent,
         EmployeesListComponent,
-        EmployeeFormComponent,
+        AddEmployeeFormComponent,
         AddEmployeeComponent,
         EditEmployeeComponent,
         MixerUnitComponentComponent,
@@ -72,8 +72,8 @@ import {EditEmployeeFormComponent} from "./edit-employee-form/edit-employee-form
         ChatComponent,
         ChartsComponentComponent,
         PowerUnitChartsComponent,
-        LoginAdminComponentComponent,
-        LoginEmployeeComponentComponent,
+        LoginAdminComponent,
+        LoginEmployeeComponent,
         AuthAdminComponent,
         AdminComponent,
         AuthEmployeeComponent,
