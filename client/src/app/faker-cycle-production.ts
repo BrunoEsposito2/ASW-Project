@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, interval, Subscription } from 'rxjs';
 import { Subject } from 'rxjs';
 import {CycleProduction} from "./cycle-production";
-import {CycleProductionService} from "./cycle-production.service";
+import {CycleProductionService} from "./services/cycle-production.service";
 
 
 @Injectable({

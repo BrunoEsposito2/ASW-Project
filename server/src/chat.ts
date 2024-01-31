@@ -1,6 +1,6 @@
 import {Socket} from "socket.io";
 import express from "express";
-import {ChatMessage} from "./chat-message";
+import {ChatMessage} from "./models/chat-message";
 
 const PORT = 3000
 
