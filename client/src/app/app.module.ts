@@ -51,7 +51,6 @@ import { FloatingChatComponent } from './components/floating-chat/floating-chat.
 import {MdbTabsModule} from "mdb-angular-ui-kit/tabs";
 import { FooterComponent } from './components/footer/footer.component';
 import {EditEmployeeFormComponent} from "./components/edit-employee-form/edit-employee-form.component";
-import {AppToastsComponent} from "../utils/apptoast.component";
 
 @NgModule({
     declarations: [
