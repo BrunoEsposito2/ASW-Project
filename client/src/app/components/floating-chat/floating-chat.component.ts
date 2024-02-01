@@ -1,5 +1,6 @@
 import {AfterViewChecked, Component, ElementRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {Toast} from "bootstrap";
 import {SocketChatService} from "../../../utils/socket-chat.service";
 
 @Component({
@@ -226,21 +227,40 @@ import {SocketChatService} from "../../../utils/socket-chat.service";
               (click)='socketService.sendMessageWarningOrAlert("Allarme Antincendio")'
               title="Allarme Antincendio"
               mdbRipple>
-        <i class="fa fa-fire"></i>
+        <i class="fa fa-fire"></i> 
       </button>
+      <div #toastNotify *ngIf="isShown" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="display:block!important; position: absolute; top: 0; right: 0;">
+        <div class="toast-header">
+          <img src="..." class="rounded mr-2" alt="...">
+          <strong class="mr-auto">Nuova notifica</strong>
+        </div>
+        <div class="toast-body">
+          Hello, world! This is a toast message.
+        </div>
+      </div>
     </div>
   `,
-  styleUrls: ['../chat/chat.component.scss']
+  styleUrls: [ '../../chat/chat.component.scss' ]
 })
 export class FloatingChatComponent implements AfterViewChecked {
   @ViewChild('chatMessages') chatMessages!: ElementRef;
-
+  @ViewChild('toastNotify') toastNotify!: ElementRef;
+  isShown: boolean
   isActive: boolean
   buttonsOn: boolean
 
   constructor(protected socketService: SocketChatService) {
     this.isActive = false
     this.buttonsOn = false
+    this.isShown = false;
+    this.socketService.socket.on('message-broadcast', () => {
+      this.isShown = true;
+      console.log("notifica angular");
+      setTimeout(()=>{
+        this.isShown = false;
+      }, 9000);
+
+    })
   }
 
   ngAfterViewChecked(): void {

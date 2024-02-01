@@ -38,6 +38,7 @@ export class SocketChatService {
               .length == 0) {
         this.messageList.push(data)
       }
+      console.log("notifica broad");
     });
 
     this.socket.on('chat-messages', (messageList: ChatMessage[]) => {
@@ -45,10 +46,12 @@ export class SocketChatService {
     })
 
     this.socket.on('joinedRoom', (room: string, messageList: ChatMessage[]) => {
+      console.log("notifica joined");
       this.messageRooms.set(room, messageList)
     })
 
     this.socket.on('room-message', (room: string, data: ChatMessage[]) => {
+      console.log("notifica");
       this.messageRooms.set(room, data)
     })
   }
