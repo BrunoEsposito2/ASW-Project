@@ -2,6 +2,7 @@ import {AfterViewChecked, Component, ElementRef, ViewChild} from '@angular/core'
 import {ActivatedRoute, Router} from "@angular/router";
 import {Toast} from "bootstrap";
 import {SocketChatService} from "../../../utils/socket-chat.service";
+import {ChatMessage} from "../../chat-message";
 
 @Component({
   selector: 'app-floating-chat',
@@ -231,11 +232,10 @@ import {SocketChatService} from "../../../utils/socket-chat.service";
       </button>
       <div #toastNotify *ngIf="isShown" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="display:block!important; position: absolute; top: 0; right: 0;">
         <div class="toast-header">
-          <img src="..." class="rounded mr-2" alt="...">
-          <strong class="mr-auto">Nuova notifica</strong>
+          <strong class="mr-auto">Nuova notifica da {{ notifyUser }}</strong>
         </div>
         <div class="toast-body">
-          Hello, world! This is a toast message.
+          {{ notifyMessage }}
         </div>
       </div>
     </div>
@@ -245,22 +245,38 @@ import {SocketChatService} from "../../../utils/socket-chat.service";
 export class FloatingChatComponent implements AfterViewChecked {
   @ViewChild('chatMessages') chatMessages!: ElementRef;
   @ViewChild('toastNotify') toastNotify!: ElementRef;
-  isShown: boolean
+
   isActive: boolean
   buttonsOn: boolean
+
+  isShown: boolean
+  notifyUser: string
+  notifyMessage: string
 
   constructor(protected socketService: SocketChatService) {
     this.isActive = false
     this.buttonsOn = false
     this.isShown = false;
-    this.socketService.socket.on('message-broadcast', () => {
+    this.notifyUser = "";
+    this.notifyMessage = "";
+    this.socketService.socket.on('message-broadcast', (data: {message: string, userName: string, color: string}) => {
       this.isShown = true;
-      console.log("notifica angular");
+      this.notifyUser = data.userName;
+      this.notifyMessage = data.message;
       setTimeout(()=>{
         this.isShown = false;
       }, 9000);
 
-    })
+    });
+    this.socketService.socket.on('room-message', (room: string, data: ChatMessage[]) => {
+      this.isShown = true;
+      this.notifyUser = room.split("_")[1];
+      this.notifyMessage = data[data.length-1].message!;
+      setTimeout(()=>{
+        this.isShown = false;
+      }, 9000);
+
+    });
   }
 
   ngAfterViewChecked(): void {
