@@ -1,19 +1,18 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {EmployeesListComponent} from './employees-list/employees-list.component';
-import {AddEmployeeComponent} from './add-employee/add-employee.component';
-import {AddProductionComponent} from "./add-production/add-production-component";
-import {EditEmployeeComponent} from './edit-employee/edit-employee.component';
-import {AuthAdminComponent} from "./auth-admin/auth-admin.component";
-import {AdminComponent} from "./admin/admin.component";
-import {AuthEmployeeComponent} from "./auth-employee/auth-employee.component";
-import {HomepageComponent} from "./homepage/homepage.component";
-import {ChatComponent} from "./chat/chat.component";
-import {EmployeeComponent} from "./employee/employee.component";
-import {AdminChatComponent} from "./admin-chat/admin-chat.component";
-import {EmployeeChatComponent} from "./employee-chat/employee-chat.component";
-import {ProductionsListComponent} from './production-list/productions-list.component';
-import {canActivateGuard} from "./auth-session-guard/auth-guard";
+import {EmployeesListComponent} from './components/employees-list/employees-list.component';
+import {AddEmployeeComponent} from './components/add-employee/add-employee.component';
+import {AddProductionComponent} from "./components/add-production/add-production-component";
+import {EditEmployeeComponent} from './components/edit-employee/edit-employee.component';
+import {AuthAdminComponent} from "./components/auth-admin/auth-admin.component";
+import {AdminComponent} from "./components/admin/admin.component";
+import {AuthEmployeeComponent} from "./components/auth-employee/auth-employee.component";
+import {HomepageComponent} from "./components/homepage/homepage.component";
+import {EmployeeComponent} from "./components/employee/employee.component";
+import {AdminChatComponent} from "./components/admin-chat/admin-chat.component";
+import {EmployeeChatComponent} from "./components/employee-chat/employee-chat.component";
+import {ProductionsListComponent} from './components/production-list/productions-list.component';
+import {canActivateGuard} from "./services/auth-guard";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },

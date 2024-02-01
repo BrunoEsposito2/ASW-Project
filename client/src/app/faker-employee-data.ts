@@ -1,8 +1,8 @@
 import {Component, Injectable} from '@angular/core';
 import { Observable, interval, Subscription } from 'rxjs';
 import { Employee } from "./employee";
-import { EmployeeService } from "./employee.service";
-import { EmployeeOperatingDataService } from "./employee.operating.data.service";
+import { EmployeeService } from "./services/employee.service";
+import { EmployeeOperatingDataService } from "./services/employee.operating.data.service";
 import { EmployeeOperatingData } from "./employee-operating-data";
 import { Subject } from 'rxjs';
 

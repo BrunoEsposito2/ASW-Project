@@ -1,12 +1,12 @@
 import * as dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
-import {connectToDatabase} from "./database";
-import {employeeRouter} from "./employee.routes";
-import {adminRouter} from "./admin.routes";
-import {productionRouter} from "./production.routes";
-import {employeeOperatingDataRouter} from "./employee.operating.data.routes";
-import {cycleProductionRouter} from "./cycle-production.routes";
+import {connectToDatabase} from "./models/database";
+import {employeeRouter} from "./routes/employee.routes";
+import {adminRouter} from "./routes/admin.routes";
+import {productionRouter} from "./routes/production.routes";
+import {employeeOperatingDataRouter} from "./routes/employee.operating.data.routes";
+import {cycleProductionRouter} from "./routes/cycle-production.routes";
 import cookieParser from "cookie-parser";
 
 // Load environment variables from the .env file, where the ATLAS_URI is configured
