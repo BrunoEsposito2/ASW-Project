@@ -1,6 +1,6 @@
 import {AfterViewChecked, Component, ElementRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {SocketChatService} from "../../services/socket-chat.service";
+import {SocketChatService} from "../../../utils/socket-chat.service";
 
 @Component({
   selector: 'app-floating-chat',

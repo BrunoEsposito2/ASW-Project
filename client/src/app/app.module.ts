@@ -18,7 +18,7 @@ import {IngredientsComponentComponent} from './components/ingredients-component/
 import {AssistantsComponentComponent} from './components/assistants-component/assistants-component.component';
 import {StepsComponentComponent} from './components/steps-component/steps-component.component';
 import {EmployeeRenderedComponent} from './components/render/employee-rendered.component';
-import {ChatComponent} from './components/chat/chat.component';
+import {ChatComponent} from "./chat/chat.component";
 import {ChartsComponentComponent} from "./components/charts-component/charts-component.component";
 import {PowerUnitChartsComponent} from "./components/power-unit-charts/power-unit-charts.component";
 import {MatCardModule} from "@angular/material/card";

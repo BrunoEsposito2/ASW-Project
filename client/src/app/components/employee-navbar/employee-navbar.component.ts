@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthSession} from "../../../utils/auth-session";
-import {SocketChatService} from "../../services/socket-chat.service";
+import {SocketChatService} from "../../../utils/socket-chat.service";
 
 @Component({
   selector: 'app-employee-navbar',

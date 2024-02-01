@@ -4,7 +4,7 @@ import { FakerEmployeeDataService } from '../../faker-employee-data';
 import {FakerCycleProduction} from "../../faker-cycle-production";
 import {FakerProductionService} from "../../services/faker-production-service/faker.production.service";
 import {AuthSession} from "../../../utils/auth-session";
-import {SocketChatService} from "../../services/socket-chat.service";
+import {SocketChatService} from "../../../utils/socket-chat.service";
 
 @Component({
   selector: 'app-admin-navbar',
