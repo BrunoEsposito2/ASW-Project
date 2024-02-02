@@ -70,8 +70,7 @@ import {SocketChatService} from "../../services/socket-chat.service";
     </nav>
     <!-- Navbar -->
   `,
-  styles: [
-  ]
+  styleUrls: ['./admin-navbar.component.style.scss']
 })
 export class AdminNavbarComponent {
   private authSession: AuthSession;

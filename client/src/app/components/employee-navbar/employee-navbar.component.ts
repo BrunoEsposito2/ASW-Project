@@ -55,8 +55,7 @@ import {SocketChatService} from "../../services/socket-chat.service";
     </nav>
     <!-- Navbar -->
   `,
-  styles: [
-  ]
+  styleUrls: ['./employee-navbar.component.style.scss']
 })
 export class EmployeeNavbarComponent {
   private authSession: AuthSession;
