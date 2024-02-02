@@ -1,4 +1,7 @@
 import {AfterViewChecked, Component, ElementRef, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {Toast} from "bootstrap";
+import {ChatMessage} from "../../chat-message";
 import {SocketChatService} from "../../services/socket-chat.service";
 
 @Component({
@@ -123,7 +126,44 @@ import {SocketChatService} from "../../services/socket-chat.service";
                             </p>
                           </div>
                         </a>
-                        
+                        <button type="button"
+                                class="btn btn-md btn-primary col-sm-2"
+                                style="margin-left:20px;"
+                                (click)="socketService.sendHistoryRequest(user)"
+                                title="Invia Notifiche"
+                                mdbRipple>
+                          <i class="fas fa-message"></i>
+                        </button>
+                        <div class="row g-3">
+                          <button class="col-2 btn btn-sm btn-warning"
+                                  title="Cambia ricetta"
+                                  (click)="sendSingleMessage(user, 'Cambia ricetta')"
+                                  mdbRipple>
+                            <i class="fas fa-exchange"></i>
+                          </button>
+                          <div class="col-1"></div>
+                          <button class="col-2 btn btn-sm btn-info"
+                                  title="Vieni in cabina"
+                                  (click)="sendSingleMessage(user, 'Vieni in cabina')"
+                                  mdbRipple>
+                            <i class="fas fa-chalkboard-teacher"></i>
+                          </button>
+                          <div class="col-1"></div>
+                          <button class="col-2 btn btn-sm btn-success"
+                                  title="Vai in pausa"
+                                  (click)="sendSingleMessage(user, 'Vai in pausa')"
+                                  mdbRipple>
+                            <i class="fas fa-pause"></i>
+                          </button>
+                          <div class="col-1"></div>
+                          <button class="col-2 btn btn-sm btn-danger"
+                                  title="Fine del turno"
+                                  (click)="sendSingleMessage(user, 'Fine del turno')"
+                                  mdbRipple>
+                            <i class="fas fa-house"></i>
+                          </button>
+                          <div class="col-1"></div>
+                        </div>
                       </li>
                     </ul>
                     <div class="d-grid gap-1">
@@ -141,27 +181,108 @@ import {SocketChatService} from "../../services/socket-chat.service";
         </div>
       </section>
     </div>
+    
+    <div *ngIf="buttonsOn" class="position-fixed bottom-0 end-0">
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg"
+              style="margin-right: 15px; margin-bottom: 100px;"
+              (click)='socketService.sendMessageWarningOrAlert("Allarme generico")'
+              title="Allarme generico"
+              mdbRipple>
+        <i class="fa fa-warning"></i>
+      </button>
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg"
+              style="margin-right: 15px; margin-bottom: 100px;"
+              (click)='socketService.sendMessageWarningOrAlert("Allarme Antincendio")'
+              title="Allarme Antincendio"
+              mdbRipple>
+        <i class="fa fa-fire"></i>
+      </button>
+      
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg" 
+              style="margin-bottom: 40px; margin-right:80px;"
+              (click)="toggleChat()"
+              title="Invia un messaggio"
+              mdbRipple>
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
       
     <div>
       <button type="button" 
               class="btn btn-lg btn-primary btn-floating position-fixed bottom-0 end-0"
               [ngClass]="{ 'active': isActive }"
               style="margin-right: 20px; margin-bottom: 40px;"
+              title="Invia messaggi"
               (click)="this.isActive = !this.isActive"
               mdbRipple>
         <i class="fas fa-message"></i>
       </button>
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg btn-floating position-fixed bottom-0 end-0"
+              style="margin-right: 15px; margin-bottom: 100px;"
+              (click)='socketService.sendMessageWarningOrAlert("Allarme generico")'
+              title="Allarme generico"
+              mdbRipple>
+        <i class="fa fa-warning"></i>
+      </button>
+      <button type="button"
+              class="btn btn-floating btn-secondary btn-lg btn-floating position-fixed bottom-0 end-0"
+              style="margin-right: 15px; margin-bottom: 150px;"
+              (click)='socketService.sendMessageWarningOrAlert("Allarme Antincendio")'
+              title="Allarme Antincendio"
+              mdbRipple>
+        <i class="fa fa-fire"></i> 
+      </button>
+      <div #toastNotify *ngIf="isShown" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="display:block!important; position: absolute; top: 0; right: 0;">
+        <div class="toast-header">
+          <strong class="mr-auto">Nuova notifica da {{ notifyUser }}</strong>
+        </div>
+        <div class="toast-body">
+          {{ notifyMessage }}
+        </div>
+      </div>
     </div>
   `,
   styleUrls: ['../chat/chat.component.scss']
 })
 export class FloatingChatComponent implements AfterViewChecked {
   @ViewChild('chatMessages') chatMessages!: ElementRef;
+  @ViewChild('toastNotify') toastNotify!: ElementRef;
 
   isActive: boolean
+  buttonsOn: boolean
+
+  isShown: boolean
+  notifyUser: string
+  notifyMessage: string
 
   constructor(protected socketService: SocketChatService) {
     this.isActive = false
+    this.buttonsOn = false
+    this.isShown = false;
+    this.notifyUser = "";
+    this.notifyMessage = "";
+    this.socketService.socket.on('message-broadcast', (data: {message: string, userName: string, color: string}) => {
+      this.isShown = true;
+      this.notifyUser = data.userName;
+      this.notifyMessage = data.message;
+      setTimeout(()=>{
+        this.isShown = false;
+      }, 9000);
+
+    });
+    this.socketService.socket.on('room-message', (room: string, data: ChatMessage[]) => {
+      this.isShown = true;
+      this.notifyUser = room.split("_")[1];
+      this.notifyMessage = data[data.length-1].message!;
+      setTimeout(()=>{
+        this.isShown = false;
+      }, 9000);
+
+    });
   }
 
   ngAfterViewChecked(): void {
@@ -176,5 +297,25 @@ export class FloatingChatComponent implements AfterViewChecked {
 
   getTitle(): string {
     return this.socketService.receiver == '' ? "Broadcast Chat" : this.socketService.receiver;
+  }
+
+  sendSingleMessage(user: string, message: string): void {
+    this.socketService.sendHistoryRequest(user);
+    this.socketService.message = message;
+    this.socketService.sendRoomMessage();
+  }
+
+  toggleChat() {
+    this.displayButtons()
+    this.isActive = !this.isActive
+  }
+
+  displayButtons() {
+    if (this.isActive) {
+      this.isActive = false
+      this.buttonsOn = false
+    } else {
+      this.buttonsOn = !this.buttonsOn
+    }
   }
 }

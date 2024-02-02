@@ -41,6 +41,7 @@ export class SocketChatService {
               .length == 0) {
         this.messageList.push(data)
       }
+      console.log("notifica broad");
     });
 
     this.socket.on('chat-messages', (messageList: ChatMessage[]) => {
@@ -48,10 +49,12 @@ export class SocketChatService {
     })
 
     this.socket.on('joinedRoom', (room: string, messageList: ChatMessage[]) => {
+      console.log("notifica joined");
       this.messageRooms.set(room, messageList)
     })
 
     this.socket.on('room-message', (room: string, data: ChatMessage[]) => {
+      console.log("notifica");
       this.messageRooms.set(room, data)
     })
 
@@ -74,11 +77,22 @@ export class SocketChatService {
     }
   }
 
+
+  sendMessageWarningOrAlert(message: string): void {
+    const regex = /^(\n|''| .*)/;
+    if (!regex.test(message)) {
+      const msgToSend = {message: message, userName: this.userName, color: ""}
+      this.socket.emit('message', msgToSend);
+      this.messageList.push(msgToSend);
+    }
+  }
+
   sendRoomMessage(): void {
     const regex = /^(\n|''| .*)/;
     if (!regex.test(this.message)) {
       const msgToSend = {message: this.message, userName: this.userName, color: ""}
       this.socket.emit('room-message', msgToSend);
+
 
       const roomId = this.getRoomId()
       if (this.messageRooms.has(roomId)) {

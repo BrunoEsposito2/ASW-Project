@@ -169,7 +169,7 @@ import {SocketChatService} from "../../services/socket-chat.service";
       </div>
     </section>
   `,
-  styleUrls: ['./chat.component.scss']
+  styleUrls: [ './chat.component.scss' ]
 })
 
 export class ChatComponent implements AfterViewChecked {
