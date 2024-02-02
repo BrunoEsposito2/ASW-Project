@@ -1,6 +1,7 @@
 import {Socket} from "socket.io";
 import express from "express";
 import {ChatMessage} from "./models/chat-message";
+import {storeMessage} from "./models/store-messages";
 
 const PORT = 3000
 
@@ -16,7 +17,7 @@ const io = require('socket.io')(http, {
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello world');
+    res.send('Chat server is activated');
 })
 
 let userList = new Map();
@@ -44,6 +45,7 @@ io.on('connection', (socket: Socket) => {
     socket.on('message', (msg) => {
         addMessage(msg)
         socket.broadcast.emit('message-broadcast', {message: msg.message, userName: msg.userName, color: msg.color});
+        storeMessage(msg.userName, "all", msg.message, new Date().toISOString()).catch(err => console.error(err))
     });
 
     socket.on('history', (username) => {
@@ -65,6 +67,7 @@ io.on('connection', (socket: Socket) => {
     socket.on('room-message', (msg) => {
         addRoomMessage(msg, room)
         socket.to(receiverName).emit('room-message', room, [...messageRoomList])
+        storeMessage(userName, receiverName, msg.message, new Date().toISOString()).catch(err => console.error(err))
     })
 
     socket.on('disconnect', () => {

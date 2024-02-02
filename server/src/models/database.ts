@@ -4,6 +4,7 @@ import {Admin} from "./admin";
 import {Production} from "./production";
 import {EmployeeOperatingData} from "./employee.operating.data";
 import {CycleProduction} from "./cycle-production";
+import {Message} from "./message";
 
 export const collections: {
     employees?: mongodb.Collection<Employee>;
@@ -11,6 +12,7 @@ export const collections: {
     production?: mongodb.Collection<Production>;
     employee_operating_data?: mongodb.Collection<EmployeeOperatingData>;
     cycle_production?: mongodb.Collection<CycleProduction>;
+    messages?: mongodb.Collection<Message>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
@@ -35,6 +37,8 @@ export async function connectToDatabase(uri: string) {
     const cycleProductionCollection = db.collection<CycleProduction>("cycle_production");
     collections.cycle_production = cycleProductionCollection;
 
+    const messagesCollection = db.collection<Message>("messages");
+    collections.messages = messagesCollection;
 }
 
 // Update our existing collection with JSON schema validation so we know our documents will always match the shape of our Employee model, even if added elsewhere.
@@ -186,6 +190,33 @@ async function applySchemaValidation(db: mongodb.Db) {
         }
     };
 
+    const jsonMessagesSchema = {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["sender", "receiver", "content", "timestamp"],
+            additionalProperties: false,
+            properties: {
+                _id: {},
+                sender: {
+                    bsonType: "string",
+                    description: "'sender' is required and is a string"
+                },
+                receiver: {
+                    bsonType: "string",
+                    description: "'receiver' is required and is a string"
+                },
+                content: {
+                    bsonType: "string",
+                    description: "'content' is required and is a string",
+                    minLength: 1
+                },
+                timestamp: {
+                    bsonType: "string",
+                    description: "'timestamp' is required and is a date"
+                }
+            },
+        },
+    };
 
    await db.command({
         collMod: "employees",
@@ -236,4 +267,13 @@ async function applySchemaValidation(db: mongodb.Db) {
             console.log("Collection created successfully.");
         }
     });
+
+    await db.command({
+        collMod: "messages",
+        validator: jsonMessagesSchema
+    }).catch(async (error: mongodb.MongoServerError) => {
+        if (error.codeName === "NamespaceNotFound") {
+            await db.createCollection("messages", {validator: jsonMessagesSchema});
+        }
+    })
 }
