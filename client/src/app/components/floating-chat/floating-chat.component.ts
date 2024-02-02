@@ -1,5 +1,4 @@
 import {AfterViewChecked, Component, ElementRef, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
 import {SocketChatService} from "../../services/socket-chat.service";
 
 @Component({
@@ -112,8 +111,13 @@ import {SocketChatService} from "../../services/socket-chat.service";
                             (click)="socketService.sendHistoryRequest(user)"
                         >
                           <div class="d-flex flex-row">
-                            <div class="user-indicator align-self-center far fa-circle fa-3x"></div>
-                            <div id="usericon" class="fas fa-user text-dark text-opacity-50 align-self-center fa-2x"></div>
+                            <div class="user-indicator align-self-center far fa-circle fa-3x">
+                              <img id="userimage" *ngIf="socketService.getEmployeeImage(user) != 'admin'; else icon" [src]="socketService.getEmployeeImage(user)"
+                                   alt="" class="rounded-circle"/>
+                              <ng-template #icon>
+                                <div id="usericon" class="fas fa-a text-dark text-opacity-50" style="margin-top: 0px;"></div>
+                              </ng-template>
+                            </div>
                             <p class="fw-bold text-break text-capitalize mb-0" style="max-width: 200px; color: grey;">
                               {{ user }}
                             </p>

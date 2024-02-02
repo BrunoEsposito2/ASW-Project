@@ -4,7 +4,7 @@ import {
   ElementRef,
   ViewChild
 } from '@angular/core';
-import {SocketChatService} from "../../utils/socket-chat.service";
+import {SocketChatService} from "../../services/socket-chat.service";
 
 @Component({
   selector: 'app-chat',
@@ -26,9 +26,14 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                           (click)="socketService.sendHistoryRequest(user)"
                       >
                         <div class="d-flex flex-row">
-                          <div class="user-indicator align-self-center far fa-circle fa-3x"></div>
-                          <div id="usericon" class="fas fa-user text-dark text-opacity-50 align-self-center fa-2x"></div>
-                          <p class="fw-bold text-break text-capitalize mb-0" style="color: grey;">
+                          <div class="user-indicator">
+                            <img id="userimage" *ngIf="socketService.getEmployeeImage(user) != 'admin'; else icon" [src]="socketService.getEmployeeImage(user)"
+                                 alt="" class="rounded-circle"/>
+                            <ng-template #icon>
+                                <div id="usericon" class="fas fa-a text-dark text-opacity-50 fa-2x"></div>
+                            </ng-template>
+                          </div>
+                          <p class="fw-bold text-break align-self-center text-capitalize mb-0" style="color: grey; margin-left: 15px;">
                             {{ user }}
                           </p>
                         </div>
@@ -52,10 +57,15 @@ import {SocketChatService} from "../../utils/socket-chat.service";
             <div class="card shadow-3-strong border-dark">
               <div class="card-header">
                 <div *ngIf="socketService.receiver != ''; else elseBlock" class="d-flex flex-row pt-4">
-                   <div class="user-indicator align-self-center far fa-circle fa-3x" style="color: #4caf50; margin-bottom: 6px;"></div>
-                   <div id="usericon" class="fas fa-user text-dark text-opacity-50 align-self-center fa-2x"></div>
+                   <div class="user-indicator" style="color: #4caf50; margin-bottom: 6px;">
+                     <img id="userimage" *ngIf="socketService.getEmployeeImage(socketService.receiver) != 'admin'; else icon" [src]="socketService.getEmployeeImage(socketService.receiver)"
+                          alt="" class="rounded-circle"/>
+                     <ng-template #icon>
+                       <div id="usericon" class="fas fa-a text-dark text-opacity-50 fa-2x"></div>
+                     </ng-template>
+                   </div>
                    <div class="align-self-center pe-2">
-                     <p class="fw-bold text-break text-capitalize mb-0" style="color: grey;">{{ socketService.receiver }}</p>
+                     <p class="fw-bold text-break text-capitalize mb-0" style="color: grey; margin-left: 15px;">{{ socketService.receiver }}</p>
                    </div>
                 </div>
                 <ng-template #elseBlock>
@@ -64,13 +74,18 @@ import {SocketChatService} from "../../utils/socket-chat.service";
                     <div class="align-self-center pe-2">
                       <p class="fw-bold text-break text-capitalize mb-0" style="color: grey;">{{ socketService.activeUser }}</p>
                     </div>
-                    <div class="user-indicator align-self-center far fa-circle fa-3x" style="color: #4caf50;"></div>
-                    <div id="usericon" class="fas fa-user text-dark text-opacity-50 align-self-center fa-2x"></div>
+                    <div class="user-indicator" style="color: #4caf50;">
+                      <img id="userimage" *ngIf="socketService.getEmployeeImage(socketService.activeUser) != 'admin'; else icon" [src]="socketService.getEmployeeImage(socketService.activeUser)"
+                           alt="" class="rounded-circle"/>
+                      <ng-template #icon>
+                        <div id="usericon" class="fas fa-a text-dark text-opacity-50 fa-2x"></div>
+                      </ng-template>
+                    </div>
                   </div>
                 </ng-template>
               </div>
               
-              <div *ngIf="socketService.receiver == ''; else elseBlock2" class="card-body"  style="position: relative; height: 65vh; overflow-y: scroll;" #chatMessages>
+              <div *ngIf="socketService.receiver == ''; else elseBlock2" class="card-body"  style="position: relative; height: 60vh; overflow-y: scroll;" #chatMessages>
                 
                 <div class="message" *ngFor="let msg of socketService.messageList" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
                   <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>
@@ -100,7 +115,7 @@ import {SocketChatService} from "../../utils/socket-chat.service";
               </div>
               
               <ng-template #elseBlock2>
-                <div class="card-body"  style="position: relative; height: 65vh; overflow-y: scroll;" #chatMessages>
+                <div class="card-body"  style="position: relative; height: 60vh; overflow-y: scroll;" #chatMessages>
                   
                    <div class="message" *ngFor="let msg of socketService.messageRooms.get(socketService.getRoomId())" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
                      <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start me-3" [style.color]="msg.color"></i>

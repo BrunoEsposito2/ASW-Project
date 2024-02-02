@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {io} from "socket.io-client";
-import {ChatMessage} from "../app/chat-message";
-import {Observable} from "rxjs";
+import {ChatMessage} from "../chat-message";
+import {EmployeeService} from "./employee.service";
+import {Employee} from "../employee";
+import {UrlSegment} from "@angular/router";
 
 @Injectable({
-  providedIn: "platform"
+  providedIn: "root"
 })
 
 export class SocketChatService {
@@ -16,8 +18,9 @@ export class SocketChatService {
   messageRooms: Map<string, ChatMessage[]> = new Map<string, ChatMessage[]>();
   message: string = "";
   receiver: string = "";
+  employees: Employee[] = [];
 
-  constructor() {   }
+  constructor(private employeeService: EmployeeService) {   }
 
   openConnections(name: string) {
     this.userName = name;
@@ -50,6 +53,14 @@ export class SocketChatService {
 
     this.socket.on('room-message', (room: string, data: ChatMessage[]) => {
       this.messageRooms.set(room, data)
+    })
+
+    this.fetchEmployees()
+  }
+
+  fetchEmployees() {
+    this.employeeService.getEmployees().subscribe(employees => {
+      this.employees = employees
     })
   }
 
@@ -98,6 +109,11 @@ export class SocketChatService {
 
   filteredUserList() {
     return this.userList.filter(u => u != this.activeUser)
+  }
+
+  getEmployeeImage(name: string): string {
+    const image = this.employees.find(e => e.name == name)?.img
+    return image != undefined ? image : "admin"
   }
 
   disconnect(): void {
