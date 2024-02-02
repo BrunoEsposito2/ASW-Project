@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {Employee} from "../../employee";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -45,7 +45,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
                     </div>
 
                     <div class="form-floating mb-4">
-                      <input type="text" id="password" formControlName="password" placeholder="Password"
+                      <input type="password" id="password" formControlName="password" placeholder="Password"
                              class="form-control form-control-lg" required/>
                       <label class="form-label" for="password">Password</label>
                     </div>
@@ -73,7 +73,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   `,
   styleUrls: ['./login-employee.component.css']
 })
-export class LoginEmployeeComponent {
+export class LoginEmployeeComponent implements OnInit {
   @Input()
   initialState: BehaviorSubject<Employee> = new BehaviorSubject({});
 
