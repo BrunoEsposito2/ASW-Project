@@ -21,8 +21,8 @@ import {SocketChatService} from "../../services/socket-chat.service";
             <div class="col-12">
               
               <div class="card shadow-3-strong border-dark">
-                <mdb-tabs>
-                  <mdb-tab [title]="getTitle()">
+                <mat-tab-group>
+                  <mat-tab [title]="getTitle()">
 
                     <div *ngIf="socketService.receiver == ''; else elseBlock" class="card-body"  style="position: relative; height: 300px; overflow-y: scroll;" #chatMessages>
                       
@@ -103,8 +103,8 @@ import {SocketChatService} from "../../services/socket-chat.service";
                       </ng-template>
                     </div>
                     
-                  </mdb-tab>
-                  <mdb-tab title="Active Users List">
+                  </mat-tab>
+                  <mat-tab title="Active Users List">
 
                     <ul class="user-list mb-3" style="height: 331.5px; overflow-y: scroll;">
                       <li class="user d-grid gap-1 p-2 border-bottom" style="margin-left: -25px;" *ngFor="let user of socketService.filteredUserList()" [ngClass]="{'active': user === socketService.activeUser}">
@@ -131,35 +131,35 @@ import {SocketChatService} from "../../services/socket-chat.service";
                                 style="margin-left:20px;"
                                 (click)="socketService.sendHistoryRequest(user)"
                                 title="Invia Notifiche"
-                                mdbRipple>
+                                >
                           <i class="fas fa-message"></i>
                         </button>
                         <div class="row g-3">
                           <button class="col-2 btn btn-sm btn-warning"
                                   title="Cambia ricetta"
                                   (click)="sendSingleMessage(user, 'Cambia ricetta')"
-                                  mdbRipple>
+                                  >
                             <i class="fas fa-exchange"></i>
                           </button>
                           <div class="col-1"></div>
                           <button class="col-2 btn btn-sm btn-info"
                                   title="Vieni in cabina"
                                   (click)="sendSingleMessage(user, 'Vieni in cabina')"
-                                  mdbRipple>
+                                  >
                             <i class="fas fa-chalkboard-teacher"></i>
                           </button>
                           <div class="col-1"></div>
                           <button class="col-2 btn btn-sm btn-success"
                                   title="Vai in pausa"
                                   (click)="sendSingleMessage(user, 'Vai in pausa')"
-                                  mdbRipple>
+                                  >
                             <i class="fas fa-pause"></i>
                           </button>
                           <div class="col-1"></div>
                           <button class="col-2 btn btn-sm btn-danger"
                                   title="Fine del turno"
                                   (click)="sendSingleMessage(user, 'Fine del turno')"
-                                  mdbRipple>
+                                  >
                             <i class="fas fa-house"></i>
                           </button>
                           <div class="col-1"></div>
@@ -171,8 +171,8 @@ import {SocketChatService} from "../../services/socket-chat.service";
                         Broadcast Chat
                       </a>
                     </div>
-                  </mdb-tab>
-                </mdb-tabs>
+                  </mat-tab>
+                </mat-tab-group>
                 
               </div>
               

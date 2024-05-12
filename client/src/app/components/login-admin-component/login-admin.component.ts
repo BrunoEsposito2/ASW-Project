@@ -1,74 +1,114 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AdminService} from "../../services/admin.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {BehaviorSubject} from "rxjs";
 import {Admin} from "../../admin"
 
 @Component({
   selector: 'app-login-admin-component',
   template: `
-    <app-homepage-navbar></app-homepage-navbar>
-    <section class="vh-90 bg-image"
-             style="height: 90vh; overflow: hidden;">
-      <video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video><video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
-      <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-        <div class="container h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-              <div class="card" style="border-radius: 15px;">
-                <div class="card-body p-5">
-                  <h2 class="text-uppercase text-center mb-5">Admin Login</h2>
-                  
-                  <form class="admin-form" autocomplete="off" [formGroup]="adminForm" (ngSubmit)="submitForm()">
+    <div class="video-container">
+      <div class="buttons">
+        <div class="button-container">
+          <div class="row">
+            <mat-card class="matcard">
+              <mat-card-header class="loginHeader">
+                <mat-card-title class="title"> Admin Login </mat-card-title>
+              </mat-card-header>
+              <mat-card-actions class="cardActions">
+                <form class="admin-form" autocomplete="off" [formGroup]="adminForm" (ngSubmit)="submitForm()">
 
-                    <div class="form-floating mb-4">
-                      <input type="email" id="email" formControlName="email"  placeholder="Email"
-                             class="form-control form-control-lg" required/>
-                      <label for="email">Email</label>
-                    </div>
+                  <div class="email-container">
+                    <mat-form-field>
+                      <mat-label>Enter your email</mat-label>
+                      <input matInput placeholder="email@example.com" formControlName="email" required>
+                      <mat-error *ngIf="email.invalid && (email.dirty || email.touched) || email.errors?.['required']"> Email is required. </mat-error>
+                    </mat-form-field>
+                  </div>
 
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger" role="alert">
-                      <div *ngIf="email.errors?.['required']">
-                        Email is required.
-                      </div>
-                    </div>
-
-                    <div class="form-floating mb-4">
-                      <input type="password" id="password" formControlName="password" placeholder="Password"
-                             class="form-control form-control-lg" required/>
-                      <label for="password">Password</label>
-                    </div>
-
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger" role="alert">
-                      <div *ngIf="password.errors?.['required']">
-                        Password is required.
-                      </div>
-                    </div>
-
-                    <div class="d-flex justify-content-center">
-                      <button type="submit" [disabled]="adminForm.invalid"
-                              class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Log in</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
+                  <div class="password-container">
+                    <mat-form-field>
+                      <mat-label>Enter your password</mat-label>
+                      <input matInput placeholder="Password" formControlName="password" [type]="hide ? 'password' : 'text'" required>
+                      <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <span *ngIf="hide; else visibilityon">
+                              <i class="fa fa-eye-slash fa-xs" aria-hidden="true"></i>
+                          </span>
+                          <ng-template #visibilityon>
+                              <i class="fa fa-eye fa-xs" aria-hidden="true"></i>
+                          </ng-template>
+                      </a>
+                      <mat-error *ngIf="password.invalid && (password.dirty || password.touched) || password.errors?.['required']"> Password is required. </mat-error>
+                    </mat-form-field>
+                  </div>
+                    
+                    <button type="submit" [disabled]="adminForm.invalid" mat-flat-button color="primary">Log in</button>
+                
+                </form>
+              </mat-card-actions>
+            </mat-card>
           </div>
         </div>
+        <video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video><video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
       </div>
-    </section>
-    
+    </div>
+    <!--<app-homepage-navbar></app-homepage-navbar>-->
     <app-footer></app-footer>
   `,
   styles: [`
+    .matcard {
+      background: rgba(255, 255, 255, 0.65);
+      /*border: 1px solid rgba(255, 255, 255, 0.2);*/
+    }
+
+    .email-container mat-form-field + mat-form-field {
+      margin-left: 8px;
+    }
+
+    .password-container mat-form-field + mat-form-field {
+      margin-left: 8px;
+    }
+
     .video-container {
-      position: absolute;
-      top: -30%;
-      left: -30%;
-      width: 140%;
-      height: 140%;
+      position: relative;
+      height: 90vh;
+      overflow: hidden;
+    }
+    
+    .video-container video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       filter: blur(10px); /* Aggiungi uno sfondo sfuocato */
+    }
+
+    .button-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width:50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background: transparent;
+      z-index: 1;
+    }
+
+    .cardActions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loginHeader {
+      align-self: center;
+      color: #113c60;
+    }
+
+    .title {
+      text-align: center;
     }
   `]
 })
@@ -84,6 +124,8 @@ export class LoginAdminComponent implements OnInit {
 
   adminForm: FormGroup = new FormGroup({});
 
+  hide = true
+
   constructor(private fb: FormBuilder) { }
 
   get email() { return this.adminForm.get('email')!; }
@@ -92,8 +134,8 @@ export class LoginAdminComponent implements OnInit {
   ngOnInit(): void {
     this.initialState.subscribe(admin => {
       this.adminForm = this.fb.group({
-        email: [admin.email, [Validators.required] ],
-        password: [admin.password, [Validators.required] ]
+        email: new FormControl('', [Validators.email, Validators.required]),
+        password: new FormControl('', [Validators.required, Validators.min(8)])
       });
     });
 

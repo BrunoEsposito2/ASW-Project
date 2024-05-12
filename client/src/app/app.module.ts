@@ -18,12 +18,12 @@ import {IngredientsComponentComponent} from './components/ingredients-component/
 import {AssistantsComponentComponent} from './components/assistants-component/assistants-component.component';
 import {StepsComponentComponent} from './components/steps-component/steps-component.component';
 import {EmployeeRenderedComponent} from './components/render/employee-rendered.component';
-import {ChatComponent} from "./chat/chat.component";
+import {ChatComponent} from "./components/chat/chat.component";
 import {ChartsComponentComponent} from "./components/charts-component/charts-component.component";
 import {PowerUnitChartsComponent} from "./components/power-unit-charts/power-unit-charts.component";
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
+import {MatButtonModule, MatIconButton} from "@angular/material/button";
 import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginAdminComponent } from './components/login-admin-component/login-admin.component';
 import { LoginEmployeeComponent } from './components/login-employee-component/login-employee.component';
@@ -33,9 +33,7 @@ import { AuthEmployeeComponent } from './components/auth-employee/auth-employee.
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomepageNavbarComponent } from './components/homepage-navbar/homepage-navbar.component';
-import { AdminNavbarComponent } from './components/admin-navbar/admin-navbar.component';
 import { EmployeeComponent } from './components/employee/employee.component';
-import { EmployeeNavbarComponent } from './components/employee-navbar/employee-navbar.component';
 import { AdminChatComponent } from './components/admin-chat/admin-chat.component';
 import { EmployeeChatComponent } from './components/employee-chat/employee-chat.component';
 import { ProductionsListComponent } from './components/production-list/productions-list.component';
@@ -44,13 +42,28 @@ import { ProductionFormComponent } from './components/production-form/production
 import { FakerProductionComponent} from './components/faker-production/faker-production.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-import {MdbCollapseModule} from "mdb-angular-ui-kit/collapse";
-import {MdbDropdownModule} from "mdb-angular-ui-kit/dropdown";
-import {MdbRippleModule} from "mdb-angular-ui-kit/ripple";
 import { FloatingChatComponent } from './components/floating-chat/floating-chat.component';
-import {MdbTabsModule} from "mdb-angular-ui-kit/tabs";
 import { FooterComponent } from './components/footer/footer.component';
 import {EditEmployeeFormComponent} from "./components/edit-employee-form/edit-employee-form.component";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {ChartModule} from "angular-highcharts";
+import {LastFewTransactionsComponent} from "./components/last-few-transactions/last-few-transactions.component";
+import {SideNavComponent} from "./components/side-nav/side-nav.component";
+import {DashboardProComponent} from "./components/dashboard-pro/dashboard-pro.component";
+import {TemplateComponent} from "./components/template/template.component";
+import {MatListModule} from "@angular/material/list";
+import {MatIconModule, MatIconRegistry} from "@angular/material/icon";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {AdminSideNavComponent} from "./components/admin-side-nav/admin-side-nav.component";
+import {EmployeeSideNavComponent} from "./components/employee-side-nav/employee-side-nav.component";
+import {TopWidgetsComponent} from "./components/top-widgets/top-widgets.component";
+import {SalesByMonthComponent} from "./components/sales-by-month/sales-by-month.component";
+import {SalesByCategoryComponent} from "./components/sales-by-category/sales-by-category.component";
+import {TopThreeProductsComponent} from "./components/top-three-products/top-three-products.component";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
     declarations: [
@@ -77,10 +90,8 @@ import {EditEmployeeFormComponent} from "./components/edit-employee-form/edit-em
         HomepageComponent,
         DashboardComponent,
         HomepageNavbarComponent,
-        AdminNavbarComponent,
         EmployeeComponent,
         EditEmployeeFormComponent,
-        EmployeeNavbarComponent,
         AdminChatComponent,
         EmployeeChatComponent,
         ProductionsListComponent,
@@ -89,16 +100,24 @@ import {EditEmployeeFormComponent} from "./components/edit-employee-form/edit-em
         FakerProductionComponent,
         StepsComponentComponent,
         FloatingChatComponent,
-        FooterComponent
+        FooterComponent,
+
+        LastFewTransactionsComponent,
+        SideNavComponent,
+        DashboardProComponent,
+        TemplateComponent,
+
+        AdminSideNavComponent,
+        EmployeeSideNavComponent,
+        TopWidgetsComponent,
+        SalesByMonthComponent,
+        SalesByCategoryComponent,
+        TopThreeProductsComponent
         //ChartsComponentComponent,
         //PowerUnitChartsComponent
     ],
     imports: [
         /* Mdb frontend components */
-        MdbCollapseModule,
-        MdbDropdownModule,
-        MdbRippleModule,
-        MdbTabsModule,
 
         /* Material frontend components */
         MatCardModule,
@@ -106,6 +125,10 @@ import {EditEmployeeFormComponent} from "./components/edit-employee-form/edit-em
         MatButtonModule,
         MatTooltipModule,
         MatProgressBarModule,
+        MatIconModule,
+        FlexLayoutModule,
+        MatCardModule,
+        MatFormFieldModule,
 
         BrowserModule,
         AppRoutingModule,
@@ -113,6 +136,13 @@ import {EditEmployeeFormComponent} from "./components/edit-employee-form/edit-em
         ReactiveFormsModule,
         FormsModule,
         BrowserAnimationsModule,
+        MatSidenavModule,
+        FontAwesomeModule,
+        ChartModule,
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatTabsModule
     ],
   providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

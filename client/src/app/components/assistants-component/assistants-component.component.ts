@@ -8,7 +8,91 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-assistants-component',
   template: `
-    <div class="row">
+    <div class="widget-container" *ngFor="let employee of employees; let i = index">
+      <div *ngIf="i % 2 == 0; else otherColor">
+        <div class="widget green">
+          <div class="icon">
+            <img [src]="employee.img" style="width:60px; height:80px" matTooltip="{{ employee.position }}" [alt]="employee.name">
+          </div>
+          <div class="value">
+            <div class="top">{{ employee.name }}</div>
+            <div class="bottom">{{ employee.level }}</div>
+            <div class="accordion" *ngIf="employee._id && isAccordionOpen[employee._id]">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="accordion-header">
+                  <button class="accordion-button less-padding" type="button" (click)="closeAccordion(employee)">
+                    <img src="../../assets/icons8-cloud-refresh.gif" style="width:30px;height:30px; margin-right:5px" alt="Icona"> Dati Realtime
+                  </button>
+                </h2>
+                <div class="accordion-collapse collapse show" id="accordion-collapse">
+                  <div class="accordion-body less-padding">
+                    <img src="../../assets/icons8-temperature-64.png" title="Temperatura" style="width: 20px; height: 20px;" alt="Temperature Icon" *ngIf="employee._id">
+                    {{ accordionData[employee._id]?.temperature | number:'1.1-2' }}<br>
+                    <img src="../../assets/icons8-saturation-96.png" title="Saturazione" style="width: 20px; height: 20px;" alt="Saturation Icon" *ngIf="employee._id">
+                    {{ accordionData[employee._id]?.saturation | number:'1.1-2' }}<br>
+                    <img src="../../assets/icons8-time-100.png" title="Data/Ora" style="width: 20px; height: 20px;" alt="Time Icon" *ngIf="employee._id">
+                    {{ accordionData[employee._id]?.timeIn }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="employee._id">
+              <ng-container *ngIf="getOperatingData(employee._id) as operatingData">
+                <ng-container *ngFor="let data of operatingData">
+                  <p id="dati-realtime" class="card-text custom-font" *ngIf="!employee._id || !isAccordionOpen[employee._id]">
+                    <img src="../../assets/icons8-cloud-refresh.gif" style="width:30px;height:30px; margin-right:5px" alt="Icona" (click)="openAccordion(employee)">
+                    Dati Realtime
+                  </p>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #otherColor>
+        <div class="widget yellow">
+          <div class="icon">
+            <img [src]="employee.img" style="width:60px; height:80px" matTooltip="{{ employee.position }}" [alt]="employee.name">
+          </div>
+          <div class="value">
+            <div class="top">{{ employee.name }}</div>
+            <div class="bottom">{{ employee.level }}</div>
+            <div class="accordion" *ngIf="employee._id && isAccordionOpen[employee._id]">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="accordion-header">
+                  <button class="accordion-button less-padding" type="button" (click)="closeAccordion(employee)">
+                    <img src="../../assets/icons8-cloud-refresh.gif" style="width:30px;height:30px; margin-right:5px" alt="Icona"> Dati Realtime
+                  </button>
+                </h2>
+                <div class="accordion-collapse collapse show" id="accordion-collapse">
+                  <div class="accordion-body less-padding">
+                    <img src="../../assets/icons8-temperature-64.png" title="Temperatura" style="width: 20px; height: 20px;" alt="Temperature Icon" *ngIf="employee._id">
+                    {{ accordionData[employee._id]?.temperature | number:'1.1-2' }}<br>
+                    <img src="../../assets/icons8-saturation-96.png" title="Saturazione" style="width: 20px; height: 20px;" alt="Saturation Icon" *ngIf="employee._id">
+                    {{ accordionData[employee._id]?.saturation | number:'1.1-2' }}<br>
+                    <img src="../../assets/icons8-time-100.png" title="Data/Ora" style="width: 20px; height: 20px;" alt="Time Icon" *ngIf="employee._id">
+                    {{ accordionData[employee._id]?.timeIn }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="employee._id">
+              <ng-container *ngIf="getOperatingData(employee._id) as operatingData">
+                <ng-container *ngFor="let data of operatingData">
+                  <p id="dati-realtime" class="card-text custom-font" *ngIf="!employee._id || !isAccordionOpen[employee._id]">
+                    <img src="../../assets/icons8-cloud-refresh.gif" style="width:30px;height:30px; margin-right:5px" alt="Icona" (click)="openAccordion(employee)">
+                    Dati Realtime
+                  </p>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    
+    <!--<div class="row">
       <div class="col-md-6" *ngFor="let employee of employees; let i = index">
         <div class="card bg-light" *ngIf="i < 2">
           <div class="tooltip-container">
@@ -49,10 +133,9 @@ import { BehaviorSubject } from 'rxjs';
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   `,
-  styles: [
-  ]
+  styleUrls: ['../top-widgets/top-widgets.component.scss']
 })
 export class AssistantsComponentComponent implements OnInit {
 

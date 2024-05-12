@@ -6,72 +6,118 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 @Component({
   selector: 'app-login-employee-component',
   template: `
-    <app-homepage-navbar></app-homepage-navbar>
-    <section class="vh-90 bg-image"
-             style="height: 90vh; overflow: hidden;">
-      <video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video><video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
-      <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-        <div class="container h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-              <div class="card" style="border-radius: 15px;">
-                <div class="card-body p-5">
-                  <h2 class="text-uppercase text-center mb-5">Employee Login</h2>
+    <div class="video-container">
+      <div class="buttons">
+        <div class="button-container">
+          <div class="row">
+            <mat-card class="matcard">
+              <mat-card-header class="loginHeader">
+                <mat-card-title class="title"> Employee Login </mat-card-title>
+              </mat-card-header>
+              <mat-card-actions class="cardActions">
+                  <form class="employee-form" autocomplete="off" [formGroup]="employeeForm" (ngSubmit)="submitForm()">
 
-                  <form class="admin-form" autocomplete="off" [formGroup]="employeeForm" (ngSubmit)="submitForm()">
-
-                    <div class="form-floating mb-4">
-                      <input type="text" id="name" formControlName="name" placeholder="Name"
-                             class="form-control form-control-lg" required/>
-                      <label class="form-label" for="name">Name</label>
-                    </div>
-
-                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger" role="alert">
-                      <div *ngIf="name.errors?.['required']">
-                        Name is required.
-                      </div>
-                    </div>
-
-                    <div class="form-floating mb-4">
-                      <input type="text" id="position" formControlName="position" placeholder="Position"
-                             class="form-control form-control-lg" required/>
-                      <label class="form-label" for="position">Position</label>
-                    </div>
-
-                    <div *ngIf="position.invalid && (position.dirty || position.touched)" class="alert alert-danger" role="alert">
-                      <div *ngIf="position.errors?.['required']">
-                        Position is required.
-                      </div>
-                    </div>
-
-                    <div class="form-floating mb-4">
-                      <input type="password" id="password" formControlName="password" placeholder="Password"
-                             class="form-control form-control-lg" required/>
-                      <label class="form-label" for="password">Password</label>
-                    </div>
-
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger" role="alert">
-                      <div *ngIf="password.errors?.['required']">
-                        Password is required.
-                      </div>
+                    <div class="name-container">
+                      <mat-form-field>
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" id="name" formControlName="name" placeholder="Name" required/>
+                        <mat-error *ngIf="name.invalid && (name.dirty || name.touched) || name.errors?.['required']"> Name is required. </mat-error>
+                      </mat-form-field>
                     </div>
                     
-                    <div class="d-flex justify-content-center">
-                      <button type="submit" [disabled]="employeeForm.invalid"
-                              class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Log in</button>
+                    <div class="position-container">
+                      <mat-form-field>
+                        <mat-label>Position</mat-label>
+                        <input matInput placeholder="Position" formControlName="position" required>
+                        <mat-error *ngIf="position.invalid && (position.dirty || position.touched) || position.errors?.['required']"> Position is required. </mat-error>
+                      </mat-form-field>
                     </div>
+                    
+                    <div class="password-container">
+                      <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input matInput placeholder="Password" formControlName="password" [type]="hide ? 'password' : 'text'" required>
+                        <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <span *ngIf="hide; else visibilityon">
+                              <i class="fa fa-eye-slash fa-xs" aria-hidden="true"></i>
+                          </span>
+                          <ng-template #visibilityon>
+                            <i class="fa fa-eye fa-xs" aria-hidden="true"></i>
+                          </ng-template>
+                        </a>
+                        <mat-error *ngIf="password.invalid && (password.dirty || password.touched) || password.errors?.['required']"> Password is required. </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <button type="submit" [disabled]="employeeForm.invalid" mat-flat-button color="primary">Log in</button>
+
                   </form>
-                </div>
-              </div>
-            </div>
+              </mat-card-actions>
+            </mat-card>
           </div>
         </div>
+        <video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video><video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
       </div>
-    </section>
+    </div>
     
     <app-footer></app-footer>
   `,
-  styleUrls: ['./login-employee.component.css']
+  styles: [`
+    .matcard {
+      background: rgba(255, 255, 255, 0.65);
+      /*border: 1px solid rgba(255, 255, 255, 0.2);*/
+    }
+
+    .name-container position-container mat-form-field + mat-form-field {
+      margin-left: 8px;
+    }
+
+    .password-container mat-form-field + mat-form-field {
+      margin-left: 8px;
+    }
+
+    .video-container {
+      position: relative;
+      height: 90vh;
+      overflow: hidden;
+    }
+    
+    .video-container video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(10px); /* Aggiungi uno sfondo sfuocato */
+    }
+
+    .button-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width:50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background: transparent;
+      z-index: 1;
+    }
+
+    .cardActions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loginHeader {
+      align-self: center;
+      color: #113c60;
+    }
+
+    .title {
+      text-align: center;
+    }
+  `]
 })
 export class LoginEmployeeComponent implements OnInit {
   @Input()
@@ -84,6 +130,8 @@ export class LoginEmployeeComponent implements OnInit {
   formSubmitted = new EventEmitter<Employee>();
 
   employeeForm: FormGroup = new FormGroup({});
+
+  hide = true
 
   constructor(private fb: FormBuilder) { }
 

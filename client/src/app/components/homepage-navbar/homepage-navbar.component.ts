@@ -16,7 +16,6 @@ import { Component } from '@angular/core';
         <button
             class="navbar-toggler"
             type="button"
-            (click)="noListNav.toggle()"
             aria-expanded="false"
             aria-label="Toggle navigation"
         >
@@ -27,12 +26,11 @@ import { Component } from '@angular/core';
         <div 
             class="collapse navbar-collapse" 
             id="navbarNavAltMarkup"
-            mdbCollapse
-            #noListNav="mdbCollapse"
         >
           <!-- Left links -->
           <div class="navbar-nav">
             <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link active" href="/dashboard-pro">Dashboard Pro</a>
           </div>
           <!-- Left links -->
         </div>

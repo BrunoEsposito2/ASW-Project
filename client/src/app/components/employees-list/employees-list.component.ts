@@ -6,7 +6,7 @@ import {EmployeeService} from '../../services/employee.service';
 @Component({
   selector: 'app-employees-list',
   template: `
-    <app-admin-navbar></app-admin-navbar>
+    <app-admin-side-nav></app-admin-side-nav>
     <section style="height: 90vh; overflow: hidden;">
       <h2 class="text-center m-4">Employees List</h2>
 

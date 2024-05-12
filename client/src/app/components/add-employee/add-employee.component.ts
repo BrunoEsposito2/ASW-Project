@@ -6,7 +6,7 @@ import {Employee} from "../../employee";
 @Component({
   selector: 'app-add-employee',
   template: `
-    <app-admin-navbar></app-admin-navbar>
+    <app-admin-side-nav></app-admin-side-nav>
     <section style="height: 90vh; overflow: hidden;">
         <h2 class="text-center m-5">Add a New Employee</h2>
         <app-employee-form (formSubmitted)="addEmployee($event)"></app-employee-form>

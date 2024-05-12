@@ -2,12 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Production} from '../../production';
 import {ProductionService} from '../../services/production.service';
-import {AdminNavbarComponent} from "../admin-navbar/admin-navbar.component";
 
 @Component({
     selector: 'app-productions-list',
     template: `
-    <app-admin-navbar></app-admin-navbar>
+    <app-admin-side-nav></app-admin-side-nav>
     <section style="height: 90vh; overflow: hidden;">
         <h2 class="text-center m-4">Productions List</h2>
 

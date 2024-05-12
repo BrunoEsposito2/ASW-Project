@@ -13,9 +13,13 @@ import {AdminChatComponent} from "./components/admin-chat/admin-chat.component";
 import {EmployeeChatComponent} from "./components/employee-chat/employee-chat.component";
 import {ProductionsListComponent} from './components/production-list/productions-list.component';
 import {canActivateGuard} from "./services/auth-guard";
+import {TemplateComponent} from "./components/template/template.component";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
+
+  { path: 'dashboard-pro', component: TemplateComponent },
+
   { path: 'employees', redirectTo: 'employees', pathMatch: 'full' },
   { path: 'employees', component: EmployeesListComponent, canActivate: [canActivateGuard] },
   { path: 'employees/new', component: AddEmployeeComponent, canActivate: [canActivateGuard] },

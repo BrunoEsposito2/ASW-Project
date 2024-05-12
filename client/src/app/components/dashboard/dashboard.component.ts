@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {EmployeeService} from "../../services/employee.service";
 import {FakerEmployeeDataService} from "../../faker-employee-data";
 import {EmployeeOperatingData} from "../../employee-operating-data";
@@ -23,7 +23,21 @@ import {Employee} from "../../employee";
       </div>
     </ngb-toast>
     
-    <section id="main" style="height: 88vh; overflow: hidden;">
+    <div class="body" [ngClass]="getBodyClass()">
+      <div class="top-section">
+        <app-assistants-component></app-assistants-component>
+      </div>
+      <div class="middle-section">
+        <div class="widget left">
+          <app-charts-component></app-charts-component>
+        </div>
+        <div class="widget right">
+          <app-mixer-unit-component></app-mixer-unit-component>
+        </div>
+      </div>
+    </div>
+    
+    <!--<section id="main" style="height: 88vh; overflow: hidden;">
       <div class="row">
         <div class="col-4">
           <div class="card bg-light">
@@ -78,17 +92,16 @@ import {Employee} from "../../employee";
           </div>
         </div>
       </div>
-    </section>
+    </section>-->
     <!--<button (click)="showToast()" class="btn btn-primary">Mostra Toast</button>-->
   `,
-  styles: [`
-      #main {
-        margin-top:30px;
-    }
-  `]
+  styleUrls: ['./dashboard.component.style.scss']
 })
 
 export class DashboardComponent {
+  @Input() collapsed = false
+  @Input() screenWidth = 0
+
   isToastVisible = false;
   private operatingdata: EmployeeOperatingData[] = [];
   public employees: Employee[] = [];
@@ -149,6 +162,16 @@ export class DashboardComponent {
       });
     });
 
+  }
+
+  getBodyClass() {
+    let styleClass = ''
+    if (this.collapsed && this.screenWidth > 768) {
+      styleClass = 'body-trimmed'
+    } else if (this.collapsed && this.screenWidth <= 768 && this.screenWidth > 0) {
+      styleClass = 'body-md-screen'
+    }
+    return styleClass
   }
 
 

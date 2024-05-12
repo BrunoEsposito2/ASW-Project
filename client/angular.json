@@ -53,13 +53,11 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/mdb-ui-kit/css/mdb.min.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "./src/styles.css"
+              "./src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/jquery/dist/jquery.min.js",
-              "./node_modules/mdb-ui-kit/js/mdb.min.js"
+              "./node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {
@@ -139,10 +137,10 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/mdb-ui-kit/css/mdb.min.css"
+
             ],
             "scripts": [
-              "./node_modules/mdb-ui-kit/js/mdb.min.js"
+
             ]
           },
           "configurations": {
@@ -207,11 +205,10 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/mdb-ui-kit/css/mdb.min.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "./node_modules/mdb-ui-kit/js/mdb.min.js"
+
             ]
           }
         }

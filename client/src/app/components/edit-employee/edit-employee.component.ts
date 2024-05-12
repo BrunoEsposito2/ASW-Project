@@ -7,7 +7,7 @@ import {EmployeeService} from '../../services/employee.service';
 @Component({
   selector: 'app-edit-employee.component.ts',
   template: `
-    <app-admin-navbar></app-admin-navbar>
+    <app-admin-side-nav></app-admin-side-nav>
     <section style="height: 90vh; overflow: hidden;">
       <h2 class="text-center m-5">Edit Employee Data</h2>
       <edit-employee-form [initialState]="employee" (formSubmitted)="editEmployee($event)"></edit-employee-form>
