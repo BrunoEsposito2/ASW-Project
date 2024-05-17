@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js/auto';
+
+import { Chart } from 'angular-highcharts';
 import {ProductionService} from "../../services/production.service";
 import {Production} from "../../production";
 import {FakerProductionService} from "../../services/faker-production-service/faker.production.service";
+
 @Component({
   selector: 'app-charts-component',
   templateUrl: './app-charts-component.html',
@@ -77,35 +79,40 @@ export class ChartsComponentComponent implements OnInit {
     const productData = productions.map(production => production.kg_produced || 0);
 
     // Creazione del nuovo grafico
-    this.chart = new Chart("MyChart", {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Waste",
-            data: wasteData,
-            backgroundColor: 'blue',
-            borderWidth: 1,
-            hoverBorderWidth: 3,
-            hoverBorderColor: 'red'
-          },
-          {
-            label: "Product",
-            data: productData,
-            backgroundColor: 'limegreen',
-            borderWidth: 1,
-            hoverBorderWidth: 3,
-            hoverBorderColor: 'black'
-          }
-        ]
+    this.chart = new Chart({
+      chart: {
+        type: 'line',
+        height: 325
       },
-      options: {
-        aspectRatio: 2,
-        responsive: true,
-        maintainAspectRatio: false
+      title: {
+        text: 'Month wise production and waste'
+      },
+      xAxis: {
+        categories: labels
+      },
+      yAxis: {
+        title: {
+          text: 'amount'
+        }
+      },
+      series: [
+        {
+          name: "Waste",
+          type: "line",
+          color: '#044342',
+          data: wasteData
+        },
+        {
+          name: 'Product',
+          type: 'line',
+          color: '#ed9e20',
+          data: productData
+        },
+      ],
+      credits: {
+        enabled: false
       }
-    });
+    })
   }
 
 // Metodi per scorrere avanti e indietro nel tempo

@@ -48,20 +48,20 @@ import {EditEmployeeFormComponent} from "./components/edit-employee-form/edit-em
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {ChartModule} from "angular-highcharts";
-import {LastFewTransactionsComponent} from "./components/last-few-transactions/last-few-transactions.component";
+import {LastFewTransactionsComponent} from "./components/pro-version/last-few-transactions/last-few-transactions.component";
 import {SideNavComponent} from "./components/side-nav/side-nav.component";
-import {DashboardProComponent} from "./components/dashboard-pro/dashboard-pro.component";
-import {TemplateComponent} from "./components/template/template.component";
+import {DashboardProComponent} from "./components/pro-version/dashboard-pro/dashboard-pro.component";
+import {TemplateComponent} from "./components/pro-version/template/template.component";
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule, MatIconRegistry} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AdminSideNavComponent} from "./components/admin-side-nav/admin-side-nav.component";
 import {EmployeeSideNavComponent} from "./components/employee-side-nav/employee-side-nav.component";
-import {TopWidgetsComponent} from "./components/top-widgets/top-widgets.component";
-import {SalesByMonthComponent} from "./components/sales-by-month/sales-by-month.component";
-import {SalesByCategoryComponent} from "./components/sales-by-category/sales-by-category.component";
-import {TopThreeProductsComponent} from "./components/top-three-products/top-three-products.component";
+import {TopWidgetsComponent} from "./components/pro-version/top-widgets/top-widgets.component";
+import {SalesByMonthComponent} from "./components/pro-version/sales-by-month/sales-by-month.component";
+import {SalesByCategoryComponent} from "./components/pro-version/sales-by-category/sales-by-category.component";
+import {TopThreeProductsComponent} from "./components/pro-version/top-three-products/top-three-products.component";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatFormFieldModule} from "@angular/material/form-field";
 

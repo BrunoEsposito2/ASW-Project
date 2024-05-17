@@ -1,5 +1,5 @@
 .widget-container {
-  display: flex;
+  display: inline-flex;
   .widget {
     width: 275px;
     height: 125px;
@@ -39,6 +39,16 @@
         font-size: 15px;
         margin-top: 10px;
       }
+      .data {
+        margin-top: 10px;
+      }
     }
+    transition: all 0.3s ease;
+  }
+  .collapsed {
+    /* Stili del widget quando è aperto */
+    width: 275px;
+    height: 225px;
+    /* Altri stili del widget quando è aperto */
   }
 }
