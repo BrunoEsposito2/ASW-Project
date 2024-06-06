@@ -21,7 +21,7 @@ import {FakerEmployeeDataService} from "../../faker-employee-data";
       width: 100%;
     }
     #stage-parent {
-      background: url('../../../assets/canvasBG.png');
+      background: url('../../../assets/plant-layout-plan-design.png');
       background-size: cover;
       border-style: solid;
     }

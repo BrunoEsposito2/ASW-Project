@@ -27,7 +27,7 @@ export class FakerProductionComponent {
                     this.router.navigate(['/productions']);
                 },
                 error: (error) => {
-                    alert("Failed to create production");
+                    //alert("Failed to create production");
                     console.error(error);
                 }
             });

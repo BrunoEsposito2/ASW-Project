@@ -28,8 +28,10 @@ export class EmployeeShape extends Shape {
 
         var circle = new Konva.Circle({
             stroke: 'black',
+            fill: 'white',
             x: long,
             y: lat,
+            z: -1,
             radius: 50
         });
 
@@ -110,6 +112,14 @@ export class EmployeeShape extends Shape {
 
         layer.add(infogroup);
 
+        circle.on('mouseover', function(){
+            infogroup.show();
+        });
+
+        circle.on('mouseout', function(){
+            infogroup.hide();
+        });
+
         circle.on('click', function(){
             infogroup.isVisible() ?
                 infogroup.hide() :
@@ -157,10 +167,11 @@ export class EmployeeShape extends Shape {
                 strokeWidth: 4,
                 rotation: 225
             });
+        this.layer.add(circle);
         this.layer.add(arc);
         this.layer.add(lefteye);
         this.layer.add(righteye);
-        this.layer.add(circle);
+
     }
     
 }
