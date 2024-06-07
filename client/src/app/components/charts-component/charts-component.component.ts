@@ -85,25 +85,25 @@ export class ChartsComponentComponent implements OnInit {
         height: 325
       },
       title: {
-        text: 'Month wise production and waste'
+        text: 'Production & Wastage Data'
       },
       xAxis: {
         categories: labels
       },
       yAxis: {
         title: {
-          text: 'amount'
+          text: 'kilograms'
         }
       },
       series: [
         {
-          name: "Waste",
+          name: "Wasted",
           type: "line",
           color: '#044342',
           data: wasteData
         },
         {
-          name: 'Product',
+          name: 'Produced',
           type: 'line',
           color: '#ed9e20',
           data: productData

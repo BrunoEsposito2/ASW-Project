@@ -45,7 +45,7 @@
         <li class="sidenav-nav-item">
             <a class="sidenav-nav-link" (click)="redirectToDashboard()">
                 <i class="sidenav-link-icon">
-                    <fa-icon [icon]="faAreaChart"></fa-icon>
+                    <fa-icon class="fal fa-chart-bar"></fa-icon>
                 </i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">Dashboard</span>
             </a>
@@ -53,7 +53,7 @@
         <li class="sidenav-nav-item">
             <a class="sidenav-nav-link" (click)="redirectToChat()">
                 <i class="sidenav-link-icon">
-                    <fa-icon [icon]="faMessage"></fa-icon>
+                    <fa-icon class="fal fa-comments"></fa-icon>
                 </i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">Chat</span>
             </a>
@@ -61,7 +61,7 @@
         <li class="sidenav-nav-item">
             <a class="sidenav-nav-link" (click)="redirectToHomePage()">
                 <i class="sidenav-link-icon">
-                    <fa-icon [icon]="faDoorClosed"></fa-icon>
+                    <fa-icon class="fal fa-sign-out"></fa-icon>
                 </i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">Logout</span>
             </a>

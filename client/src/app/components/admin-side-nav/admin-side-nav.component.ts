@@ -6,7 +6,6 @@ import {FakerEmployeeDataService} from "../../faker-employee-data";
 import {FakerCycleProduction} from "../../faker-cycle-production";
 import {FakerProductionService} from "../../services/faker-production-service/faker.production.service";
 import {AuthSession} from "../../../utils/auth-session";
-import {faAreaChart, faDoorClosed, faMessage, faUsers} from "@fortawesome/free-solid-svg-icons";
 
 interface SideNavToggle {
     screenWidth: number
@@ -118,9 +117,4 @@ export class AdminSideNavComponent implements OnInit {
             this.isFakerServiceActive = true;
         }
     }
-
-    protected readonly faAreaChart = faAreaChart;
-    protected readonly faUsers = faUsers;
-    protected readonly faMessage = faMessage;
-    protected readonly faDoorClosed = faDoorClosed;
 }
