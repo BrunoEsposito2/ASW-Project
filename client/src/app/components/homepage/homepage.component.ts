@@ -18,7 +18,7 @@ import {Router} from "@angular/router";
                 <button id="adminButton" (click)="adminLogin()" mat-raised-button>
                   ADMIN
                 </button>
-                <mat-card-subtitle style="color: #113c60"> or </mat-card-subtitle>
+                <br>
                 <button id="employeeButton" (click)="employeeLogin()" mat-raised-button>
                   EMPLOYEE
                 </button>

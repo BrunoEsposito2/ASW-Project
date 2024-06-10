@@ -1,10 +1,12 @@
 import {
   AfterViewChecked,
   Component,
-  ElementRef, Input,
+  ElementRef, HostListener, Input, OnInit,
   ViewChild
 } from '@angular/core';
 import {SocketChatService} from "../../services/socket-chat.service";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-chat',
@@ -12,13 +14,18 @@ import {SocketChatService} from "../../services/socket-chat.service";
   styleUrls: [ './chat.component.scss' ]
 })
 
-export class ChatComponent implements AfterViewChecked {
+export class ChatComponent implements AfterViewChecked, OnInit {
   @Input() collapsed = false
   @Input() screenWidth = 0
 
   @ViewChild('chatMessages') chatMessages!: ElementRef;
 
-  constructor(protected socketService: SocketChatService) {}
+  constructor(protected socketService: SocketChatService) {
+  }
+
+  ngOnInit() {
+    this.socketService.openConnections(this.socketService.userName)
+  }
 
   ngAfterViewChecked(): void {
     if (this.chatMessages != null) {

@@ -54,7 +54,7 @@ export class SocketChatService {
     })
 
     this.socket.on('room-message', (room: string, data: ChatMessage[]) => {
-      console.log("notifica");
+      console.log("notifica")
       this.messageRooms.set(room, data)
     })
 
@@ -90,9 +90,8 @@ export class SocketChatService {
   sendRoomMessage(): void {
     const regex = /^(\n|''| .*)/;
     if (!regex.test(this.message)) {
-      const msgToSend = {message: this.message, userName: this.userName, color: ""}
+      const msgToSend = {message: this.message, userName: this.userName, receiver: this.receiver, color: ""}
       this.socket.emit('room-message', msgToSend);
-
 
       const roomId = this.getRoomId()
       if (this.messageRooms.has(roomId)) {
@@ -107,7 +106,7 @@ export class SocketChatService {
   }
 
   getRoomId(): string {
-    return [this.userName, this.receiver].sort().toString().replace(",", "_")
+    return [this.userName, this.receiver].sort().toString().replace(",", "-")
   }
 
   sendBroadcastHistoryRequest() {
@@ -117,8 +116,7 @@ export class SocketChatService {
 
   sendHistoryRequest(username: string) {
     this.receiver = username
-    let roomName: string | string[] = [this.userName, this.receiver]
-    this.socket.emit('joinRoom', roomName.sort().toString().replace(",", "_"), this.receiver);
+    this.socket.emit('joinRoom', this.userName, this.receiver)
   }
 
   filteredUserList() {

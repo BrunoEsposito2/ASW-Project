@@ -1,7 +1,7 @@
 import {Socket} from "socket.io";
 import express from "express";
 import {ChatMessage} from "./models/chat-message";
-import {storeMessage} from "./models/store-messages";
+import {getBroadcastHistory, getRoomHistory, storeMessage} from "./models/store-messages";
 
 const PORT = 3000
 
@@ -43,37 +43,42 @@ io.on('connection', (socket: Socket) => {
 
     // Listen for the 'message' event from the client
     socket.on('message', (msg) => {
-        addMessage(msg)
-        socket.broadcast.emit('message-broadcast', {message: msg.message, userName: msg.userName, color: msg.color});
+        msg.color = getRandomColor()
+        messageList.push(msg)
         storeMessage(msg.userName, "all", msg.message, new Date().toISOString()).catch(err => console.error(err))
+        socket.broadcast.emit('message-broadcast', {message: msg.message, userName: msg.userName, color: msg.color});
     });
 
-    socket.on('history', (username) => {
-        messageList = JSON.parse(fs.readFileSync('chat-messages.json', 'utf-8'))
-        socket.emit('chat-messages', [...messageList])
+    socket.on('history', async (username) => {
+        try {
+            messageList = await getBroadcastHistory()
+            socket.emit('chat-messages', [...messageList])
+        } catch (e) {
+            console.error(e.message)
+        }
     })
 
-    socket.on('joinRoom', (roomId: string, receiver: string) => {
-        room = roomId
-        receiverName = receiver
-        if (!fs.existsSync(roomId + '-chat-messages.json')) {
-            fs.writeFileSync(roomId + '-chat-messages.json', '[]');
-        } else {
-            messageRoomList = JSON.parse(fs.readFileSync(roomId + '-chat-messages.json', 'utf8'));
+    socket.on('joinRoom', async (sender: string, receiver: string) => {
+        let sortedNames: string[] = [sender, receiver]
+        sortedNames.sort()
+        room = sortedNames[0] + "-" + sortedNames[1]
+        try {
+            messageRoomList = await getRoomHistory(sender, receiver)
+            socket.to(userName).emit('joinedRoom', room, [...messageRoomList])
+        } catch (e) {
+            console.error(e.message)
         }
-        socket.to(userName).emit('joinedRoom', room, [...messageRoomList])
     })
 
     socket.on('room-message', (msg) => {
-        addRoomMessage(msg, room)
-        socket.to(receiverName).emit('room-message', room, [...messageRoomList])
-        storeMessage(userName, receiverName, msg.message, new Date().toISOString()).catch(err => console.error(err))
+        storeMessage(msg.userName, msg.receiver, msg.message, new Date().toISOString()).catch(err => console.error(err))
+        msg.color = getRandomColor()
+        messageRoomList.push(msg)
+        socket.to(msg.receiver).emit('room-message', room, [...messageRoomList])
     })
 
     socket.on('disconnect', () => {
         removeUser(userName, socket.id);
-        const files: string[] = fs.readdirSync('.')
-        files.filter(file => file.includes("messages")).forEach(file => fs.writeFileSync(file, "[]"))
         socket.broadcast.emit('user-list', [...userList.keys()])
     });
 });
@@ -81,34 +86,6 @@ io.on('connection', (socket: Socket) => {
 http.listen(process.env.PORT || PORT, () => {
     console.log(`Chat server is running ${process.env.PORT || PORT}`);
 });
-
-function addMessage(message: ChatMessage) {
-    if (messageList.filter(msg => msg.userName == message.userName).length < 1) {
-        message.color = getRandomColor()
-        messageList.push(message)
-    } else {
-        message.color = messageList.filter(msg => msg.userName == message.userName)[0].color
-        messageList.push(message)
-    }
-    fs.writeFileSync('chat-messages.json', JSON.stringify(messageList))
-}
-
-function addRoomMessage(message: ChatMessage, roomId: string) {
-    if (!fs.existsSync(roomId + '-chat-messages.json')) {
-        fs.writeFileSync(roomId + '-chat-messages.json', '[]');
-        messageRoomList = []
-    } else {
-        messageRoomList = JSON.parse(fs.readFileSync(roomId + '-chat-messages.json', 'utf8'));
-    }
-    if (messageRoomList.filter(msg => msg.userName == message.userName).length < 1) {
-        message.color = getRandomColor()
-        messageRoomList.push(message)
-    } else {
-        message.color = messageRoomList.filter(msg => msg.userName == message.userName)[0].color
-        messageRoomList.push(message)
-    }
-    fs.writeFileSync(roomId + '-chat-messages.json', JSON.stringify(messageRoomList))
-}
 
 function addUser(username: string | string[], id: String) {
     if(!userList.has(username)) {

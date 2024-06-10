@@ -51,17 +51,17 @@
                     <img id="user-employee-image" *ngIf="socketService.getEmployeeImage(socketService.receiver) != 'admin'; else icon" [src]="socketService.getEmployeeImage(socketService.receiver)"
                          alt="" class="rounded-circle"/>
                     <ng-template #icon>
-                        <div id="user-admin-icon" class="fas fa-a"></div>
+                        <div id="user-admin-icon" class="fal fa-user"></div>
                     </ng-template>
                 </div>
-                <p class="username-receiver" style="color: grey; margin-left: 15px;">{{ socketService.receiver }}</p>
+                <p class="username-receiver">{{ socketService.receiver }}</p>
             </div>
             <ng-template #elseBlock>
                 <div class="broadcast-container">
                     <h2 class="header-chat-title" style="color: #363a3b;">Broadcast Chat</h2>
                     <div class="user-active-infos">
                         <p class="actual-username" style="color: #363a3b;">{{ socketService.activeUser }}</p>
-                        <div class="user-indicator">
+                        <div class="user-indicator" style="color: #4caf50;">
                             <img id="active-user-image" *ngIf="socketService.getEmployeeImage(socketService.activeUser) != 'admin'; else icon" [src]="socketService.getEmployeeImage(socketService.activeUser)"
                                  alt="" class="rounded-circle"/>
                             <ng-template #icon>
@@ -84,7 +84,7 @@
                         <mat-card>
                             <div *ngIf="msg.userName == socketService.activeUser" style="min-width: 30px; max-width: 500px; min-height: 25px; white-space: normal; word-wrap: break-word;">
                                 <mat-card-content>
-                                    <p class="content" style="font-size: small;">{{ msg.message }}</p>
+                                    <p class="content">{{ msg.message }}</p>
                                 </mat-card-content>
                             </div>
                         </mat-card>
@@ -95,7 +95,7 @@
                                     <p class="name text-break text-capitalize" style="font-size: medium" [style.color]="msg.color">{{ msg.userName }}</p>
                                 </mat-card-title>
                                 <mat-card-content>
-                                    <p class="content" style="font-size: small; margin-top: -25px;">{{ msg.message }}</p>
+                                    <p class="content">{{ msg.message }}</p>
                                 </mat-card-content>
                             </div>
                         </mat-card>
@@ -107,9 +107,8 @@
         </div>
 
         <ng-template #elseBlock2>
-            <mat-card-content>
-                <div style="position: relative; height: 60vh; overflow-y: scroll;" #chatMessages>
-
+            <div class="else-message-card-component" #chatMessages>
+                <mat-card-content>
                     <div class="message" *ngFor="let msg of socketService.messageRooms.get(socketService.getRoomId())" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
                         <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x rounded-circle" [style.color]="msg.color"></i>
                         <div class="message-box d-flex justify-content-between text-break">
@@ -117,7 +116,7 @@
                             <mat-card>
                                 <div *ngIf="msg.userName == socketService.activeUser" style="min-width: 30px; max-width: 500px; min-height: 25px; white-space: normal; word-wrap: break-word;">
                                     <mat-card-content>
-                                        <p class="content" style="font-size: small;">{{ msg.message }}</p>
+                                        <p class="content">{{ msg.message }}</p>
                                     </mat-card-content>
                                 </div>
                             </mat-card>
@@ -128,7 +127,7 @@
                                         <p class="name text-break text-capitalize" style="font-size: medium" [style.color]="msg.color">{{ msg.userName }}</p>
                                     </mat-card-title>
                                     <mat-card-content>
-                                        <p class="content" style="font-size: small; margin-top: -25px;">{{ msg.message }}</p>
+                                        <p class="content">{{ msg.message }}</p>
                                     </mat-card-content>
                                 </div>
                             </mat-card>
@@ -136,8 +135,8 @@
                         </div>
                         <i *ngIf="msg.userName == socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start ms-3" style="color: #4caf50"></i>
                     </div>
-                </div>
-            </mat-card-content>
+                </mat-card-content>
+            </div>
         </ng-template>
 
         <div class="send-footer-component">
@@ -154,12 +153,10 @@
             </div>
             <ng-template #elseBlock1>
                 <div class="send-message">
-                    <mat-form-field appearance="outline" class="form-control" style="resize: none;">
-                        <mat-label>Message</mat-label>
-                        <input #messageInput maxlength="256" placeholder="Type a message"
-                               [(ngModel)]="socketService.message" (keyup.enter)="socketService.sendRoomMessage()" matInput>
-                        <mat-hint align="end">{{messageInput.value.length}} / 256</mat-hint>
-                    </mat-form-field>
+                    <div class="form-control">
+                    <textarea class="input-area" placeholder="Type a message"
+                              [(ngModel)]="socketService.message" (keyup.enter)="socketService.sendRoomMessage()"></textarea>
+                    </div>
                     <mat-card-actions>
                         <button mat-raised-button color="primary" class="send-button" type="button" (click)="socketService.sendRoomMessage()" mat-button>
                             <i class="fas fa-paper-plane"></i>
