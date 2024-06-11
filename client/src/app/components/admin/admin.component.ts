@@ -14,10 +14,7 @@ interface SideNavToggle {
           [collapsed]="isSideNavCollapsed"
           [screenWidth]="screenWidth"
       ></app-dashboard>
-      <app-floating-chat
-          [collapsed]="isSideNavCollapsed"
-          [screenWidth]="screenWidth"
-      ></app-floating-chat>
+      <app-floating-chat></app-floating-chat>
       <app-footer
           [collapsed]="isSideNavCollapsed"
           [screenWidth]="screenWidth"

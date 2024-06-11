@@ -1,0 +1,240 @@
+<div *ngIf="isActive">
+    <section class="floating-chat">
+        <button class="close-btn" type="button" (click)="this.isActive = false">
+            <i class="fas fa-times"></i>
+        </button>
+        <mat-card class="floating-chat-card">
+            <mat-tab-group>
+                <mat-tab [label]="getTitle()">
+
+                    <div class="message-card-content" *ngIf="socketService.receiver == ''; else elseBlock" #chatMessages>
+                        <mat-card-content>
+                            <div class="message" *ngFor="let msg of socketService.messageList" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
+                                <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x" [style.color]="msg.color"></i>
+                                <div class="message-box">
+
+                                    <mat-card>
+                                        <div *ngIf="msg.userName == socketService.activeUser"
+                                             style="min-width: 30px; max-width: 340px; min-height: 25px; white-space: normal; word-wrap: break-word;">
+                                            <mat-card-content>
+                                                <p class="content">{{ msg.message }}</p>
+                                            </mat-card-content>
+                                        </div>
+                                    </mat-card>
+
+                                    <mat-card>
+                                        <div *ngIf="msg.userName != socketService.activeUser"
+                                             style="min-width: 30px; max-width: 340px; min-height: 25px; white-space: normal; word-wrap: break-word;">
+                                            <mat-card-title>
+                                                <p class="name" style="font-size: medium" [style.color]="msg.color">{{ msg.userName }}</p>
+                                            </mat-card-title>
+                                            <mat-card-content>
+                                                <p class="content">{{ msg.message }}</p>
+                                            </mat-card-content>
+                                        </div>
+                                    </mat-card>
+                                </div>
+                                <i *ngIf="msg.userName == socketService.activeUser" class="fas fa-user fa-2x" style="color: #4caf50"></i>
+                            </div>
+                        </mat-card-content>
+                    </div>
+
+                    <ng-template #elseBlock>
+                        <div class="else-message-card-component" #chatMessages>
+                            <mat-card-content>
+                                <div class="message" *ngFor="let msg of socketService.messageRooms.get(socketService.getRoomId())" [ngClass]="{'mine': msg.userName == socketService.activeUser}">
+                                    <i *ngIf="msg.userName != socketService.activeUser" class="fas fa-user fa-2x" [style.color]="msg.color"></i>
+                                    <div class="message-box">
+
+                                        <mat-card>
+                                            <div *ngIf="msg.userName == socketService.activeUser"
+                                                 style="min-width: 30px; max-width: 340px; min-height: 25px; white-space: normal; word-wrap: break-word;">
+                                                <mat-card-content>
+                                                    <p class="content" style="font-size: small;">{{ msg.message }}</p>
+                                                </mat-card-content>
+                                            </div>
+                                        </mat-card>
+
+                                        <mat-card>
+                                            <div *ngIf="msg.userName != socketService.activeUser"
+                                                 style="min-width: 30px; max-width: 340px; min-height: 25px; white-space: normal; word-wrap: break-word;">
+                                                <mat-card-title>
+                                                    <p class="name text-break text-capitalize" style="font-size: medium" [style.color]="msg.color">{{ msg.userName }}</p>
+                                                </mat-card-title>
+                                                <mat-card-content>
+                                                    <p class="content">{{ msg.message }}</p>
+                                                </mat-card-content>
+                                            </div>
+                                        </mat-card>
+
+                                    </div>
+                                    <i *ngIf="msg.userName == socketService.activeUser" class="fas fa-user fa-2x rounded-circle d-flex align-self-start ms-3" style="color: #4caf50"></i>
+                                </div>
+                            </mat-card-content>
+
+                        </div>
+                    </ng-template>
+
+                    <div class="send-footer-component">
+                        <div *ngIf="socketService.receiver == ''; else elseBlock1" class="send-message">
+                            <div class="form-control">
+                                <textarea class="input-area" placeholder="Type a message"
+                                          (keyup.enter)="socketService.sendMessage()" [(ngModel)]="socketService.message"></textarea>
+                            </div>
+                            <mat-card-actions class="send-card-button">
+                                <button class="send-button" mat-raised-button color="primary" type="button" (click)="socketService.sendMessage()" mat-button>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </mat-card-actions>
+                        </div>
+                        <ng-template #elseBlock1>
+                            <div class="send-message">
+                                <div class="form-control">
+                                    <textarea class="input-area" placeholder="Type a message"
+                                              (keyup.enter)="socketService.sendRoomMessage()" [(ngModel)]="socketService.message"></textarea>
+                                </div>
+                                <mat-card-actions class="send-card-button">
+                                    <button class="send-button" type="button" mat-raised-button color="primary" (click)="socketService.sendRoomMessage()" mat-button>
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </mat-card-actions>
+                            </div>
+                        </ng-template>
+                    </div>
+
+                </mat-tab>
+                <mat-tab label="Active Users List" style="color: #363a3b">
+
+                    <mat-card-content>
+                        <div class="scrollable-user-list">
+                            <mat-card-actions align="start">
+                                <ul class="user-list">
+                                    <li *ngFor="let user of socketService.filteredUserList()" [ngClass]="{'active': user === socketService.activeUser}">
+                                        <button class="user-btn" type="button" (click)="socketService.sendHistoryRequest(user)" style="margin-top: 9px; margin-bottom: 5px;">
+                                            <div class="user-container">
+                                                <div class="user-indicator">
+                                                    <img id="userimage" *ngIf="socketService.getEmployeeImage(user) != 'admin'; else icon" [src]="socketService.getEmployeeImage(user)" alt="">
+                                                    <ng-template #icon>
+                                                        <a id="usericon" class="fal fa-user"></a>
+                                                    </ng-template>
+                                                </div>
+                                                <p class="username" *ngIf="socketService.getEmployeeImage(user) != 'admin'; else adminTag">
+                                                    {{ user }}
+                                                </p>
+                                                <ng-template #adminTag>
+                                                    <p class="username"> {{ user }} (admin) </p>
+                                                </ng-template>
+                                            </div>
+                                        </button>
+
+                                        <div class="row g-3">
+                                            <button class="col-2 btn btn-sm btn-warning"
+                                                    title="Cambia ricetta"
+                                                    (click)="sendSingleMessage(user, 'Cambia ricetta')"
+                                            >
+                                                <i class="fas fa-exchange"></i>
+                                            </button>
+                                            <div class="col-1"></div>
+                                            <button class="col-2 btn btn-sm btn-info"
+                                                    title="Vieni in cabina"
+                                                    (click)="sendSingleMessage(user, 'Vieni in cabina')"
+                                            >
+                                                <i class="fas fa-chalkboard-teacher"></i>
+                                            </button>
+                                            <div class="col-1"></div>
+                                            <button class="col-2 btn btn-sm btn-success"
+                                                    title="Vai in pausa"
+                                                    (click)="sendSingleMessage(user, 'Vai in pausa')"
+                                            >
+                                                <i class="fas fa-pause"></i>
+                                            </button>
+                                            <div class="col-1"></div>
+                                            <button class="col-2 btn btn-sm btn-danger"
+                                                    title="Fine del turno"
+                                                    (click)="sendSingleMessage(user, 'Fine del turno')"
+                                            >
+                                                <i class="fas fa-house"></i>
+                                            </button>
+                                            <div class="col-1"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </mat-card-actions>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions class="broadcast-footer-actions">
+                        <button class="broadcast-button" (click)="socketService.sendBroadcastHistoryRequest()" mat-button data-mdb-ripple-init>
+                            Broadcast Chat
+                        </button>
+                    </mat-card-actions>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card>
+    </section>
+</div>
+
+<div *ngIf="buttonsOn" class="position-fixed bottom-0 end-0">
+    <button type="button"
+            class="btn btn-floating btn-secondary btn-lg"
+            style="margin-right: 15px; margin-bottom: 100px;"
+            (click)='socketService.sendMessageWarningOrAlert("Allarme generico")'
+            title="Allarme generico"
+            mdbRipple>
+        <i class="fa fa-warning"></i>
+    </button>
+    <button type="button"
+            class="btn btn-floating btn-secondary btn-lg"
+            style="margin-right: 15px; margin-bottom: 100px;"
+            (click)='socketService.sendMessageWarningOrAlert("Allarme Antincendio")'
+            title="Allarme Antincendio"
+            mdbRipple>
+        <i class="fa fa-fire"></i>
+    </button>
+
+    <button type="button"
+            class="chat-toggle-btn"
+            style="float: right; margin-right: 1rem;"
+            (click)="toggleChat()"
+            title="Invia un messaggio"
+            mat-fab
+    >
+        <i class="fas fa-plus"></i>
+    </button>
+</div>
+
+<div>
+    <!-- modified -->
+    <button type="button"
+            class="send-msg-btn"
+            [ngClass]="{ 'active': isActive }"
+            title="Invia messaggi"
+            (click)="this.isActive = !this.isActive"
+            color="primary"
+            mat-fab>
+        <a class="fal fa-2x fa-comment"></a>
+    </button>
+    <button type="button"
+            class="btn btn-floating btn-secondary btn-lg btn-floating position-fixed bottom-0 end-0"
+            style="margin-right: 15px; margin-bottom: 100px;"
+            (click)='socketService.sendMessageWarningOrAlert("Allarme generico")'
+            title="Allarme generico"
+            mdbRipple>
+        <i class="fa fa-warning"></i>
+    </button>
+    <button type="button"
+            class="btn btn-floating btn-secondary btn-lg btn-floating position-fixed bottom-0 end-0"
+            style="margin-right: 15px; margin-bottom: 150px;"
+            (click)='socketService.sendMessageWarningOrAlert("Allarme Antincendio")'
+            title="Allarme Antincendio"
+            mdbRipple>
+        <i class="fa fa-fire"></i>
+    </button>
+    <div #toastNotify *ngIf="isShown" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="display:block!important; position: absolute; top: 0; right: 0;">
+        <div class="toast-header">
+            <strong class="mr-auto">Nuova notifica da {{ notifyUser }}</strong>
+        </div>
+        <div class="toast-body">
+            {{ notifyMessage }}
+        </div>
+    </div>
+</div>

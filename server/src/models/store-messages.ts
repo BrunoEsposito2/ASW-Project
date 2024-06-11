@@ -41,7 +41,7 @@ export async function getBroadcastHistory(): Promise<ChatMessage[]> {
         await mongoClient.close();
     }
 
-    return convertToChatMessages(result)
+    return convertToBroadcastChatMessages(result)
 }
 
 export async function getRoomHistory(user1: string, user2: string): Promise<ChatMessage[]> {
@@ -66,11 +66,20 @@ export async function getRoomHistory(user1: string, user2: string): Promise<Chat
     return convertToChatMessages(result)
 }
 
-function convertToChatMessages(docs: any[]): ChatMessage[] {
+function convertToBroadcastChatMessages(docs: any[]): ChatMessage[] {
     return docs.map(doc => ({
         message: doc.content,
         userName: doc.sender,
         color: getRandomColor()
+    }));
+}
+
+function convertToChatMessages(docs: any[]): ChatMessage[] {
+    let color = getRandomColor()
+    return docs.map(doc => ({
+        message: doc.content,
+        userName: doc.sender,
+        color: color
     }));
 }
 

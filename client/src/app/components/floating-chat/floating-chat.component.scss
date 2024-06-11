@@ -1,0 +1,271 @@
+.send-msg-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+}
+
+.floating-chat {
+  position: fixed;
+  bottom: 67px;
+  right: 27px;
+  border-radius: 15px;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  z-index: 999; // Assicura che la chat sia sopra gli altri elementi
+}
+
+.close-btn {
+  position: relative;
+  top: -8px;
+  right: 8px;
+  float: right;
+  z-index: 999;
+  background-color: #3f51b5;
+  border-radius: 20px;
+  border-style: hidden;
+  height: 20px;
+  width: 20px;
+  color: white;
+  font-size: x-small;
+  cursor: pointer;
+}
+
+.floating-chat-card {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.message-card-content {
+  background: #f0f0f0;
+  height: 300px;
+  position: relative;
+  overflow: auto;
+  width: 500px;
+  margin-bottom: 60px;
+}
+
+.else-message-card-component {
+  background: #f0f0f0;
+  height: 300px;
+  position: relative;
+  overflow: auto;
+  width: 500px;
+  margin-bottom: 62px;
+}
+
+*.content {
+  font-size: 15px;
+  line-height: 20px;
+  font-family: Roboto, sans-serif;
+}
+
+// Message box content
+p.name {
+  padding-left: 0.85rem;
+  padding-right: 0.5rem;
+  text-transform: capitalize;
+}
+
+.message {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+}
+
+.mine {
+  justify-content: flex-end;
+  background-color: #f0f0f0;
+}
+
+.message-box {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 5px;
+  border-radius: 5px;
+  //background-color: #6a11cb;
+  //background-color: cornflowerblue;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  gap: 0.3rem;
+}
+
+.mine .message-box {
+  //background-color: #c5e8f4;
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.message-box p {
+  margin: 0;
+}
+// end message box content
+
+// setting footer rule styles
+
+.send-footer-component {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 2px;
+
+  .send-message {
+    outline: auto;
+    outline-color: lightgray;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 2rem);
+    margin: 0px 15px 10px;
+    border-radius: 20px;
+    background-color: #f4f8f9;
+  }
+
+  .form-control {
+    flex-grow: 1;
+    margin-right: 10px; /* Add some space between the input and the button */
+    height: 2rem;
+  }
+
+  .send-button {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.send-card-button {
+  padding-right: 10px;
+}
+
+// end footer
+
+.input-area {
+  width: 100%;
+  height: 2.25rem;
+  border-color: transparent;
+  outline-color: transparent;
+  white-space: normal;  /* Permette il word wrapping */
+  word-wrap: break-word;  /* Fa sì che le parole lunghe vadano a capo */
+  background-color: transparent;
+  box-sizing: border-box;
+  resize: none;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: Roboto, sans-serif;
+  padding-left: 10px;
+}
+
+textarea:focus-visible {
+  outline: -webkit-focus-ring-color auto 0px !important;
+}
+
+.form-control {
+  border-color: transparent;
+}
+
+.form-control:focus {
+  border-color: transparent !important;
+  box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.scrollable-user-list {
+  height: 330px;
+  overflow-y: auto;
+}
+
+.user-btn {
+  display: list-item;
+  width: 100%;
+  border-color: transparent;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.user-container {
+  width: 100%;
+  display: flex;
+  align-items: center; // vertically align items in the center
+  gap: 10px; // space between the elements, adjust as needed
+
+  &:last-child {
+    margin-bottom: 0; // Rimuove il margine inferiore dall'ultimo elemento
+  }
+
+  .user-indicator {
+    position: relative;
+    align-items: center; // vertically align image/icon in the center
+    display: flex;
+    width: 40px; // Adjust the width as per your requirement
+    height: 40px; // Adjust the height as per your requirement
+    justify-content: center;
+    flex-shrink: 0;
+    color: #4caf50;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid #4caf50; // You can change the color here
+      box-sizing: border-box;
+    }
+  }
+
+  .username {
+    margin: 0; // remove default margin
+    color: #363a3b;
+  }
+}
+
+.broadcast-footer-actions {
+  width: 100%;
+
+  .broadcast-button {
+    width: 100%;
+    background: #1B365C;
+    color: #F4F8F9 !important;
+
+    padding: 0.5rem;
+    box-sizing: border-box;
+
+    margin: 0;
+  }
+}
+
+
+.user-list {
+  width: 100%;
+}
+
+/* Customized scroll bar */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #73acc5;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b5e3ff;
+}
