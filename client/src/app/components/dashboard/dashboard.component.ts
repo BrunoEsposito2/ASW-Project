@@ -27,11 +27,11 @@ import {Employee} from "../../employee";
       <div class="top-section">
         <app-assistants-component></app-assistants-component>
       </div>
-      <div class="middle-section">
-        <div class="widget left">
+      <div class="middle-section" style="display: flex;">
+        <div class="widget left inline-flex" style="width: 50%;">
           <app-charts-component></app-charts-component>
         </div>
-        <div class="widget right">
+        <div class="widget-container right inline-flex" style="width:50%;">
           <app-mixer-unit-component></app-mixer-unit-component>
         </div>
       </div>

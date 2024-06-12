@@ -14,36 +14,38 @@ import { BehaviorSubject } from 'rxjs';
         <div class="value">
           <div class="top">{{ employee.name }}</div>
           <div class="bottom">{{ employee.level }}</div>
-          <div class="data" *ngIf="employee._id && isAccordionOpen[employee._id]">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="accordion-header">
-                <button class="accordion-button less-padding" type="button" (click)="closeAccordion(employee)">
-                  <img src="../../assets/icons8-cloud-refresh.gif" alt="Icona"> Dati Realtime
-                </button>
-              </h2>
-              <div class="accordion-collapse collapse show" id="accordion-collapse">
-                <div class="accordion-body less-padding">
-                  <img src="../../assets/icons8-temperature-64.png" title="Temperatura" style="width: 20px; height: 20px;" alt="Temperature Icon" *ngIf="employee._id">
-                  {{ accordionData[employee._id]?.temperature | number:'1.1-2' }}<br>
-                  <img src="../../assets/icons8-saturation-96.png" title="Saturazione" style="width: 20px; height: 20px;" alt="Saturation Icon" *ngIf="employee._id">
-                  {{ accordionData[employee._id]?.saturation | number:'1.1-2' }}<br>
-                  <img src="../../assets/icons8-time-100.png" title="Data/Ora" style="width: 20px; height: 20px;" alt="Time Icon" *ngIf="employee._id">
-                  {{ accordionData[employee._id]?.timeIn }}
-                </div>
+          
+          
+        </div>
+        <div class="data" *ngIf="employee._id && isAccordionOpen[employee._id]">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="accordion-header">
+              <button class="accordion-button less-padding" type="button" style="background-color:rgb(4,67,66);border:none;" (click)="closeAccordion(employee)">
+                <img src="../../assets/icons8-cloud-refresh.gif" alt="Icona"><p style="color:white;">Dati Realtime</p>
+              </button>
+            </h2>
+            <div class="accordion-collapse collapse show" id="accordion-collapse">
+              <div class="accordion-body less-padding">
+                <img src="../../assets/icons8-temperature-64.png" title="Temperatura" style="width: 20px; height: 20px;filter:invert(1);" alt="Temperature Icon" *ngIf="employee._id">
+                {{ accordionData[employee._id]?.temperature | number:'1.1-2' }}<br>
+                <img src="../../assets/icons8-saturation-96.png" title="Saturazione" style="width: 20px; height: 20px;filter:invert(1);" alt="Saturation Icon" *ngIf="employee._id">
+                {{ accordionData[employee._id]?.saturation | number:'1.1-2' }}<br>
+                <img src="../../assets/icons8-time-100.png" title="Data/Ora" style="width: 20px; height: 20px;filter:invert(1);" alt="Time Icon" *ngIf="employee._id">
+                {{ accordionData[employee._id]?.timeIn }}
               </div>
             </div>
           </div>
-          <ng-container *ngIf="employee._id">
-            <ng-container *ngIf="getOperatingData(employee._id) as operatingData">
-              <ng-container *ngFor="let data of operatingData">
-                <p id="dati-realtime" class="card-text custom-font" *ngIf="!employee._id || !isAccordionOpen[employee._id]">
-                  <img src="../../assets/icons8-cloud-refresh.gif" style="width:30px;height:30px; margin-right:5px" alt="Icona" (click)="openAccordion(employee)">
-                  Dati Realtime
-                </p>
-              </ng-container>
+        </div>
+        <ng-container *ngIf="employee._id">
+          <ng-container *ngIf="getOperatingData(employee._id) as operatingData">
+            <ng-container *ngFor="let data of operatingData">
+              <p id="dati-realtime" class="card-text custom-font" *ngIf="!employee._id || !isAccordionOpen[employee._id]">
+                <img src="../../assets/icons8-cloud-refresh.gif" style="width:30px;height:30px; margin-right:5px" alt="Icona" (click)="openAccordion(employee)">
+                <br>Dati Realtime
+              </p>
             </ng-container>
           </ng-container>
-        </div>
+        </ng-container>
       </div>
     </div>
     <!--<div class="row">

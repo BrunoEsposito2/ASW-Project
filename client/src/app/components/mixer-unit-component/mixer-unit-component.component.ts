@@ -18,7 +18,8 @@ import {FakerEmployeeDataService} from "../../faker-employee-data";
       color:blue;
     }
     #stage-parent {
-      width: 100%;
+      width: auto;
+      height: auto;      
     }
     #stage-parent {
       background: url('../../../assets/plant-layout-plan-design.png');
@@ -46,7 +47,7 @@ export class MixerUnitComponentComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
     var sceneWidth = 1000;
-    var sceneHeight = 500;
+    var sceneHeight = 700;
 
     var stage = new Konva.Stage({
       container: 'konva',
