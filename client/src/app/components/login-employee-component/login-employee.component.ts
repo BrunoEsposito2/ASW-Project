@@ -68,12 +68,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
       /*border: 1px solid rgba(255, 255, 255, 0.2);*/
     }
 
-    .name-container position-container mat-form-field + mat-form-field {
-      margin-left: 8px;
-    }
-
-    .password-container mat-form-field + mat-form-field {
-      margin-left: 8px;
+    .name-container mat-form-field, .position-container mat-form-field, .password-container mat-form-field {
+      width: 100%;
     }
 
     .video-container {
@@ -81,8 +77,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
       height: 90vh;
       overflow: hidden;
     }
-    
-    .video-container video {
+
+    video {
       position: fixed;
       top: 0;
       left: 0;
@@ -96,7 +92,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
       position: absolute;
       top: 50%;
       left: 50%;
-      width:50%;
+      width: 90%;
+      max-width: 400px;
       transform: translate(-50%, -50%);
       text-align: center;
       background: transparent;
@@ -105,6 +102,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
     .cardActions {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
     }
@@ -116,6 +114,24 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
     .title {
       text-align: center;
+    }
+
+    @media (min-width: 600px) {
+      .button-container {
+        width: 70%;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .button-container {
+        width: 50%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .button-container {
+        width: 30%;
+      }
     }
   `]
 })

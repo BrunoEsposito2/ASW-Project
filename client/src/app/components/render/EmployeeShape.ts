@@ -23,8 +23,19 @@ export class EmployeeShape extends Shape {
         this.sat = sat;
         this.employee = employee;
 
+        var scaleFactor = 0.33;  // Scala di un terzo
+        var padding = 50; // Distanza minima dal bordo
+
         var tempAlarm = temp > 37;
         var satAlarm = sat < 95;
+
+        // Controlla e aggiusta le coordinate per evitare che cadano fuori dal canvas
+        var canvasWidth = stage.width();
+        var canvasHeight = stage.height();
+
+        // Limita le coordinate del cerchio per essere visibili con un margine di sicurezza
+        long = Math.max(padding, Math.min(canvasWidth - padding, long));
+        lat = Math.max(padding, Math.min(canvasHeight - padding, lat));
 
         var circle = new Konva.Circle({
             stroke: 'black',
@@ -32,15 +43,24 @@ export class EmployeeShape extends Shape {
             x: long,
             y: lat,
             z: -1,
-            radius: 50
+            radius: 50 * scaleFactor
         });
 
-        //Info square
-        var infopos = (lat < 300) ? 50 : - 200;
+        // Info square
+        var infopos = (lat < canvasHeight / 2) ? 50 * scaleFactor : -200 * scaleFactor;
+        var infogroupX = long - (50 * scaleFactor);
+        var infogroupY = lat + infopos;
+
+        // Limita le coordinate del gruppo delle info per essere visibili con un margine di sicurezza
+        infogroupX = Math.max(padding, Math.min(canvasWidth - 150 * scaleFactor - padding, infogroupX));
+        infogroupY = Math.max(padding, Math.min(canvasHeight - 150 * scaleFactor - padding, infogroupY));
+
         var infogroup = new Konva.Group({
-            x: long - 50,
-            y: lat + infopos,
-            rotation: 0
+            x: infogroupX,
+            y: infogroupY,
+            rotation: 0,
+            scaleX: scaleFactor,
+            scaleY: scaleFactor
         });
         infogroup.hide();
         var square = new Konva.Rect({
@@ -130,48 +150,51 @@ export class EmployeeShape extends Shape {
 
         var righteye = new Konva.Circle({
             stroke: 'black',
-            x: long + 20,
-            y: lat - 10,
-            radius: 10
+            x: long + (20 * scaleFactor),
+            y: lat - (10 * scaleFactor),
+            radius: 10 * scaleFactor
         });
         var lefteye = new Konva.Circle({
             stroke: 'black',
-            x: long - 20,
-            y: lat - 10,
-            radius: 10
+            x: long - (20 * scaleFactor),
+            y: lat - (10 * scaleFactor),
+            radius: 10 * scaleFactor
         });
 
-        if(!tempAlarm && !satAlarm)
-            //Happy
-            var arc = new Konva.Arc({
+        var arc;
+        if(!tempAlarm && !satAlarm) {
+            // Happy
+            arc = new Konva.Arc({
                 x: long,
-                y: lat - 10,
-                innerRadius: 30,
-                outerRadius: 40,
+                y: lat - (10 * scaleFactor),
+                innerRadius: 30 * scaleFactor,
+                outerRadius: 40 * scaleFactor,
                 angle: 90,
                 fill: 'green',
                 stroke: 'black',
-                strokeWidth: 4,
+                strokeWidth: 4 * scaleFactor,
                 rotation: 45
             });
-        else
-            //Sad
-            var arc = new Konva.Arc({
+        } else {
+            // Sad
+            arc = new Konva.Arc({
                 x: long,
-                y: lat + 60,
-                innerRadius: 30,
-                outerRadius: 40,
+                y: lat + (60 * scaleFactor),
+                innerRadius: 30 * scaleFactor,
+                outerRadius: 40 * scaleFactor,
                 angle: 90,
                 fill: 'red',
                 stroke: 'black',
-                strokeWidth: 4,
+                strokeWidth: 4 * scaleFactor,
                 rotation: 225
             });
+        }
+
         this.layer.add(circle);
         this.layer.add(arc);
         this.layer.add(lefteye);
         this.layer.add(righteye);
-
     }
-    
+
+
 }

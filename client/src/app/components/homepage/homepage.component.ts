@@ -91,6 +91,28 @@ import {Router} from "@angular/router";
     .title {
       text-align: center;
     }
+
+    @media (min-width: 600px) {
+      .button-container {
+        width: 70%;
+      }
+
+      #adminButton, #employeeButton {
+        width: auto;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .button-container {
+        width: 50%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .button-container {
+        width: 30%;
+      }
+    }
   `]
 })
 

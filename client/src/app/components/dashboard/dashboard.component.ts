@@ -24,26 +24,46 @@ import {Employee} from "../../employee";
     </ngb-toast>
     
     <div class="body" [ngClass]="getBodyClass()">
-      <div class="top-section" style="display:flex;">
-        <div class="widget left flex" style="width:30%;margin: 10px;">
+      <div class="top-section">
+        <div class="widget left">
             <app-assistants-component></app-assistants-component>
         </div>
-        <div class="widget-container right flex" style="width:40%;margin: 10px;">
-          <app-mixer-unit-component class="widget" style="max-height:400px;"></app-mixer-unit-component>
+      </div>
+      <div class="middle-section">
+        <div id="mixer" class="widget left">
+          <app-mixer-unit-component></app-mixer-unit-component>
         </div>
-        <div class="widget-container right flex" style="width:20%;margin: 10px;">
-          <app-ingredients-component class="widget"></app-ingredients-component>
+        <div class="widget right">
+          <app-ingredients-component></app-ingredients-component>
         </div>
       </div>
-      <div class="middle-section" style="display: flex;">
-        <div class="widget-container left flex" style="width: 50%;margin: 10px;">
-          <app-charts-component class="widget"></app-charts-component>
+      <div class="middle-section">
+        <div class="widget left">
+          <app-charts-component></app-charts-component>
         </div>
-        <div class="widget-container right flex" style="width:20%;margin: 10px;">
-          <app-steps-component class="widget"></app-steps-component>
+        <div class="widget right">
+          <app-steps-component></app-steps-component>
         </div>
-        <div class="widget-container right inline-flex" style="width:30%;margin: 10px;">
-          <app-power-unit-charts-component class="widget"></app-power-unit-charts-component>
+      </div>
+      <div class="bottom-section">
+        <div class="widget right">
+          <app-power-unit-charts-component></app-power-unit-charts-component>
+        </div>
+        <div class="widget left">
+          <ngb-toast
+              (hidden)="isToastVisible = false"
+              [ngClass]="isToastVisible ? 'd-block' : 'd-none'">
+            <div [ngClass]="'toast show toast-custom'">
+              <div class="toast-header toast-custom alert-custom">
+                <strong class="me-auto text-white">Alert</strong>
+                <small class="text-white">{{currentTime}}</small>
+                <button type="button" class="btn-close close-custom" (click)="isToastVisible = false" aria-label="Close"></button>
+              </div>
+              <div class="toast-body body-toast">
+                {{messageToast}}
+              </div>
+            </div>
+          </ngb-toast>
         </div>
       </div>
     </div>

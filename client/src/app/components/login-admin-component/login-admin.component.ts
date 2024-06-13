@@ -57,15 +57,6 @@ import {Admin} from "../../admin"
   styles: [`
     .matcard {
       background: rgba(255, 255, 255, 0.65);
-      /*border: 1px solid rgba(255, 255, 255, 0.2);*/
-    }
-
-    .email-container mat-form-field + mat-form-field {
-      margin-left: 8px;
-    }
-
-    .password-container mat-form-field + mat-form-field {
-      margin-left: 8px;
     }
 
     .video-container {
@@ -73,7 +64,7 @@ import {Admin} from "../../admin"
       height: 90vh;
       overflow: hidden;
     }
-    
+
     video {
       position: fixed;
       top: 0;
@@ -81,22 +72,28 @@ import {Admin} from "../../admin"
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(10px); /* Aggiungi uno sfondo sfuocato */
+      filter: blur(10px);
     }
 
     .button-container {
       position: absolute;
       top: 50%;
       left: 50%;
-      width:50%;
+      width: 90%;
+      max-width: 400px;
       transform: translate(-50%, -50%);
       text-align: center;
       background: transparent;
       z-index: 1;
     }
 
+    .email-container, .password-container {
+      margin-bottom: 16px;
+    }
+
     .cardActions {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
     }
@@ -108,6 +105,24 @@ import {Admin} from "../../admin"
 
     .title {
       text-align: center;
+    }
+
+    @media (min-width: 600px) {
+      .button-container {
+        width: 70%;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .button-container {
+        width: 50%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .button-container {
+        width: 30%;
+      }
     }
   `]
 })
