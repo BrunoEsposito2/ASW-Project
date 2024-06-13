@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
             <mat-card class="matcard">
               <mat-card-header class="loginHeader">
                 <mat-card-title class="title">
-                  <img class="" src="../assets/tower-logo-nogb.png" alt="logo_frabrugia" style="width:80%; height:80%" >
+                  <img class="" src="../../../assets/tower-logo-nogb.png" alt="logo_frabrugia" style="width:80%; height:80%">
                 </mat-card-title>
               </mat-card-header>
               <mat-card-actions class="cardActions">
@@ -24,10 +24,11 @@ import {Router} from "@angular/router";
                 </button>
               </mat-card-actions>
             </mat-card>
-            </div>
           </div>
-        <video data-test="video-content" preload="auto" src="https://cdn.dribbble.com/userupload/8705023/file/large-cec325409ba99f93a7df8a6931e3e1c0.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
+        </div>
       </div>
+      <img src="../../../assets/large-thumbnail20230719-900-1op9mb0.gif" alt="Animated background"
+           class="background-gif">
     </div>
     <app-footer></app-footer>
   `,
@@ -44,7 +45,7 @@ import {Router} from "@angular/router";
       overflow: hidden;
     }
 
-    .video-container video {
+    .background-gif {
       position: fixed;
       top: 0;
       left: 0;

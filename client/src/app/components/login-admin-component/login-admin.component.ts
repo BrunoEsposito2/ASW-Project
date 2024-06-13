@@ -49,10 +49,9 @@ import {Admin} from "../../admin"
             </mat-card>
           </div>
         </div>
-        <video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video><video class="video-container" data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
+        <video data-test="video-content" preload="auto" src="../../assets/Business%20Analysis.mp4" playsinline="true" loop="loop" draggable="false" autoplay="autoplay"></video>
       </div>
     </div>
-    <!--<app-homepage-navbar></app-homepage-navbar>-->
     <app-footer></app-footer>
   `,
   styles: [`
@@ -75,7 +74,7 @@ import {Admin} from "../../admin"
       overflow: hidden;
     }
     
-    .video-container video {
+    video {
       position: fixed;
       top: 0;
       left: 0;
