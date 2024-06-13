@@ -1,0 +1,66 @@
+<section>
+    <div class="body" [ngClass]="getBodyClass()">
+        <div class="container">
+            <mat-toolbar>
+                <span>Edit Employee Data</span>
+            </mat-toolbar>
+            <mat-card>
+                <form class="employee-form" autocomplete="off" [formGroup]="employeeForm" (ngSubmit)="submitForm()">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Employee's name</mat-label>
+                        <input matInput formControlName="name" placeholder="Name" required>
+                        <mat-error *ngIf="name.errors?.['minlength']; else elseName">Name must be at least 3 characters long.</mat-error>
+                        <ng-template #elseName>
+                            <mat-error *ngIf="name.invalid && (name.dirty || name.touched) || name.errors?.['required']">Name is required.</mat-error>
+                        </ng-template>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Employee's position</mat-label>
+                        <input matInput formControlName="position" placeholder="Position" required>
+                        <mat-error *ngIf="position.errors?.['minlength']; else elsePosition">Position must be at least 5 characters long.</mat-error>
+                        <ng-template #elsePosition>
+                            <mat-error *ngIf="position.invalid && (position.dirty || position.touched) || position.errors?.['required']">Position is required.</mat-error>
+                        </ng-template>
+                    </mat-form-field>
+
+                    <div class="employee-level">
+                        <label>Employee's level:</label>
+                        <mat-radio-group formControlName="level">
+                            <mat-radio-button name="level" value="junior">Junior</mat-radio-button>
+                            <mat-radio-button name="level" value="mid">Mid</mat-radio-button>
+                            <mat-radio-button name="level" value="senior">Senior</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Employee's profile image URL</mat-label>
+                        <input matInput formControlName="img" placeholder="Image URL" required>
+                        <mat-error *ngIf="img.invalid && (img.dirty || img.touched) || img.errors?.['required']">Image URL is required.</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Employee's password</mat-label>
+                        <input matInput placeholder="Password" formControlName="password" [type]="hide ? 'password' : 'text'" required>
+                        <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <span *ngIf="hide; else visibilityon">
+                            <i class="fa fa-eye-slash fa-xs" aria-hidden="true"></i>
+                        </span>
+                            <ng-template #visibilityon>
+                                <i class="fa fa-eye fa-xs" aria-hidden="true"></i>
+                            </ng-template>
+                        </a>
+                        <mat-error *ngIf="password.errors?.['minlength']; else elsePassword">Password must be at least 8 characters long.</mat-error>
+                        <ng-template #elsePassword>
+                            <mat-error *ngIf="password.invalid && (password.dirty || password.touched) || password.errors?.['required']"> Password is required. </mat-error>
+                        </ng-template>
+                    </mat-form-field>
+
+                    <div class="button-container">
+                        <button mat-raised-button color="primary" [disabled]="employeeForm.invalid">Edit</button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</section>

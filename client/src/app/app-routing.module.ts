@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'dashboard-pro', component: TemplateComponent },
 
   { path: 'employees', redirectTo: 'employees', pathMatch: 'full' },
-  { path: 'employees', component: EmployeesListComponent, canActivate: [canActivateGuard] },
+  //{ path: 'employees', component: EmployeesListComponent, canActivate: [canActivateGuard] },
   { path: 'employees/new', component: AddEmployeeComponent, canActivate: [canActivateGuard] },
   { path: 'employees/edit/:id', component: EditEmployeeComponent, canActivate: [canActivateGuard] },
   { path: 'employees/login', component: AuthEmployeeComponent, title: 'FraBruGia - Employee Login' },

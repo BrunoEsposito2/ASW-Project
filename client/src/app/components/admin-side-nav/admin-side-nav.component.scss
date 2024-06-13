@@ -135,6 +135,43 @@
   }
 }
 
+.sidenav-nav-logout-item:hover {
+  .sidenav-nav-link {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.sidenav-nav-logout-item {
+  width: 100%;
+  margin-bottom: 0.625rem;
+  position: absolute;
+  bottom: 0;
+  padding: 0.938rem;
+
+  .sidenav-nav-link {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    color: #f3f3f3;
+    text-decoration: none;
+    border-radius: 0.625rem;
+    transition: all .3s ease;
+
+    .sidenav-link-icon {
+      font-size: 22px;
+      width: 2rem;
+      min-width: 2rem;
+      margin: 0 0.5rem;
+      text-align: center;
+    }
+
+    .sidenav-link-text {
+      margin-left: 1.5rem;
+    }
+  }
+}
+
 .active {
   background-color: #fff;
 

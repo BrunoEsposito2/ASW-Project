@@ -64,8 +64,7 @@ async function applySchemaValidation(db: mongodb.Db) {
                 },
                 img: {
                     bsonType: "string",
-                    description: "'img' is a string",
-                    minLength: 5
+                    description: "'img' is a string"
                 },
                 level: {
                     bsonType: "string",

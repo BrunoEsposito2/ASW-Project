@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {EmployeeService} from '../../services/employee.service';
 import {Employee} from "../../employee";
 
@@ -7,23 +7,27 @@ import {Employee} from "../../employee";
   selector: 'app-add-employee',
   template: `
     <app-admin-side-nav></app-admin-side-nav>
-    <section style="height: 90vh; overflow: hidden;">
-        <h2 class="text-center m-5">Add a New Employee</h2>
-        <app-employee-form (formSubmitted)="addEmployee($event)"></app-employee-form>
-    </section>
+    <app-employee-form (formSubmitted)="addEmployee($event)"></app-employee-form>
+    <app-floating-chat></app-floating-chat>
+    <app-footer></app-footer>
   `
 })
 export class AddEmployeeComponent {
+    activeUsername: string | null
+
   constructor(
     private router: Router,
-    private employeeService: EmployeeService
-  ) { }
+    private employeeService: EmployeeService,
+    private activatedRoute: ActivatedRoute
+  ) {
+      this.activeUsername = this.activatedRoute.snapshot.paramMap.get('username');
+  }
 
   addEmployee(employee: Employee) {
     this.employeeService.createEmployee(employee)
       .subscribe({
         next: () => {
-          this.router.navigate(['/employees']);
+          this.router.navigate(['/admins/' + this.activeUsername + '/employees']);
         },
         error: (error) => {
           alert("Failed to create employee");

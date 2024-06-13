@@ -1,0 +1,86 @@
+.body {
+  width: calc(100% - 5rem);
+  height: 100vh;
+  margin-left: 5rem;
+  z-index: 0;
+  position: relative;
+  top: 0;
+  transition: all .5s ease;
+  background: #f4f7fa;
+  padding: 3rem;
+}
+
+.body-trimmed {
+  width: calc(100% - 16.5625rem);
+  margin-left: 16.5625rem;
+}
+
+.body-md-screen {
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
+}
+
+.container {
+  display: grid;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+mat-card {
+  max-width: 600px;  /* Ridotto a 600px */
+  width: 100%;
+  padding: 30px;  /* Aumentato il padding */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-toolbar {
+  background-color: #113c60;
+  color: white;
+  justify-content: center;
+}
+
+mat-radio-group {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 2rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.employee-level {
+  display: flex;
+  flex-direction: column;  /* Cambiato a colonna */
+  gap: 1rem;
+}
+
+label {
+  font-size: large;
+  font-weight: 500;
+  color: #363a3b;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button:disabled {
+  background-color: #ccc;  /* Grigio chiaro per il bottone disabilitato */
+  color: #666;
+}
+
+button {
+  background-color: #113c60;  /* Colore del bottone attivo */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover:enabled {
+  background-color: #0d2e4a;  /* Scuro al passaggio del mouse */
+}

@@ -64,6 +64,8 @@ import {SalesByCategoryComponent} from "./components/pro-version/sales-by-catego
 import {TopThreeProductsComponent} from "./components/pro-version/top-three-products/top-three-products.component";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatTableModule} from "@angular/material/table";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
     declarations: [
@@ -142,7 +144,9 @@ import {MatFormFieldModule} from "@angular/material/form-field";
         MatListModule,
         MatIconModule,
         MatToolbarModule,
-        MatTabsModule
+        MatTabsModule,
+        MatTableModule,
+        MatRadioModule
     ],
   providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
