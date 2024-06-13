@@ -82,7 +82,7 @@ export class ChartsComponentComponent implements OnInit {
     this.chart = new Chart({
       chart: {
         type: 'line',
-        height: 325
+        height: 225
       },
       title: {
         text: 'Production & Wastage Data'

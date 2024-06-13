@@ -19,7 +19,7 @@ import {FakerEmployeeDataService} from "../../faker-employee-data";
     }
     #stage-parent {
       width: auto;
-      height: auto;      
+      height: auto;
     }
     #stage-parent {
       background: url('../../../assets/plant-layout-plan-design.png');

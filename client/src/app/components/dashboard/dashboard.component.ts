@@ -24,15 +24,26 @@ import {Employee} from "../../employee";
     </ngb-toast>
     
     <div class="body" [ngClass]="getBodyClass()">
-      <div class="top-section">
-        <app-assistants-component></app-assistants-component>
+      <div class="top-section" style="display:flex;">
+        <div class="widget left flex" style="width:30%;margin: 10px;">
+            <app-assistants-component></app-assistants-component>
+        </div>
+        <div class="widget-container right flex" style="width:40%;margin: 10px;">
+          <app-mixer-unit-component class="widget" style="max-height:400px;"></app-mixer-unit-component>
+        </div>
+        <div class="widget-container right flex" style="width:20%;margin: 10px;">
+          <app-ingredients-component class="widget"></app-ingredients-component>
+        </div>
       </div>
       <div class="middle-section" style="display: flex;">
-        <div class="widget left inline-flex" style="width: 50%;">
-          <app-charts-component></app-charts-component>
+        <div class="widget-container left flex" style="width: 50%;margin: 10px;">
+          <app-charts-component class="widget"></app-charts-component>
         </div>
-        <div class="widget-container right inline-flex" style="width:50%;">
-          <app-mixer-unit-component></app-mixer-unit-component>
+        <div class="widget-container right flex" style="width:20%;margin: 10px;">
+          <app-steps-component class="widget"></app-steps-component>
+        </div>
+        <div class="widget-container right inline-flex" style="width:30%;margin: 10px;">
+          <app-power-unit-charts-component class="widget"></app-power-unit-charts-component>
         </div>
       </div>
     </div>
