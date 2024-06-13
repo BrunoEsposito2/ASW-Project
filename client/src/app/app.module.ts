@@ -66,6 +66,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatTableModule} from "@angular/material/table";
 import {MatRadioModule} from "@angular/material/radio";
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -146,7 +147,8 @@ import {MatRadioModule} from "@angular/material/radio";
         MatToolbarModule,
         MatTabsModule,
         MatTableModule,
-        MatRadioModule
+        MatRadioModule,
+        NgOptimizedImage
     ],
   providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
