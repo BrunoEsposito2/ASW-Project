@@ -21,9 +21,6 @@ const routes: Routes = [
   { path: 'dashboard-pro', component: TemplateComponent },
 
   { path: 'employees', redirectTo: 'employees', pathMatch: 'full' },
-  //{ path: 'employees', component: EmployeesListComponent, canActivate: [canActivateGuard] },
-  { path: 'employees/new', component: AddEmployeeComponent, canActivate: [canActivateGuard] },
-  { path: 'employees/edit/:id', component: EditEmployeeComponent, canActivate: [canActivateGuard] },
   { path: 'employees/login', component: AuthEmployeeComponent, title: 'FraBruGia - Employee Login' },
   { path: 'employees/dashboard/:username', component: EmployeeComponent, title: 'FraBruGia - Employee Dashboard', canActivate: [canActivateGuard] },
   { path: 'employees/chat/:username', component: EmployeeChatComponent, title: 'FraBruGia - Employee Chat', canActivate: [canActivateGuard] },
@@ -35,9 +32,9 @@ const routes: Routes = [
   { path: 'admins/login', component: AuthAdminComponent, title: 'FraBruGia - Admin Login' },
   { path: 'admins/dashboard/:username', component: AdminComponent, title: 'FraBruGia - Admin Dashboard', canActivate: [canActivateGuard] },
   { path: 'admins/chat/:username', component: AdminChatComponent, title: 'FraBruGia - Admin Chat', canActivate: [canActivateGuard] },
-  { path: 'admins/:username/employees', component: EmployeesListComponent, canActivate: [canActivateGuard] },
-  { path: 'admins/:username/employees/new', component: AddEmployeeComponent, canActivate: [canActivateGuard] },
-  { path: 'admins/:username/employees/edit/:id', component: EditEmployeeComponent, canActivate: [canActivateGuard] },
+  { path: 'admins/:username/employees', component: EmployeesListComponent, title: 'FraBruGia - Employees List', canActivate: [canActivateGuard] },
+  { path: 'admins/:username/employees/new', component: AddEmployeeComponent, title: 'FraBruGia - Add New Employee', canActivate: [canActivateGuard] },
+  { path: 'admins/:username/employees/edit/:id', component: EditEmployeeComponent, title: 'FraBruGia - Edit Employee', canActivate: [canActivateGuard] },
   { path: 'employee-operating-data', redirectTo: 'employee-operating-data', pathMatch: 'full' },
   { path: 'cycle-production', redirectTo: 'cycle-production', pathMatch: 'full'},
 ];

@@ -94,11 +94,11 @@ export class EmployeeSideNavComponent implements OnInit {
     }
 
     redirectToDashboard() {
-        this.router.navigate(['admins/dashboard/' + this.activatedRoute.snapshot.paramMap.get('username')]);
+        this.router.navigate(['employees/dashboard/' + this.activatedRoute.snapshot.paramMap.get('username')]);
     }
 
     redirectToChat(): void {
-        this.router.navigate(["admins/chat/" + this.activatedRoute.snapshot.paramMap.get('username') !]);
+        this.router.navigate(["employees/chat/" + this.activatedRoute.snapshot.paramMap.get('username') !]);
     }
 
     toggleFakerService() {
@@ -114,9 +114,4 @@ export class EmployeeSideNavComponent implements OnInit {
             this.isFakerServiceActive = true;
         }
     }
-
-    protected readonly faAreaChart = faAreaChart;
-    protected readonly faUsers = faUsers;
-    protected readonly faMessage = faMessage;
-    protected readonly faDoorClosed = faDoorClosed;
 }

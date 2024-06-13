@@ -29,7 +29,6 @@
   top: 0;
   width: 5rem;
   height: 100vh;
-  box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
   background-color: #113c60;
 
   .logo-container {
@@ -41,13 +40,12 @@
     .logo {
       background: #fff;
       text-align: center;
-      width: 3rem;
-      min-width: 3rem;
+      width: 48px;
+      min-width: 48px;
+      height: 46px;
+      min-height: 46px;
       border-radius: 0.313rem;
       padding: 0.313rem;
-      font-size: 24px;
-      font-weight: 900;
-      cursor: pointer;
       border: none;
     }
     .logo-text {
@@ -71,6 +69,14 @@
       }
     }
   }
+}
+
+.logo-btn {
+  border-radius: 0.313rem;
+  border-color: transparent;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
 }
 
 .sidenav-collapsed {
@@ -106,6 +112,13 @@
         min-width: 2rem;
         margin: 0 0.5rem;
         text-align: center;
+
+        .fa-sign-out {
+          position: absolute;
+          bottom: 0;
+          padding-bottom: 1.5rem;
+        }
+
       }
 
       .sidenav-link-text {
@@ -118,6 +131,43 @@
     .sidenav-nav-link {
       background-color: #fff;
       color: #000;
+    }
+  }
+}
+
+.sidenav-nav-logout-item:hover {
+  .sidenav-nav-link {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.sidenav-nav-logout-item {
+  width: 100%;
+  margin-bottom: 0.625rem;
+  position: absolute;
+  bottom: 0;
+  padding: 0.938rem;
+
+  .sidenav-nav-link {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    color: #f3f3f3;
+    text-decoration: none;
+    border-radius: 0.625rem;
+    transition: all .3s ease;
+
+    .sidenav-link-icon {
+      font-size: 22px;
+      width: 2rem;
+      min-width: 2rem;
+      margin: 0 0.5rem;
+      text-align: center;
+    }
+
+    .sidenav-link-text {
+      margin-left: 1.5rem;
     }
   }
 }

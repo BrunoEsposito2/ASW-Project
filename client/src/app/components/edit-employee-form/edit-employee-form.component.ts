@@ -3,6 +3,11 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {Employee} from '../../employee';
 
+interface SideNavToggle {
+    screenWidth: number
+    collapsed: boolean
+}
+
 @Component({
     selector: 'edit-employee-form',
     templateUrl: 'edit-employee-form.component.html',
@@ -60,5 +65,10 @@ export class EditEmployeeFormComponent implements OnInit {
             styleClass = 'body-md-screen'
         }
         return styleClass
+    }
+
+    onToggleSidenav(data: SideNavToggle) {
+        this.screenWidth = data.screenWidth
+        this.collapsed = data.collapsed
     }
 }

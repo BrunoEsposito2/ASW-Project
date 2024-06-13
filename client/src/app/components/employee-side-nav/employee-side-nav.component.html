@@ -1,51 +1,18 @@
-<!--<div class="nav-items">
-    <div class="nav-item">
-        <fa-icon [icon]="faDashboard"></fa-icon>
-        <span>Dashboard</span>
-    </div>
-    <div class="nav-item">
-        <fa-icon [icon]="faLocation"></fa-icon>
-        <span>Locations</span>
-    </div>
-    <div class="nav-item">
-        <fa-icon [icon]="faShop"></fa-icon>
-        <span>Shops</span>
-    </div>
-    <div class="nav-item">
-        <fa-icon [icon]="faBox"></fa-icon>
-        <span>Products</span>
-    </div>
-    <div class="nav-item">
-        <fa-icon [icon]="faMoneyBill"></fa-icon>
-        <span>Sales</span>
-    </div>
-    <div class="nav-item">
-        <fa-icon [icon]="faChartBar"></fa-icon>
-        <span>Statistics</span>
-    </div>
-    <div class="nav-item">
-        <fa-icon [icon]="faContactBook"></fa-icon>
-        <span>Contact</span>
-    </div>
-    <div class="nav-item">
-        <fa-icon [icon]="faHand"></fa-icon>
-        <span>Help</span>
-    </div>
-</div>-->
-
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
     <div class="logo-container">
-        <button class="logo" (click)="toggleCollapse()">A</button>
-        <div class="logo-text" @fadeInOut *ngIf="collapsed">Angular</div>
+        <button class="logo-btn" (click)="toggleCollapse()">
+            <img class="logo" src="assets/tower-logo-mini.png" alt="MiniLogo">
+        </button>
+        <div class="logo-text" @fadeInOut *ngIf="collapsed">FraBruGia</div>
         <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
-           <i class="fal fa-times close-icon"></i>
+            <i class="fal fa-times close-icon"></i>
         </button>
     </div>
     <ul class="sidenav-nav">
         <li class="sidenav-nav-item">
             <a class="sidenav-nav-link" (click)="redirectToDashboard()">
                 <i class="sidenav-link-icon">
-                    <fa-icon [icon]="faAreaChart"></fa-icon>
+                    <fa-icon class="fal fa-chart-bar"></fa-icon>
                 </i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">Dashboard</span>
             </a>
@@ -53,15 +20,15 @@
         <li class="sidenav-nav-item">
             <a class="sidenav-nav-link" (click)="redirectToChat()">
                 <i class="sidenav-link-icon">
-                    <fa-icon [icon]="faMessage"></fa-icon>
+                    <fa-icon class="fal fa-comments"></fa-icon>
                 </i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">Chat</span>
             </a>
         </li>
-        <li class="sidenav-nav-item">
+        <li class="sidenav-nav-logout-item">
             <a class="sidenav-nav-link" (click)="redirectToHomePage()">
                 <i class="sidenav-link-icon">
-                    <fa-icon [icon]="faDoorClosed"></fa-icon>
+                    <fa-icon class="fal fa-sign-out"></fa-icon>
                 </i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">Logout</span>
             </a>

@@ -7,7 +7,7 @@ import { AuthInterceptor } from './services/auth-interceptor';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {EmployeesListComponent} from './components/employees-list/employees-list.component';
-import {AddEmployeeFormComponent} from './components/employee-form/add-employee-form.component';
+import {AddEmployeeFormComponent} from './components/add-employee-form/add-employee-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddEmployeeComponent} from './components/add-employee/add-employee.component';
 import {EditEmployeeComponent} from './components/edit-employee/edit-employee.component';

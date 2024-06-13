@@ -8,6 +8,11 @@ import {SocketChatService} from "../../services/socket-chat.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {filter} from "rxjs";
 
+interface SideNavToggle {
+  screenWidth: number
+  collapsed: boolean
+}
+
 @Component({
   selector: 'app-chat',
   templateUrl: 'chat.component.html',
@@ -45,5 +50,10 @@ export class ChatComponent implements AfterViewChecked, OnInit {
       styleClass = 'body-md-screen'
     }
     return styleClass
+  }
+
+  onToggleSidenav(data: SideNavToggle) {
+    this.screenWidth = data.screenWidth
+    this.collapsed = data.collapsed
   }
 }

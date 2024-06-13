@@ -3,8 +3,13 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Valid
 import {BehaviorSubject} from 'rxjs';
 import {Employee} from '../../employee';
 
+interface SideNavToggle {
+  screenWidth: number
+  collapsed: boolean
+}
+
 @Component({
-  selector: 'app-employee-form',
+  selector: 'app-add-employee-form',
   templateUrl: './add-employee-form.component.html',
   styleUrls: ['./add-employee-form.component.scss']
 })
@@ -60,5 +65,10 @@ export class AddEmployeeFormComponent implements OnInit {
       styleClass = 'body-md-screen'
     }
     return styleClass
+  }
+
+  onToggleSidenav(data: SideNavToggle) {
+    this.screenWidth = data.screenWidth
+    this.collapsed = data.collapsed
   }
 }

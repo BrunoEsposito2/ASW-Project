@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {Employee} from '../../employee';
@@ -7,7 +7,6 @@ import {EmployeeService} from '../../services/employee.service';
 @Component({
   selector: 'app-edit-employee.component.ts',
   template: `
-    <app-admin-side-nav></app-admin-side-nav>
     <edit-employee-form [initialState]="employee" (formSubmitted)="editEmployee($event)"></edit-employee-form>
     <app-floating-chat></app-floating-chat>
     <app-footer></app-footer>

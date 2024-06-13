@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 interface SideNavToggle {
   screenWidth: number
@@ -11,12 +11,12 @@ interface SideNavToggle {
     <app-admin-side-nav (onToggleSidenav)="onToggleSidenav($event)"></app-admin-side-nav>
     <div>
       <app-dashboard
-          [collapsed]="isSideNavCollapsed"
+          [collapsed]="collapsed"
           [screenWidth]="screenWidth"
       ></app-dashboard>
       <app-floating-chat></app-floating-chat>
       <app-footer
-          [collapsed]="isSideNavCollapsed"
+          [collapsed]="collapsed"
           [screenWidth]="screenWidth"
       ></app-footer>
     </div>
@@ -26,11 +26,11 @@ interface SideNavToggle {
 })
 
 export class AdminComponent {
-  isSideNavCollapsed = false
-  screenWidth = 0
+  @Input() collapsed = false
+  @Input() screenWidth = 0
 
   onToggleSidenav(data: SideNavToggle) {
     this.screenWidth = data.screenWidth
-    this.isSideNavCollapsed = data.collapsed
+    this.collapsed = data.collapsed
   }
 }

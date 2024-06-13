@@ -1,4 +1,11 @@
-<section id="chat" [ngClass]="getBodyClass()">
+<app-admin-side-nav
+        *ngIf="socketService.getEmployeeImage(this.socketService.userName) == 'admin'; else employeeSidenav"
+        (onToggleSidenav)="onToggleSidenav($event)"
+></app-admin-side-nav>
+<ng-template #employeeSidenav>
+    <app-employee-side-nav (onToggleSidenav)="onToggleSidenav($event)"></app-employee-side-nav>
+</ng-template>
+<section class="body" id="chat" [ngClass]="getBodyClass()">
     <mat-card class="users-list-card">
         <mat-card-header>
             <h2 style="color: #363a3b">Active Users List</h2>
