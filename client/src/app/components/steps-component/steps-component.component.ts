@@ -9,12 +9,13 @@ import { FormsModule} from "@angular/forms";
 @Component({
   selector: 'app-steps-component',
   template: `
-    <div class="container">
+    <div class="container" style="margin:10px;">
+      <h2 style="text-align:center;">Steps</h2>
       <div class="row">
         <div class="col">
 
 
-          <ul class="list-unstyled">
+          <ul class="list-unstyled" style="list-style:none;">
             <li *ngFor="let state of states; let i = index">
               {{ state }}
               <mat-progress-bar mode="determinate" *ngIf="this.currentState==i" [value]="this.currentValue"></mat-progress-bar>
@@ -26,7 +27,7 @@ import { FormsModule} from "@angular/forms";
       </div>
       <div class="row">
         <div class="col-sm-5 col-12">
-          <p>Cicli completati: {{cycle}}</p>
+          <p style="margin:10px;text-align:center;">Cicli completati: {{cycle}}</p>
         </div>
         <div class="col-sm-7">
 
