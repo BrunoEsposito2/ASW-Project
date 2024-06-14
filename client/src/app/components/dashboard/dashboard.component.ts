@@ -26,10 +26,10 @@ import {Employee} from "../../employee";
         </div>
       </div>
       <div class="middle-section">
-        <div class="widget right">
+        <div id="ingredients" class="widget right">
           <app-ingredients-component></app-ingredients-component>
         </div>
-        <div class="widget right">
+        <div id="steps" class="widget right">
           <app-steps-component></app-steps-component>
         </div>
       </div>

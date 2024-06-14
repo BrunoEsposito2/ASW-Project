@@ -269,3 +269,28 @@ textarea:focus-visible {
 ::-webkit-scrollbar-thumb:hover {
   background: #b5e3ff;
 }
+
+.toast {
+  position: fixed;
+  top: 3%; /* Distanza dal top */
+  left: 50%; /* Centrato orizzontalmente */
+  transform: translateX(-50%);
+  z-index: 1050; /* Assicura che sia sopra gli altri elementi */
+  animation: fadeIn 0.5s forwards;
+  min-width: 200px; // Puoi adattare la larghezza secondo necessità
+  background-color: #A7D0FF;
+  color: #061F35;
+  border-radius: 5px;
+  padding: 6px;
+  height: 50px;
+}
+
+@keyframes fadeIn {
+  from { bottom: 0; opacity: 0; }
+  to { bottom: 3%; opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { bottom: 3%; opacity: 1; }
+  to { bottom: 0; opacity: 0; }
+}

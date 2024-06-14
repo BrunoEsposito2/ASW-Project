@@ -67,6 +67,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatTableModule} from "@angular/material/table";
 import {MatRadioModule} from "@angular/material/radio";
 import {NgOptimizedImage} from "@angular/common";
+import {HighchartsChartModule} from "highcharts-angular";
 
 @NgModule({
     declarations: [
@@ -148,7 +149,8 @@ import {NgOptimizedImage} from "@angular/common";
         MatTabsModule,
         MatTableModule,
         MatRadioModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        HighchartsChartModule
     ],
   providers: [
       { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

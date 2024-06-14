@@ -21,7 +21,7 @@ export class FakerProductionService {
                 // La logica di reindirizzamento può essere spostata nel componente che utilizza il servizio.
             },
             error: (error) => {
-                alert('Failed to create production');
+                //alert('Failed to create production');
                 console.error(error);
             },
         });

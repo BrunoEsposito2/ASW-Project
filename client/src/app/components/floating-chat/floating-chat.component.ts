@@ -44,7 +44,7 @@ export class FloatingChatComponent implements AfterViewChecked, OnInit {
     });
     this.socketService.socket.on('room-message', (room: string, data: ChatMessage[]) => {
       this.isShown = true;
-      this.notifyUser = room.split("_")[1];
+      this.notifyUser = room.split("-")[1];
       this.notifyMessage = data[data.length-1].message!;
       setTimeout(()=>{
         this.isShown = false;

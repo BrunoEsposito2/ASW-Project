@@ -3,6 +3,7 @@
   transition: all .5s ease;
   background: #f4f7fa;
   padding: 3rem;
+  padding-bottom: 5.5rem;
 }
 
 .body-trimmed {
@@ -52,6 +53,18 @@
 
 #chart-component {
   padding-top: 10px;
+  align-self: center;
+}
+
+#ingredients {
+  padding-top: 10px;
+  align-self: center;
+}
+
+#steps {
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 // Stili per il toast personalizzato

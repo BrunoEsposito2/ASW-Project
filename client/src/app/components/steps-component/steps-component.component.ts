@@ -1,59 +1,53 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { CycleProductionService} from "../../services/cycle-production.service";
-import { CycleProduction} from "../../cycle-production";
-import { Subject } from 'rxjs';
-import { FakerCycleProduction} from "../../faker-cycle-production";
-import { BehaviorSubject} from "rxjs";
-import { FormsModule} from "@angular/forms";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CycleProductionService } from "../../services/cycle-production.service";
+import { CycleProduction } from "../../cycle-production";
+import { FakerCycleProduction } from "../../faker-cycle-production";
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'app-steps-component',
   template: `
-    <div class="container" style="margin:10px;">
-      <h2 style="text-align:center;">Steps</h2>
-      <div class="row">
-        <div class="col">
-
-
-          <ul class="list-unstyled" style="list-style:none;">
-            <li *ngFor="let state of states; let i = index">
-              {{ state }}
-              <mat-progress-bar mode="determinate" *ngIf="this.currentState==i" [value]="this.currentValue"></mat-progress-bar>
-              <mat-progress-bar mode="determinate" *ngIf="this.currentState>i" [value]="100"></mat-progress-bar>
-              <mat-progress-bar mode="determinate" *ngIf="this.currentState<i" [value]="0"></mat-progress-bar>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-5 col-12">
-          <p style="margin:10px;text-align:center;">Cicli completati: {{cycle}}</p>
-        </div>
-        <div class="col-sm-7">
-
-        </div>
-      </div>
-
-    </div>
+    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions!"></highcharts-chart>
+    <p>Cicli completati: {{cycle}}</p>
   `,
-  styles: [
-  ]
+  styles: [`
+    p {
+      font-size: 18px;
+      font-weight: 430;
+      line-height: 32px;
+      font-family: Roboto, sans-serif;
+      letter-spacing: .0125em;
+      margin: 0 0 16px;
+      text-align: center;
+    }
+  `]
 })
 export class StepsComponentComponent implements OnInit {
-
   public cycle: string = '0';
   public currentState: number = 0;
   public currentValue: number = 0;
   public cycleProduction!: CycleProduction;
   public cyclePro: CycleProduction[] = [];
-  constructor(private cycleProductionService: CycleProductionService, private fakerCycleProduction: FakerCycleProduction) { }
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: Highcharts.Options | undefined
+  chart: any
+
+  states = ['Flushing', 'Adding', 'Mixing', 'Cooking', 'Packaging'];
+
+  constructor(
+      private cycleProductionService: CycleProductionService,
+      private fakerCycleProduction: FakerCycleProduction,
+      private cd: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
+    this.initChart();
     this.fakerCycleProduction.getDataObservable().subscribe((newData) => {
       if(newData != null) {
         this.cycleProduction = newData;
         console.log("Data emitted from getDataObs: ", newData);
         this.updateFields();
+        this.updateChart();
       } else {
         const currentDate = new Date();
         this.cycleProduction = {
@@ -63,6 +57,123 @@ export class StepsComponentComponent implements OnInit {
           cycle: '0'
         };
         this.updateFields();
+        this.updateChart();
+      }
+    });
+  }
+
+  private initChart() {
+    this.chartOptions = {
+      chart: {
+        type: 'column',
+        polar: true
+      },
+      title: {
+        text: 'Cycle Production Progress',
+        align: 'center'
+      },
+      pane: {
+        size: '85%',
+        innerSize: '20%',
+        endAngle: 270
+      },
+      xAxis: {
+        tickInterval: 1,
+        labels: {
+          //align: 'right',
+          //useHTML: true,
+          //allowOverlap: true,
+          //step: 1,
+          //y: 3,
+          //style: {
+          //fontSize: '13px'
+          //}
+        },
+        lineWidth: 0,
+        gridLineWidth: 0,
+        categories: this.states
+      },
+      yAxis: {
+        lineWidth: 0,
+        tickInterval: 25,
+        reversedStacks: false,
+        endOnTick: true,
+        showLastLabel: true,
+        gridLineWidth: 0,
+        min: 0,
+        max: 100
+      },
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          borderWidth: 0,
+          pointPadding: 0,
+          groupPadding: 0.15,
+          borderRadius: 5
+        }
+      },
+      series: [{
+        name: 'Progress',
+        data: this.getProgressData()
+      }] as Highcharts.SeriesOptionsType[]
+    };
+  }
+
+  private updateChart() {
+    this.chartOptions = {
+      chart: {
+        type: 'column',
+        polar: true
+      },
+      title: {
+        text: 'Cycle Production Progress',
+        align: 'center'
+      },
+      pane: {
+        size: '85%',
+        innerSize: '20%',
+        endAngle: 270
+      },
+      xAxis: {
+        tickInterval: 1,
+        lineWidth: 0,
+        gridLineWidth: 0,
+        categories: this.states
+      },
+      yAxis: {
+        lineWidth: 0,
+        tickInterval: 25,
+        reversedStacks: false,
+        endOnTick: true,
+        showLastLabel: true,
+        gridLineWidth: 0,
+        min: 0,
+        max: 100
+      },
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          borderWidth: 0,
+          pointPadding: 0,
+          groupPadding: 0.15,
+          borderRadius: 5
+        }
+      },
+      series: [{
+        name: 'Progress',
+        data: this.getProgressData()
+      }] as Highcharts.SeriesOptionsType[]
+    };
+  }
+
+  private getProgressData() {
+    return this.states.map((state, index) => {
+      if (index < this.currentState) {
+        return 100;
+      } else if (index === this.currentState) {
+        return this.currentValue;
+      } else {
+        return 0;
       }
     });
   }
@@ -73,29 +184,8 @@ export class StepsComponentComponent implements OnInit {
     this.cycle = this.cycleProduction.cycle;
   }
 
-  states = ['Flushing', 'Adding', 'Mixing', 'Cooking', 'Packaging'];
-
-  getProgressBarMode(): string {
-    if(this.currentValue === 0) {
-      return 'indeterminate';
-    } else {
-      return 'determinate';
-    }
-  }
-
-  getLatestCycleProduction(data: CycleProduction[]): CycleProduction{
-    const currentDate = new Date();
-
-    const filteredData = data.filter(item => item.date !== undefined && new Date(item.date) >= currentDate);
-
-    const sortedData = filteredData.sort((a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime());
-
-    const latestCycle = sortedData[0];
-    return latestCycle;
-  }
-
   mappingState(state: string): number {
-    if(state =="Flushing") {
+    if(state == "Flushing") {
       return 0;
     } else if (state == "Adding") {
       return 1;
@@ -108,10 +198,10 @@ export class StepsComponentComponent implements OnInit {
     }
     return -1;
   }
+
   nextStep(): void {
     if(this.currentState < this.states.length) {
       this.currentState++;
     }
   }
-
 }
