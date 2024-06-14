@@ -177,34 +177,6 @@
     </section>
 </div>
 
-<div *ngIf="buttonsOn" class="position-fixed bottom-0 end-0">
-    <button type="button"
-            class="btn btn-floating btn-secondary btn-lg"
-            style="margin-right: 15px; margin-bottom: 100px;"
-            (click)='socketService.sendMessageWarningOrAlert("Allarme generico")'
-            title="Allarme generico"
-            mdbRipple>
-        <i class="fa fa-warning"></i>
-    </button>
-    <button type="button"
-            class="btn btn-floating btn-secondary btn-lg"
-            style="margin-right: 15px; margin-bottom: 100px;"
-            (click)='socketService.sendMessageWarningOrAlert("Allarme Antincendio")'
-            title="Allarme Antincendio"
-            mdbRipple>
-        <i class="fa fa-fire"></i>
-    </button>
-
-    <button type="button"
-            class="chat-toggle-btn"
-            style="float: right; margin-right: 1rem;"
-            (click)="toggleChat()"
-            title="Invia un messaggio"
-            mat-fab
-    >
-        <i class="fas fa-plus"></i>
-    </button>
-</div>
 
 <div>
     <!-- modified -->
@@ -218,20 +190,24 @@
         <a class="fal fa-2x fa-comment"></a>
     </button>
     <button type="button"
-            class="btn btn-floating btn-secondary btn-lg btn-floating position-fixed bottom-0 end-0"
-            style="margin-right: 15px; margin-bottom: 100px;"
-            (click)='socketService.sendMessageWarningOrAlert("Allarme generico")'
+            class="send-msg-btn"
+            [ngClass]="{ 'active': isActive }"
             title="Allarme generico"
-            mdbRipple>
-        <i class="fa fa-warning"></i>
+            style="margin-right:70px; background-color: orange;"
+            (click)='socketService.sendMessageWarningOrAlert("Allarme generico")'
+            color="primary"
+            mat-fab>
+        <a class="fal fa-2x fa-exclamation"></a>
     </button>
     <button type="button"
-            class="btn btn-floating btn-secondary btn-lg btn-floating position-fixed bottom-0 end-0"
-            style="margin-right: 15px; margin-bottom: 150px;"
+            class="send-msg-btn"
+            [ngClass]="{ 'active': isActive }"
+            title="Allarme antincendio"
+            style=" margin-right:130px; background-color: red;"
             (click)='socketService.sendMessageWarningOrAlert("Allarme Antincendio")'
-            title="Allarme Antincendio"
-            mdbRipple>
-        <i class="fa fa-fire"></i>
+            color="primary"
+            mat-fab>
+        <a class="fal fa-2x fa-fire"></a>
     </button>
     <div #toastNotify *ngIf="isShown" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="display:block!important; position: absolute; top: 0; right: 0;">
         <div class="toast-header">
