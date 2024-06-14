@@ -127,35 +127,39 @@
                                             </div>
                                         </button>
 
-                                        <div class="row g-3">
-                                            <button class="col-2 btn btn-sm btn-warning"
+                                        <div class="row widget-container flex">
+                                            <button mat-mini-fab class="col-2 btn btn-sm btn-warning inline-flex"
                                                     title="Cambia ricetta"
                                                     (click)="sendSingleMessage(user, 'Cambia ricetta')"
+                                                    style="background-color: blue;"
                                             >
                                                 <i class="fas fa-exchange"></i>
                                             </button>
-                                            <div class="col-1"></div>
-                                            <button class="col-2 btn btn-sm btn-info"
+
+                                            <button mat-mini-fab class="col-2 btn btn-sm btn-info inline-flex"
                                                     title="Vieni in cabina"
                                                     (click)="sendSingleMessage(user, 'Vieni in cabina')"
+                                                    style="background-color: orange;"
                                             >
                                                 <i class="fas fa-chalkboard-teacher"></i>
                                             </button>
-                                            <div class="col-1"></div>
-                                            <button class="col-2 btn btn-sm btn-success"
+
+                                            <button mat-mini-fab class="col-2 btn btn-sm btn-success inline-flex"
                                                     title="Vai in pausa"
                                                     (click)="sendSingleMessage(user, 'Vai in pausa')"
+                                                    style="background-color: red;"
                                             >
                                                 <i class="fas fa-pause"></i>
                                             </button>
-                                            <div class="col-1"></div>
-                                            <button class="col-2 btn btn-sm btn-danger"
+
+                                            <button mat-mini-fab class="col-2 btn btn-sm btn-danger inline-flex"
                                                     title="Fine del turno"
                                                     (click)="sendSingleMessage(user, 'Fine del turno')"
+                                                    style="background-color: green;"
                                             >
-                                                <i class="fas fa-house"></i>
+                                                <i class="fas fa-regular fa-home"></i>
                                             </button>
-                                            <div class="col-1"></div>
+
                                         </div>
                                     </li>
                                 </ul>
