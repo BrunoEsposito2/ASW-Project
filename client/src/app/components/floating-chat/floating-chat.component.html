@@ -127,7 +127,7 @@
                                             </div>
                                         </button>
 
-                                        <div class="row widget-container flex">
+                                        <div class="row widget-container flex" *ngIf="isAdmin">
                                             <button mat-mini-fab class="col-2 btn btn-sm btn-warning inline-flex"
                                                     title="Cambia ricetta"
                                                     (click)="sendSingleMessage(user, 'Cambia ricetta')"
@@ -189,7 +189,8 @@
             mat-fab>
         <a class="fal fa-2x fa-comment"></a>
     </button>
-    <button type="button"
+    <button *ngIf="isAdmin"
+            type="button"
             class="send-msg-btn"
             [ngClass]="{ 'active': isActive }"
             title="Allarme generico"
@@ -199,7 +200,8 @@
             mat-fab>
         <a class="fal fa-2x fa-exclamation"></a>
     </button>
-    <button type="button"
+    <button *ngIf="isAdmin"
+            type="button"
             class="send-msg-btn"
             [ngClass]="{ 'active': isActive }"
             title="Allarme antincendio"

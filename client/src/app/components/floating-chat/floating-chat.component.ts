@@ -3,6 +3,7 @@ import {Toast} from "bootstrap";
 import {ChatMessage} from "../../chat-message";
 import {SocketChatService} from "../../services/socket-chat.service";
 import {MatIconModule} from "@angular/material/icon";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-floating-chat',
@@ -15,12 +16,18 @@ export class FloatingChatComponent implements AfterViewChecked, OnInit {
 
   isActive: boolean
   buttonsOn: boolean
+  isAdmin: boolean
 
   isShown: boolean
   notifyUser: string
   notifyMessage: string
 
-  constructor(protected socketService: SocketChatService) {
+  constructor(protected socketService: SocketChatService, private route : ActivatedRoute) {
+    this.isAdmin = false;
+    
+    if(this.route.routeConfig?.path?.includes('admin'))
+      this.isAdmin = true;
+
     this.isActive = false
     this.buttonsOn = false
     this.isShown = false;
