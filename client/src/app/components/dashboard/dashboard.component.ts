@@ -10,104 +10,49 @@ import {Employee} from "../../employee";
   template: `
     <div class="body" [ngClass]="getBodyClass()">
       <div class="top-section">
-        <div class="widget left">
-            <app-assistants-component></app-assistants-component>
+        <app-assistants-component></app-assistants-component>
+      </div>
+      <div class="middle-section">
+        <div class="widget right">
+          <app-power-unit-charts-component></app-power-unit-charts-component>
         </div>
       </div>
       <div class="middle-section">
         <div id="mixer" class="widget left">
           <app-mixer-unit-component></app-mixer-unit-component>
         </div>
-        <div class="widget right">
-          <app-ingredients-component></app-ingredients-component>
+        <div id="chart-component" class="widget left">
+          <app-charts-component></app-charts-component>
         </div>
       </div>
       <div class="middle-section">
-        <div class="widget left">
-          <app-charts-component></app-charts-component>
+        <div class="widget right">
+          <app-ingredients-component></app-ingredients-component>
         </div>
         <div class="widget right">
           <app-steps-component></app-steps-component>
         </div>
       </div>
-      <div class="bottom-section">
-        <div class="widget right">
-          <app-power-unit-charts-component></app-power-unit-charts-component>
-        </div>
-      </div>
     </div>
-    <ngb-toast
-        (hidden)="isToastVisible = false"
-        [ngClass]="{'d-block': isToastVisible, 'd-none': !isToastVisible}">
-      <div [ngClass]="'toast show toast-custom'">
-        <div class="toast-header toast-custom alert-custom">
-          <strong class="me-auto text-white">Alert</strong>
-          <small class="text-white">{{ currentTime }}</small>
-          <button type="button" class="btn-close close-custom" (click)="isToastVisible = false" aria-label="Close"></button>
-        </div>
-        <div class="toast-body body-toast">
-          {{ messageToast }}
-        </div>
-      </div>
-    </ngb-toast>
-    
-    <!--<section id="main" style="height: 88vh; overflow: hidden;">
-      <div class="row">
-        <div class="col-4">
-          <div class="card bg-light">
-            <div class="card-header custom-font">Productivity component</div>
-            <div class="card-body">
-              <app-charts-component></app-charts-component>
-            </div>
+
+    <div class="toast-container">
+      <ngb-toast
+          (hidden)="isToastVisible = false"
+          [ngClass]="{'d-block': isToastVisible, 'd-none': !isToastVisible}">
+        <div [ngClass]="'toast show toast-custom'">
+          <div class="toast-header toast-custom alert-custom">
+            <strong class="toast-title">Alert</strong>
+            <small class="text-white">{{ currentTime }}</small>
+            <button class="btn-close close-custom" (click)="isToastVisible = false" aria-label="Close">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="toast-body body-toast">
+            {{ messageToast }}
           </div>
         </div>
-        <div class="col-4">
-          <div class="card bg-light">
-            <div class="card-header custom-font">Mixer unit component</div>
-            <div class="card-body">
-              <app-mixer-unit-component class="d-flex justify-content-center"></app-mixer-unit-component>
-            </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="card bg-light">
-            <div class="card-header custom-font">Assistants component</div>
-            <div class="card-body less-padding">
-              <app-assistants-component></app-assistants-component>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-4">
-          <div class="card bg-light">
-            <div class="card-header custom-font">Power unit component</div>
-            <div class="card-body">
-              <app-power-unit-component></app-power-unit-component>
-              <app-power-unit-charts-component></app-power-unit-charts-component>
-            </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="card bg-light">
-            <div class="card-header custom-font">Ingredients component </div>
-            <div class="card-body">
-              <app-ingredients-component></app-ingredients-component>
-            </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="card bg-light">
-            <div class="card-header custom-font">Steps component</div>
-            <div class="card-body">
-              <app-steps-component>
-              </app-steps-component>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>-->
-    <!--<button (click)="showToast()" class="btn btn-primary">Mostra Toast</button>-->
+      </ngb-toast>
+    </div>
   `,
   styleUrls: ['./dashboard.component.style.scss']
 })

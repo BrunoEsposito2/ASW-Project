@@ -81,39 +81,53 @@ export class ChartsComponentComponent implements OnInit {
     // Creazione del nuovo grafico
     this.chart = new Chart({
       chart: {
-        type: 'line',
-        height: 225
+        type: 'column',
+        height: 440
       },
       title: {
-        text: 'Production & Wastage Data'
+        text: 'Production & Wastage Data',
+        align: 'center'
       },
       xAxis: {
-        categories: labels
+        categories: labels, // Assicurati che labels sia definito e contenga le categorie
+        crosshair: true,
+        accessibility: {
+          description: 'Labels'
+        }
       },
       yAxis: {
+        min: 0,
         title: {
           text: 'kilograms'
         }
       },
+      tooltip: {
+        valueSuffix: ' kg'
+      },
+      plotOptions: {
+        column: {
+          pointPadding: 0.2,
+          borderWidth: 0
+        }
+      },
       series: [
         {
-          name: "Wasted",
-          type: "line",
-          color: '#044342',
-          data: wasteData
+          name: 'Wasted',
+          data: wasteData, // Assicurati che wasteData sia definito e contenga i dati
+          color: '#044342'
         },
         {
           name: 'Produced',
-          type: 'line',
-          color: '#ed9e20',
-          data: productData
-        },
-      ],
+          data: productData, // Assicurati che productData sia definito e contenga i dati
+          color: '#ed9e20'
+        }
+      ] as Highcharts.SeriesOptionsType[],
       credits: {
         enabled: false
       }
-    })
+    });
   }
+
 
 // Metodi per scorrere avanti e indietro nel tempo
   nextPage(): void {
