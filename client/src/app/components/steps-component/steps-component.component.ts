@@ -7,7 +7,7 @@ import * as Highcharts from 'highcharts';
 @Component({
   selector: 'app-steps-component',
   template: `
-    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions!"></highcharts-chart>
+    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions!" style="display:flex;"></highcharts-chart>
     <p>Cicli completati: {{cycle}}</p>
   `,
   styles: [`
