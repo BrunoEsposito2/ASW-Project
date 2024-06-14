@@ -15,99 +15,54 @@
   margin-left: 5rem;
 }
 
-.top-section {
-  @media only screen and (max-width: 1600px) {
-    width: 1280px;
-  }
-  @media only screen and (max-width: 1500px) {
-    width: 1180px;
-  }
-  @media only screen and (max-width: 1400px) {
-    width: 1080px;
-  }
-  @media only screen and (max-width: 1200px) {
-    width: 980px;
-  }
+.body {
+  display: flex;
+  flex-direction: column;
 }
+
 .middle-section {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
-  @media only screen and (max-width: 1600px) {
-    width: 1280px;
-  }
-  @media only screen and (max-width: 1500px) {
-    width: 1200px;
-  }
-  @media only screen and (max-width: 1400px) {
-    width: 1080px;
-  }
-  @media only screen and (max-width: 1200px) {
-    width: 980px;
-  }
-  .widget {
-    height: 350px;
-    background-color: #fff;
-    border-radius: 5px;
-    margin: 10px;
-    box-shadow: 5px 5px 5px #939393;
-    &.left {
-      width: fit-content;
-      height: fit-content;
-      @media only screen and (max-width: 1600px) {
-        width: 790px;
-      }
-      @media only screen and (max-width: 1500px) {
-        width: 690px;
-      }
-      @media only screen and (max-width: 1400px) {
-        width: 590px;
-      }
-      @media only screen and (max-width: 1200px) {
-        width: 490px;
-      }
-    }
-    &.right {
-      width: fit-content;
-      height: fit-content;
-    }
-  }
+  margin-bottom: 20px; // Spazio tra le righe
+  margin-top: 20px; // Spazio tra le righe
 }
-.bottom-section {
-  display: flex;
-  justify-content: space-between;
-  .widget {
-    height: 250px;
-    background-color: #fff;
-    border-radius: 5px;
-    margin: 10px;
-    box-shadow: 5px 5px 5px #939393;
-    &.left {
-      width: 670px;
-      @media only screen and (max-width: 1200px) {
-        width: 570px;
-      }
-    }
-    &.right {
-      width: 670px;
-      @media only screen and (max-width: 1600px) {
-        width: 570px;
-      }
-      @media only screen and (max-width: 1500px) {
-        width: 470px;
-      }
-      @media only screen and (max-width: 1400px) {
-        width: 370px;
-      }
-      @media only screen and (max-width: 1200px) {
-        width: 370px;
-      }
-    }
+
+.widget {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #939393;
+  flex: 1;
+  margin: 0 10px; // Spazio tra i widget
+}
+
+.left, .right {
+  flex-basis: 48%; // Assicura che due widget occupino lo spazio di una riga
+}
+
+@media screen and (max-width: 768px) {
+  .middle-section {
+    flex-direction: column;
+  }
+
+  .left, .right {
+    flex-basis: 100%;
+    margin: 10px 0;
   }
 }
 
-#mixer {
-  width: fit-content;
-  height: fit-content;
+// Stili per il toast personalizzato
+.toast-custom {
+  background-color: #007bff;  // Colore di sfondo del toast
+  color: #ffffff;  // Colore del testo
+  border-color: #0056b3;  // Colore del bordo (opzionale)
 }
+
+.close-custom {
+  color: #ffffff;  // Colore della "x" per chiudere il toast
+}
+
+.body-toast {
+  padding: 10px;  // Padding del corpo del toast
+}
+
 

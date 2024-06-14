@@ -8,21 +8,6 @@ import {Employee} from "../../employee";
 @Component({
   selector: 'app-dashboard',
   template: `
-    <ngb-toast
-        (hidden)="isToastVisible = false"
-        [ngClass]="isToastVisible ? 'd-block' : 'd-none'">
-      <div [ngClass]="'toast show toast-custom'">
-        <div class="toast-header toast-custom alert-custom">
-          <strong class="me-auto text-white">Alert</strong>
-          <small class="text-white">{{currentTime}}</small>
-          <button type="button" class="btn-close close-custom" (click)="isToastVisible = false" aria-label="Close"></button>
-        </div>
-        <div class="toast-body body-toast">
-          {{messageToast}}
-        </div>
-      </div>
-    </ngb-toast>
-    
     <div class="body" [ngClass]="getBodyClass()">
       <div class="top-section">
         <div class="widget left">
@@ -49,24 +34,22 @@ import {Employee} from "../../employee";
         <div class="widget right">
           <app-power-unit-charts-component></app-power-unit-charts-component>
         </div>
-        <div class="widget left">
-          <ngb-toast
-              (hidden)="isToastVisible = false"
-              [ngClass]="isToastVisible ? 'd-block' : 'd-none'">
-            <div [ngClass]="'toast show toast-custom'">
-              <div class="toast-header toast-custom alert-custom">
-                <strong class="me-auto text-white">Alert</strong>
-                <small class="text-white">{{currentTime}}</small>
-                <button type="button" class="btn-close close-custom" (click)="isToastVisible = false" aria-label="Close"></button>
-              </div>
-              <div class="toast-body body-toast">
-                {{messageToast}}
-              </div>
-            </div>
-          </ngb-toast>
-        </div>
       </div>
     </div>
+    <ngb-toast
+        (hidden)="isToastVisible = false"
+        [ngClass]="{'d-block': isToastVisible, 'd-none': !isToastVisible}">
+      <div [ngClass]="'toast show toast-custom'">
+        <div class="toast-header toast-custom alert-custom">
+          <strong class="me-auto text-white">Alert</strong>
+          <small class="text-white">{{ currentTime }}</small>
+          <button type="button" class="btn-close close-custom" (click)="isToastVisible = false" aria-label="Close"></button>
+        </div>
+        <div class="toast-body body-toast">
+          {{ messageToast }}
+        </div>
+      </div>
+    </ngb-toast>
     
     <!--<section id="main" style="height: 88vh; overflow: hidden;">
       <div class="row">
