@@ -53,3 +53,25 @@ body {
     text-align: center;
     font-family: 'Roboto', sans-serif;
 }
+
+/* Customized scroll bar */
+/* width */
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #113c60;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #2EA1CB;
+    border-radius: 4.5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #113c60;
+}

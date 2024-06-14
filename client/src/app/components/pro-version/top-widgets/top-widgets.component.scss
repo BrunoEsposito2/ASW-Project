@@ -1,54 +1,68 @@
 .widget-container {
   display: inline-flex;
-  .widget {
-    width: 275px;
-    height: 125px;
-    background-color: #fff;
-    color: #fff;
-    border-radius: 5px;
-    margin: 10px;
-    box-shadow: 5px 5px 5px #939393;
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    &.green {
-      background-color: rgb(4, 67, 66);
-    }
-    &.yellow {
-      background-color: rgb(237, 158, 32);
-    }
-    &.red {
-      background-color: rgb(126, 5, 5);
-    }
-    &.blue {
-      background-color: rgb(105, 32, 251);
-    }
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    .icon {
-      width: 50px;
-      font-size: 40px;
-      text-align: center;
-    }
-    .value {
-      text-align: center;
-      width: 125px;
-      .top {
-        font-size: 20px;
-      }
-      .bottom {
-        font-size: 15px;
-        margin-top: 10px;
-      }
-      .data {
-        margin-top: 10px;
-      }
-    }
-    transition: all 0.3s ease;
-  }
-  .collapsed {
-    /* Stili del widget quando è aperto */
-    width: 275px;
-    height: 225px;
-    /* Altri stili del widget quando è aperto */
-  }
+.widget {
+  width: 275px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 5px;
+  margin: 10px;
+  box-shadow: 5px 5px 5px #939393;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.widget.green {
+  background-color: rgb(4, 67, 66);
+  color: #fff;
+}
+
+.widget .icon {
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.widget .value {
+  text-align: center;
+  width: 100%;
+}
+
+.widget .value .top {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.widget .value .bottom {
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.widget .data {
+  margin-top: 10px;
+}
+
+.icon-small {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
+  margin-right: 5px;
+}
+
+.accordion-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  color: #000;
+  background-color: #fff;
+  border-radius: 5px;
 }

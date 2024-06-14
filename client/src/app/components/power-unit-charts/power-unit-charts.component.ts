@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {Chart} from "angular-highcharts";
+import { Chart } from 'angular-highcharts';
 
 @Component({
   selector: 'app-power-unit-charts-component',
   templateUrl: './app-power-unit-charts.html',
-  styles: [
-  ]
+  styles: []
 })
 export class PowerUnitChartsComponent implements OnInit {
   labels = ['00:00 - 03:00', '03:00 - 06:00', '06:00 - 09:00', '09:00 - 12:00',
     '12:00 - 15:00', '15:00 - 18:00', '18:00 - 21:00', '21:00 - 24:00'];
 
-  hours = [90, 120, 212, 79, 92, 174, 75, 56]; // This corresponds to the "Hours" dataset
-  tons = [890, 789, 675, 666, 347, 0.00, 245, 645]; // This corresponds to the "Tons" dataset
+  hours = Array.from({ length: 8 }, () => Math.floor(Math.random() * 300)); // Random data for last 24 hours
+  tons = Array.from({ length: 8 }, () => Math.floor(Math.random() * 1000)); // Random data for last 24 hours
   chart: any;
 
   constructor() { }
@@ -20,7 +19,7 @@ export class PowerUnitChartsComponent implements OnInit {
   ngOnInit(): void {
     this.initializeChart(this.hours, this.tons);
     this.updateChartData();
-    setInterval(() => this.updateChartData(), 1800000); // Update every half hour
+    setInterval(() => this.updateChartData(), 20000); // Update every 20 seconds
   }
 
   initializeChart(hoursData: number[], tonsData: number[]): void {
@@ -33,20 +32,19 @@ export class PowerUnitChartsComponent implements OnInit {
         text: 'Tons produced over time'
       },
       xAxis: {
-        categories: ['00:00 - 03:00', '03:00 - 06:00', '06:00 - 09:00', '09:00 - 12:00',
-          '12:00 - 15:00', '15:00 - 18:00', '18:00 - 21:00', '21:00 - 24:00'],
+        categories: this.labels,
         title: {
-          text: 'hours'
+          text: 'Hours'
         }
       },
       yAxis: {
         title: {
-          text: 'tons'
+          text: 'Tons'
         }
       },
       series: [
         {
-          name: "Hours",
+          name: 'Hours',
           type: 'line',
           color: '#044342',
           data: hoursData
@@ -65,8 +63,51 @@ export class PowerUnitChartsComponent implements OnInit {
   }
 
   updateChartData(): void {
-    let hoursData = Array.from({ length: 8 }, () => Math.floor(Math.random() * 300));
-    let tonsData = Array.from({ length: 8 }, () => Math.floor(Math.random() * 1000));
-    this.initializeChart(hoursData, tonsData)
+    // Generate random data for the last 3 hours
+    let last3HoursHours = Array.from({ length: 1 }, () => Math.floor(Math.random() * 300));
+    let last3HoursTons = Array.from({ length: 1 }, () => Math.floor(Math.random() * 1000));
+
+    // Update the last 3 hours data in the existing arrays
+    this.hours[7] = last3HoursHours[0];
+
+    this.tons[7] = last3HoursTons[0];
+
+    this.chart = new Chart({
+      chart: {
+        type: 'line',
+        height: 450
+      },
+      title: {
+        text: 'Tons produced over time'
+      },
+      xAxis: {
+        categories: this.labels,
+        title: {
+          text: 'Hours'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Tons'
+        }
+      },
+      series: [
+        {
+          name: 'Hours',
+          type: 'line',
+          color: '#044342',
+          data: this.hours
+        },
+        {
+          name: 'Tons',
+          type: 'line',
+          color: '#ed9e20',
+          data: this.tons
+        }
+      ],
+      credits: {
+        enabled: false
+      }
+    });
   }
 }
